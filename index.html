@@ -156,7 +156,7 @@ section.sec{padding:120px 0}
 .tabs button{border:none;background:none;color:var(--muted);font-weight:700;font-size:14px;padding:9px 18px;border-radius:10px;cursor:pointer;transition:all .2s}
 .tabs button:hover{color:#fff}
 .tabs button.on{background:var(--grad);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:22px}
 .card{position:relative;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:var(--card);border:1px solid var(--line);cursor:pointer;transition:transform .3s,box-shadow .3s,border-color .3s}
 .card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.45);border-color:var(--line2)}
 .card:focus-visible{outline:3px solid var(--c1);outline-offset:3px}
@@ -699,7 +699,7 @@ grid.innerHTML = P.map(function(p,i){
   var media = p.thumbVideo
     ? '<video src="'+p.thumbVideo+'" muted playsinline preload="metadata" aria-hidden="true"></video>'
     : '<img src="'+p.thumb+'" alt="'+esc(p.name)+' 화면" loading="lazy" style="object-position:'+(p.thumbPos||'center')+'">';
-  return '<article class="card rv'+(i===0?' featured':'')+'" tabindex="0" role="link" data-id="'+p.id+'" data-f="'+p.filter+'" aria-label="'+esc(p.name)+' 자세히 보기">'
+  return '<article class="card rv" tabindex="0" role="link" data-id="'+p.id+'" data-f="'+p.filter+'" aria-label="'+esc(p.name)+' 자세히 보기">'
     + '<div class="img">'+media+'<span class="badge'+(p.hot?' hot':'')+'">'+esc(p.badge)+'</span><span class="playbtn">'+ICON_PLAY+'</span></div>'
     + '<div class="c-body"><div class="c-meta">'+esc(p.kicker)+' · '+esc(p.meta)+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.summary)+'</p>'
     + '<span class="more">영상과 개발 내용 보기 '+ICON_ARROW+'</span></div></article>';
