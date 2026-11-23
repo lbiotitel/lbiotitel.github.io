@@ -780,7 +780,6 @@ function renderDetail(p){
        + (p.role ? '<div class="role"><b>담당</b>'+esc(p.role)+'</div>' : '')
        + (p.links.length ? '<div class="links">'+p.links.map(lnk).join('')+'</div>' : '') + '</aside>' : '')
      + '</div>';
-  if(p.kpis) h += '<div class="kpis">'+p.kpis.map(function(k){return '<div class="kpi" style="--c:'+k[2]+'"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>';}).join('')+'</div>';
   h += '<div class="d-sec"><div class="d-h"><small>Overview</small><h3>프로젝트 소개</h3></div><div class="overview">'+p.overview.map(function(t){return '<p>'+esc(t)+'</p>';}).join('')+'</div></div>';
   if(p.features){
     h += '<div class="d-sec"><div class="d-h"><small>Key Development</small><h3>핵심 개발</h3></div><div class="feats">'
