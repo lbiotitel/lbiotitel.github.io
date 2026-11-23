@@ -122,7 +122,7 @@ section.sec{padding:120px 0}
 .value p{margin:0;font-size:15px;line-height:1.75}
 
 /* skills */
-.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .skill{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .25s,border-color .25s}
 .skill:hover{transform:translateY(-4px);border-color:var(--line2)}
 .skill-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
@@ -235,7 +235,7 @@ body.show-detail .detail{display:block}
 .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .lnk{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:13.5px;padding:8px 14px;border-radius:10px;background:var(--card2);border:1px solid var(--line2);transition:border-color .2s}
 .lnk:hover{border-color:var(--c1)}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
 .kpi{border-radius:18px;padding:22px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden}
 .kpi::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:var(--c,var(--c1));opacity:.14}
 .kpi b{display:block;font-size:22px;font-weight:900;letter-spacing:-.02em;line-height:1.3;margin-bottom:4px}
@@ -244,9 +244,16 @@ body.show-detail .detail{display:block}
 .d-h{margin:0 0 30px}
 .d-h small{display:block;font-family:var(--en);font-size:14px;font-weight:600;letter-spacing:.16em;color:var(--sky);text-transform:uppercase;margin-bottom:6px}
 .d-h h3{margin:0;font-size:34px;font-weight:900;letter-spacing:-.03em}
-.overview{display:grid;grid-template-columns:1fr 1fr;gap:28px;font-size:17px;color:var(--text2);line-height:1.95}
-.overview p{margin:0}
-.overview p:first-child{font-size:21px;color:#fff;font-weight:700;line-height:1.7}
+.overview{max-width:860px;font-size:17px;color:var(--text2);line-height:1.95}
+.overview p{margin:0 0 14px}
+.d-grid.solo{grid-template-columns:1fr}
+.feat.dg{display:block;padding:36px 38px}
+.feat.dg .f-txt{padding:0}
+.f-txt p:last-child{margin-bottom:0}
+.dg-box{display:block;width:100%;margin:24px 0 0;padding:20px;border:none;border-radius:16px;background:#fff;cursor:zoom-in}
+.dg-box img{width:100%;height:auto;margin:0 auto}
+.tr-dg{width:auto;margin:0 30px 22px}
+.lightbox img[src$=".svg"]{background:#fff;padding:20px;width:min(1200px,92vw)}
 .feats{display:flex;flex-direction:column;gap:22px}
 .feat{display:grid;grid-template-columns:1.1fr 1fr;border-radius:24px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
 .feat:nth-child(even){grid-template-columns:1fr 1.1fr}
@@ -365,7 +372,7 @@ body.show-detail .detail{display:block}
     <a class="item" href="#about" data-sec="about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>ABOUT</a>
     <a class="item" href="#skills" data-sec="skills"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 9-12h-7z"/></svg>SKILLS</a>
     <a class="item" href="#resume" data-sec="resume"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>RESUME</a>
-    <a class="item" href="#portfolio" data-sec="portfolio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4M15.5 12h.01M18 14h.01"/></svg>WORKS</a>
+    <a class="item" href="#portfolio" data-sec="portfolio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4M15.5 12h.01M18 14h.01"/></svg>PORTFOLIO</a>
     <a class="item" href="#contact" data-sec="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>CONTACT</a>
   </nav>
 </aside>
@@ -380,8 +387,8 @@ body.show-detail .detail{display:block}
     <div class="wrap hero-in">
       <div class="rv">
         <span class="hello"><i></i>Game Client Programmer</span>
-        <h1><small>팀을 지탱하는 기둥 같은 개발자,</small><span class="grad-text">최진모</span>입니다.</h1>
-        <p class="lead">Unity와 C#으로 게임 클라이언트를 만듭니다. 2인 팀의 팀장으로 <b>말랑 돌격대!</b>를 구글 플레이에 출시했고, 팀원이 데이터만 추가해도 기능이 늘어나는 구조를 고민합니다.</p>
+        <h1><small>기둥과 같은 개발자</small><span class="grad-text">최진모</span>입니다.</h1>
+        <p class="lead">“팀을 지탱하는 기둥처럼” 맡은 역할에 책임을 다하고, 팀원들과 함께 더 나은 결과를 만들어가는 개발자 최진모입니다.</p>
         <div class="chips">
           <span class="chip"><img src="assets/logo/unity.svg" alt="" style="filter:invert(1)">Unity</span>
           <span class="chip"><img src="assets/logo/csharp.svg" alt="">C#</span>
@@ -414,18 +421,16 @@ body.show-detail .detail{display:block}
       <div class="about">
         <div class="about-photo rv"><img src="assets/profile.jpg" alt="최진모 프로필 사진"></div>
         <div class="rv">
-          <h3>맡은 역할에 책임을 다하고,<br>팀과 함께 더 나은 결과를 만듭니다.</h3>
-          <p>작은 프로젝트부터 하나씩 끝까지 만들어 보면서 실력을 쌓았습니다. 60시간 목표로 만든 강아지 자동 배급기에서 시작해 3주짜리 졸업 작품, 4인 팀 프로젝트, 그리고 2인 팀의 팀장으로 <b>말랑 돌격대!</b>를 구글 플레이에 출시하기까지 점점 더 긴 프로젝트에 도전해 왔습니다.</p>
-          <p>매니저 초기화 순서와 리소스 해제처럼 눈에 잘 띄지 않지만 프로젝트를 지탱하는 부분, 그리고 팀원이 코드 수정 없이 데이터만 추가해도 기능이 늘어나는 구조를 중요하게 생각합니다.</p>
+          <h3>“팀을 지탱하는 기둥처럼” 맡은 역할에 책임을 다하고, 팀원들과 함께 더 나은 결과를 만들어가는 개발자 최진모입니다.</h3>
           <div class="profile">
             <div class="pf"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><div><small>이름</small><b>최진모</b></div></div>
             <div class="pf"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4"/></svg></span><div><small>지원 분야</small><b>게임 클라이언트 개발</b></div></div>
             <div class="pf"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><small>이메일</small><b>biotite135@naver.com</b></div></div>
-            <div class="pf"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><small>지역</small><b>대전</b></div></div>
+            <div class="pf"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><small>학교 / 전공</small><b>대전보건대학교 / 컴퓨터정보학과</b></div></div>
           </div>
           <div class="values">
-            <div class="value"><h4>🔨 꾸준함과 끈기로 끝까지 완성합니다</h4><p>처음부터 기능을 많이 넣으려다 완성하지 못한 경험이 있어, 필수 기능부터 짧게 끝까지 만드는 습관을 들였습니다.</p></div>
-            <div class="value"><h4>🤝 신뢰를 바탕으로 소통합니다</h4><p>말로만 하지 않고 프로토타입과 근거를 함께 보여주며 제안하고, 팀원의 강점을 인정하며 역할을 나눕니다.</p></div>
+            <div class="value"><h4>🔨 꾸준함과 끈기로 끝까지 완성합니다.</h4><p>작은 프로젝트부터 하나씩 끝까지 만들어 보면서 실력을 쌓았고, 그 경험으로 말랑 돌격대를 구글 플레이에 출시했습니다.</p></div>
+            <div class="value"><h4>🤝 신뢰를 바탕으로 소통하며 팀을 이끕니다.</h4><p>의견을 낼 때는 프로토타입이나 근거를 같이 보여주려고 하고, 팀원마다 잘하는 부분을 존중하면서 이야기합니다.</p></div>
           </div>
         </div>
       </div>
@@ -437,9 +442,10 @@ body.show-detail .detail{display:block}
     <div class="wrap">
       <div class="head rv"><span class="num">02</span><h2><span>기술 스택</span>Skills</h2></div>
       <div class="skills">
-        <div class="skill rv"><div class="skill-top"><div class="logos"><span><img src="assets/logo/unity.svg" alt="Unity"></span><span><img src="assets/logo/csharp.svg" alt="C#"></span></div><h3>Unity / C#<small>주력 개발 환경</small></h3></div><ul><li>ScriptableObject·SerializeReference로 데이터 기반 설계</li><li>Addressable로 씬 단위 리소스 로드·해제</li><li>UniTask로 로딩·서버 통신 흐름 제어</li><li>DOTween으로 UI·카드 연출</li></ul></div>
-        <div class="skill rv"><div class="skill-top"><div class="logos"><span style="font-size:24px">☁️</span></div><h3>뒤끝 서버<small>BACKND</small></h3></div><ul><li>구글 로그인, 유저 데이터, 차트, 우편, 랭킹 연동</li><li>바뀐 데이터만 저장하는 dirty 기반 저장 구조</li><li>트랜잭션 저장과 스냅샷 롤백</li><li>서버 에러를 이벤트 하나로 통합 처리</li></ul></div>
-        <div class="skill rv"><div class="skill-top"><div class="logos"><span><img src="assets/logo/cpp.svg" alt="C++"></span><span><img src="assets/logo/git.svg" alt="Git"></span></div><h3>C++ · 협업<small>MFC · Git · Unity VCS</small></h3></div><ul><li>MFC 응용 프로그램, 멀티스레드와 mutex 동기화</li><li>아두이노 시리얼 통신</li><li>Unity Version Control로 팀 프로젝트 관리</li><li>AI를 설계 검증과 문서 정리에 활용</li></ul></div>
+        <div class="skill rv"><div class="skill-top"><div class="logos"><span><img src="assets/logo/unity.svg" alt="Unity"></span><span><img src="assets/logo/csharp.svg" alt="C#"></span></div><h3>Unity, C#</h3></div><ul><li>ScriptableObject 데이터 설계</li><li>Addressable 리소스 관리</li><li>UniTask</li><li>DOTween</li></ul></div>
+        <div class="skill rv"><div class="skill-top"><div class="logos"><span style="font-size:24px">☁️</span></div><h3>Server</h3></div><ul><li>뒤끝(BACKND) 서버 연동</li></ul></div>
+        <div class="skill rv"><div class="skill-top"><div class="logos"><span><img src="assets/logo/cpp.svg" alt="C++"></span><span><img src="assets/logo/arduino.svg" alt="Arduino"></span></div><h3>C++</h3></div><ul><li>MFC</li><li>아두이노로 작은 스마트 공장 제작 (졸업 작품)</li><li>멀티스레드</li><li>시리얼 통신</li></ul></div>
+        <div class="skill rv"><div class="skill-top"><div class="logos"><span><img src="assets/logo/git.svg" alt="Git"></span><span><img src="assets/logo/unity.svg" alt="Unity Version Control"></span></div><h3>협업</h3></div><ul><li>Unity Version Control로 팀 프로젝트 버전 관리</li><li>Git으로 개인 프로젝트 관리</li></ul></div>
       </div>
     </div>
   </section>
@@ -472,13 +478,7 @@ body.show-detail .detail{display:block}
   <!-- PORTFOLIO -->
   <section class="sec" id="portfolio" style="background:var(--bg2)">
     <div class="wrap">
-      <div class="head rv"><span class="num">04</span><h2><span>프로젝트</span>Works</h2></div>
-      <div class="tabs rv" id="tabs">
-        <button class="on" data-f="all">전체</button>
-        <button data-f="release">출시</button>
-        <button data-f="team">팀 프로젝트</button>
-        <button data-f="personal">개인 프로젝트</button>
-      </div>
+      <div class="head rv"><span class="num">04</span><h2><span>포트폴리오</span>Portfolio</h2></div>
       <div class="grid" id="grid"></div>
     </div>
   </section>
@@ -487,8 +487,8 @@ body.show-detail .detail{display:block}
   <section class="sec" id="contact">
     <div class="wrap">
       <div class="contact-band rv">
-        <h2>함께 게임을 만들<br>기회를 기다리고 있습니다.</h2>
-        <p>포트폴리오를 봐 주셔서 감사합니다. 궁금한 점이나 제안이 있으시면 편하게 연락 주세요.</p>
+        <h2>감사합니다.</h2>
+        <p>biotite135@naver.com</p>
         <div class="c-links">
           <a class="c-link" href="mailto:biotite135@naver.com"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><small>Email</small><b>biotite135@naver.com</b></div></a>
           <a class="c-link" href="https://github.com/lbiotitel" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg></span><div><small>GitHub</small><b>github.com/lbiotitel</b></div></a>
@@ -515,177 +515,164 @@ var P = [
 {
   id:'squishy', name:'말랑 돌격대!', kicker:'Mobile · Auto Battler', filter:'release',
   badge:'Google Play 출시', hot:true, meta:'2026.07 - 2026.10 · 2인 개발 (팀장)',
-  thumb:'assets/squishy2.png', thumbPos:'center 30%', hero:'assets/squishy2.png', heroPos:'center 30%', railImg:'assets/squishy2.png',
-  summary:'유닛을 모아 6대6 자동전투로 35라운드를 진행하는 모바일 오토배틀러입니다. 팀장으로 로비, 서버 연동, 데이터 저장 구조를 맡아 구글 플레이에 출시했습니다.',
-  stack:['Unity 2022.3','C#','뒤끝','UniTask','Addressable'],
+  thumb:'assets/squishy2.png', thumbPos:'center 30%', hero:'assets/squishy2.png', heroPos:'center 30%',
+  summary:'유닛 수집형 오토배틀러. 로비, 메타 시스템, 뒤끝 서버 연동, 데이터 저장 구조를 맡았습니다.',
   video:{yt:'y16HKZqZzsU', vertical:true},
-  tags:[['hot','Google Play 출시'],['','Unity'],['','Android'],['','2인 · 팀장']],
-  info:[['기간','2026.07 - 2026.10'],['인원','2인 개발 (팀장)'],['장르','유닛 수집형 오토배틀러'],['플랫폼','Android (Google Play)'],['기술','Unity 2022.3, C#, 뒤끝(BACKND), UniTask, Addressable']],
+  info:[['기간','2026.07 - 2026.10'],['팀원','2인 개발 (팀장)'],['장르','유닛 수집형 오토배틀러'],['플랫폼','Android (구글 플레이)'],['기술','Unity 2022.3, C#, 뒤끝(BACKND), UniTask, Addressable']],
   role:'로비 UI, 뒤끝 서버 연동, 전역 매니저 구조, 데이터 모델 설계, 아티팩트 시스템, 출시 작업',
   links:[['Google Play','https://play.google.com/store/apps/details?id=com.TinyTeams.SquishyRush&hl=ko'],['GitHub','https://github.com/lbiotitel/SquishyRush'],['YouTube','https://www.youtube.com/shorts/y16HKZqZzsU']],
-  kpis:[['Google Play 출시','2인 팀 팀장으로 런칭까지','var(--c1)'],['서버 호출 8회 → 1회','바뀐 테이블만 저장','var(--sky)'],['저장 누락 3건 수정','dirty 추적 + AI 교차 검토','var(--lime)']],
-  overview:['팀장으로 기획부터 구글 플레이 출시까지 끝까지 책임진 첫 상용 프로젝트입니다.','유닛을 모아 배치하고 6대6 자동전투로 35라운드를 진행하는 모바일 오토배틀러입니다. 로비와 메타 시스템, 서버 연동, 데이터 저장 구조를 설계했고, 화면 전환 시 리소스 로드와 해제, 서버 데이터의 비동기 처리, 팝업과 시트 UI를 나눠 관리하는 구조를 중점적으로 작업했습니다.'],
+  kpis:[['구글 플레이 출시','2인 개발 · 팀장','var(--c1)'],['서버 호출 8번 → 1번','바뀐 테이블만 저장','var(--sky)'],['누락 필드 3개 수정','저장 대상에서 누락된 필드','var(--lime)']],
+  overview:['유닛을 모아 배치하고 6대6 자동전투로 35라운드를 진행하는 모바일 오토배틀러입니다. 2인으로 개발했고, 저는 팀장을 맡아 로비와 메타 시스템, 서버 연동, 데이터 저장 구조를 설계하고 구글 플레이 출시까지 하였습니다.','개발하면서는 화면 전환 시 리소스 로드와 해제, 서버 데이터의 비동기 처리, 팝업과 시트 UI를 나눠 관리하는 구조를 중점적으로 작업했습니다.'],
   features:[
-    {t:'전역 매니저 구조와 재시작 처리', img:'assets/yt/squishy-hq1.jpg', fit:'tall', d:'모든 매니저를 먼저 생성한 뒤 Initialize / Release로 순서대로 초기화와 해제를 해서 매니저끼리 서로 참조해도 null이 나지 않게 했습니다. 재시작 시에는 빈 씬을 거쳐 씬·리소스 해제 → 매니저 재초기화 → 타이틀 순서를 보장했고, 씬 전환은 빌더 패턴으로 묶었습니다.', k:['GlobalManagers','Initialize / Release','Builder Pattern']},
-    {t:'시트 · 팝업 UI 프레임워크', img:'assets/squishy.png', fit:'tall', d:'팝업은 화면 위에 쌓이고 시트는 화면을 교체하기 때문에 각각 별도의 컨테이너로 관리해, 화면마다 동작을 따로 구현하지 않아도 되게 했습니다. 모든 UI는 BaseUI를 상속하고 OpenUI<T>()로 열며, 닫힌 UI는 파괴하지 않고 풀링해서 재사용합니다.', k:['SheetContainer','PopUpContainer','UI Pooling']},
-    {t:'뒤끝 서버 연동 래퍼', img:'assets/yt/squishy-hq2.jpg', fit:'tall', d:'콜백 기반 뒤끝 SDK를 UniTask async/await로 감싸 순차적인 코드로 쓸 수 있게 했고, 점검·요청 과다 같은 서버 에러를 이벤트 하나로 모아 에러 팝업을 한 곳에서 처리했습니다.', k:['UniTask','BackEndManager','ErrorHandler']}
+    {t:'전역 매니저 구조와 재시작 처리', dg:'assets/diagram/sq-managers.svg', d:['모든 매니저를 먼저 생성한 뒤 Initialize / Release로 순서대로 초기화와 해제를 하여 매니저끼리 서로 참조해도 null이 나지 않게 했습니다. 재시작 시에는 빈 씬을 거쳐 씬, 리소스 해제 → 매니저 재초기화 → 메인 타이틀 순서를 보장하였고 씬 전환은 빌더 패턴으로 묶어 사용하여 호출하는 쪽에서 여러 기능을 사용할 수 있도록 하였습니다.']},
+    {t:'시트, 팝업 UI 프레임워크', dg:'assets/diagram/sq-ui.svg', d:['팝업은 기존 화면 위에 쌓이고 시트는 기존 화면을 교체하는 방식으로 동작하기 때문에, 각각 별도의 컨테이너를 만들어 관리하도록 했습니다. 이를 통해 화면마다 팝업과 시트의 동작을 구현할 필요가 없도록 했습니다.','모든 UI는 BaseUI를 상속하도록 구성하고 OpenUI<T>()를 통해 열 수 있게 했습니다. 닫힌 UI는 바로 파괴하지 않고 풀링하여 재사용하게 하였습니다.']},
+    {t:'뒤끝 서버 연동 래퍼', dg:'assets/diagram/sq-backend.svg', d:['콜백 기반 뒤끝 SDK를 UniTask async/await로 감싸 순차적으로 코드를 쓰게 하여 콜백으로 인한 가독성 저하 문제를 해결하고 점검이나 요청 과다 같은 서버 에러를 이벤트 하나로 모아 에러 팝업을 한 곳에서 처리했습니다.']}
   ],
   troubles:[
     {t:'변경 없는 저장에도 반복되던 서버 호출과 저장 누락',
-     sit:'프로필, 재화, 에너지, 출석, 유닛, 아티팩트, 퀘스트 등 저장할 유저 데이터가 많아, 주기 저장 때마다 바뀌지 않은 데이터까지 서버에 보내고 있었습니다. 2인 개발이라 제 파트의 저장 코드를 검토해 줄 사람도 없었습니다.',
-     cause:'어떤 데이터가 바뀌었는지 추적하지 않았고, 데이터 종류마다 로드·저장 코드가 따로 흩어져 있었습니다.',
-     sol:['UserServerDataBase 추상 클래스로 저장 데이터를 묶고, 타입을 키로 하는 매니저에서 관리','IsDirty 플래그로 바뀐 데이터만 전송하고, 저장에 성공했을 때만 플래그 해제 (실패 시 다음 주기에 재시도)','백그라운드 진입·종료 시 동기 저장, 오래 비운 뒤 복귀하면 이전 상태로 덮어쓰지 않도록 차단','설계는 직접 하고, AI에게 놓쳤을 만한 부분을 후보로 받아 코드와 하나씩 대조하며 dirty 누락 필드를 수정'],
-     res:'저장 데이터를 8개 테이블로 나누고 바뀐 테이블만 보내도록 바꿔, 저장할 때마다 8번이던 호출이 1번으로 줄었습니다. 저장 대상에서 빠져 있던 필드 3개도 찾아 고쳤습니다.',
-     learn:'검토해 줄 사람이 없을 때는 바뀐 데이터를 사람이 신경 쓰기보다 코드가 추적하게 하는 게 안전하다는 걸 배웠습니다.'},
+     sit:'프로필, 재화, 에너지, 출석, 유닛, 아티팩트, 퀘스트 등 저장해야 할 유저 데이터가 많아, 주기 저장 때마다 바뀌지 않은 데이터까지 서버에 보내고 있었습니다. 2인 개발이라 제 파트의 저장 코드를 검토해 줄 사람도 없었습니다.',
+     cause:'어떤 데이터가 바뀌었는지 추적하지 않았고, 데이터 종류마다 로드, 저장 코드가 따로 흩어져 있었습니다.',
+     sol:['UserServerDataBase 추상클래스로 저장 데이터를 묶고, 타입을 키로 하는 매니저에서 관리','IsDirty 플래그로 바뀐 데이터만 전송하고, 저장에 성공했을 때만 플래그 해제 (실패 시 재시도)','백그라운드 진입, 종료 시 동기 저장, 오래 비운 뒤 복귀하면 이전 상태로 덮어쓰지 않도록 차단','설계는 직접 했고, AI에게 놓쳤을 만한 부분을 후보로 받아 코드와 하나씩 대조하며 dirty 누락 필드를 수정'],
+     dg:'assets/diagram/sq-dirty.svg',
+     res:'저장 데이터를 8개 테이블로 나눠 두고 바뀐 테이블만 보내도록 바꿔서, 예전엔 저장할 때마다 8번이었던 호출이 특정 테이블만 저장하여 1번으로 바뀌어 서버 요청횟수를 크게 줄일 수 있게 되었고 저장 대상에서 누락된 필드 3개도 찾아서 고쳤습니다.',
+     learn:'검토해 줄 사람이 없는 상황에서는 바뀐 데이터를 사람이 신경 쓰기보다 코드에서 추적하게 하는 게 안전하다는 걸 깨달았습니다. AI가 찾아준 부분도 그대로 쓰지 않고 직접 코드와 대조해서 확인했습니다.', learnLabel:'알게 된 점'},
     {t:'가챠 저장 실패 시 재화와 결과가 어긋나는 문제',
      sit:'가챠는 재화 차감, 결과 반영, 서버 저장이 한 번에 일어나서, 중간에 하나라도 실패하면 재화만 사라지거나 결과만 지급되는 경우가 있었습니다.',
-     cause:'세 단계가 하나로 묶이지 않고 따로 처리돼, 중간에 실패하면 앞 단계를 되돌릴 방법이 없었습니다.',
-     sol:['확률은 뒤끝 서버 확률표에서 받아와 클라이언트 조작을 막고, 앱 업데이트 없이 확률 변경','로컬 반영 전에 재화와 유닛·아티팩트 데이터의 스냅샷을 만들고, 두 테이블을 하나의 트랜잭션으로 저장','저장 실패나 예외가 나면 스냅샷으로 롤백하고 에러 이벤트 알림, 결과 UI는 저장 성공 후에만 표시','뒤끝 SDK 호출(GachaBackEnd)과 게임 규칙(GachaService)을 분리'],
-     res:'저장이 실패해도 재화와 결과가 어긋나지 않고, 유저는 실패한 가챠 결과를 보지 않게 되었습니다. 네트워크가 불안정해도 성공과 실패 처리가 명확해졌습니다.',
-     learn:'재화 차감 값은 클라이언트가 계산하므로 메모리 변조까지는 막지 못합니다. 이후에는 서버 코드(뒤끝 펑션)에서 추첨, 차감, 지급을 한 번에 처리하는 것이 목표입니다.', learnLabel:'한계와 개선'}
+     cause:'세 단계가 하나로 묶이지 않고 따로 처리돼서, 중간에 실패하면 앞 단계를 되돌릴 방법이 없었습니다.',
+     sol:['확률은 뒤끝 서버 확률표에서 받아와 클라이언트 조작을 막고, 앱 업데이트 없이 확률 변경','로컬에 반영하기 전에 재화와 유닛이나 아티팩트 데이터의 스냅샷을 만들고, 두 테이블을 하나의 트랜잭션으로 저장','저장 실패나 예외가 나면 스냅샷으로 롤백하고 에러 이벤트 알림, 결과 UI는 저장 성공 후에만 표시','뒤끝 SDK 호출(GachaBackEnd)과 게임 규칙(GachaService)을 분리'],
+     dg:'assets/diagram/sq-gacha.svg',
+     res:'저장이 실패해도 재화와 결과가 어긋나지 않고, 유저는 실패한 가챠 결과를 보지 않게 되었습니다. 특히 네트워크가 불안정한 상태에서도 가챠의 실패와 성공에 대한 처리를 명확히 하였습니다.',
+     learn:'재화 차감 값은 클라이언트가 계산해 저장하므로 메모리 변조까지는 막지 못합니다. 추후에는 서버 코드(뒤끝 펑션)에서 추첨, 차감, 지급을 한 번에 처리하도록 바꾸는 것을 목표로 하여 안전한 코드를 작성하도록 하겠습니다.', learnLabel:'한계와 개선'}
   ],
-  gallery:['assets/squishy2.png','assets/yt/squishy-hq1.jpg','assets/squishy.png','assets/yt/squishy-hq2.jpg','assets/yt/squishy-hq3.jpg']
+  gallery:['assets/squishy2.png','assets/squishy.png','assets/yt/squishy-hq1.jpg','assets/yt/squishy-hq2.jpg','assets/yt/squishy-hq3.jpg']
 },
 {
   id:'abyss', name:'Abyss', kicker:'PC · Action', filter:'team',
-  badge:'Team Project', meta:'2026.06 - 2026.07 · 3인 팀',
+  badge:'팀 프로젝트', meta:'2026.06 - 2026.07 · 3인',
   thumb:'assets/abyss.png', hero:'assets/yt/abyss-maxresdefault.jpg',
-  summary:'심연을 탐험하며 몬스터와 싸우는 액션 게임. 언리얼 GAS를 참고한 스킬 효과 시스템, 스탯, 무기 FSM, 격자 인벤토리를 만들었습니다.',
-  stack:['Unity','C#','SerializeReference','UniTask'],
+  summary:'탐험 액션 게임. 언리얼 GAS를 참고한 스킬 효과 시스템과 스탯, 무기 FSM, 격자 인벤토리를 만들었습니다.',
   video:{yt:'fS3M2WcU6ik'},
-  tags:[['hot','Team Project'],['','Unity'],['','PC'],['','3인']],
-  info:[['기간','2026.06 - 2026.07'],['인원','3인 팀 프로젝트'],['장르','탐험 액션'],['플랫폼','PC'],['기술','Unity, C#, ScriptableObject, SerializeReference, UniTask']],
-  role:'스킬·효과 시스템, 스탯 시스템, 무기 FSM, 격자 인벤토리, 장비 장착(MVC)',
+  info:[['기간','2026.06 - 2026.07'],['인원','3인 팀 프로젝트'],['장르','액션'],['플랫폼','PC'],['기술','Unity, C#, ScriptableObject, SerializeReference, UniTask']],
+  role:'스킬, 효과 시스템, 스탯 시스템, 무기 FSM, 격자 인벤토리, 장비 장착(MVC)',
   links:[['GitHub','https://github.com/lbiotitel/Abyss'],['YouTube','https://youtu.be/fS3M2WcU6ik']],
-  kpis:[['스킬 10종 중 6종','코드 수정 없이 효과 조합으로 추가','var(--sky)'],['언리얼 GAS 구조 참고','Ability · Effect · Attribute 분리','var(--c2)'],['장비 스탯 어긋남 0','수정자 + dirty 재계산','var(--lime)']],
-  overview:['스킬과 아이템 효과를 코드가 아닌 데이터로 조합하는 구조를 만든 프로젝트입니다.','심연을 탐험하며 몬스터와 싸우고 보물을 얻어 영지를 발전시키는 액션 게임입니다. 언리얼 GAS의 데이터 구조를 참고해 효과를 독립시켰고, 장비를 바꿀 때마다 달라지는 스탯이 어긋나지 않도록 계산 구조도 따로 설계했습니다.'],
+  kpis:[['스킬 10종 중 6종','코드 수정 없이 기존 효과 조합으로 추가','var(--sky)'],['언리얼 GAS 구조 참고','스킬과 효과를 데이터로 조합','var(--c2)']],
+  overview:['심연을 탐험하며 몬스터와 싸우고 보물을 얻어 영지를 발전시키는 액션 게임입니다.','언리얼 GAS의 데이터 구조를 참고해 스킬과 아이템 효과를 코드 수정 없이 데이터만으로 조합할 수 있게 만들었고, 장비를 바꿀 때마다 달라지는 스탯이 어긋나지 않도록 계산 구조도 따로 설계했습니다.'],
   features:[
-    {t:'스탯 시스템', img:'assets/yt/abyss-hq1.jpg', d:'스탯 값을 직접 바꾸지 않고 기본값에 수정자 리스트를 적용해 계산했습니다. 바뀌었을 때만 다시 계산하고(dirty 플래그), HP·MP는 최대값 변경 이벤트를 구독해 장비를 바꿔도 현재 값이 어긋나지 않게 했습니다. 장비를 해제하면 출처가 같은 수정자만 제거합니다.', k:['ModifierStat','ResourceStat','Dirty Cache']},
-    {t:'FSM 기반 무기, 패링', img:'assets/abyss-weapon.jpg', d:'공격, 패링, 대기를 FSM 상태로 나눠 진입, 종료, 전환 조건을 관리하고, 애니메이션 이벤트로 타격 판정과 패링 성공 구간을 맞췄습니다. 무기별 애니메이션은 WeaponMotionData로 분리해 새 무기를 FSM 코드 수정 없이 추가할 수 있습니다.', k:['FSM','Animation Event','WeaponMotionData']},
-    {t:'격자 인벤토리와 마우스 배치', img:'assets/abyss-inventory.png', fit:'contain', d:'2차원 배열로 칸마다 아이템 참조를 저장해 크기가 다른 아이템의 배치와 충돌을 검사했습니다. 큰 아이템을 잡을 때 포인터가 중심에 고정돼 배치가 어긋나던 문제를, 잡은 칸 기준으로 계산하도록 바꿔 해결했습니다.', k:['2D Grid','Drag & Drop','MVC']}
+    {t:'스탯 시스템', dg:'assets/diagram/ab-stat.svg', d:['스탯 값을 직접 바꾸지 않고 기본값에 수정자 리스트를 적용해 계산했습니다. 바뀌었을 때만 다시 계산하고(dirty 플래그), HP, MP는 최대값과 연결해 장비를 바꿔도 값이 어긋나지 않게 했습니다.']},
+    {t:'FSM 기반 무기, 패링', img:'assets/abyss-weapon.jpg', d:['공격, 패링, 대기를 FSM 상태로 나눠 상태마다 진입, 종료, 전환 조건을 관리하고, 애니메이션 이벤트로 타격 판정과 패링 성공 구간을 맞췄습니다. 무기별 애니메이션은 WeaponMotionData로 분리해서 새 무기는 FSM 코드 수정 없이 추가할 수 있습니다.']},
+    {t:'격자 인벤토리와 마우스 배치', img:'assets/abyss-inventory.png', fit:'contain', d:['2차원 배열로 칸마다 아이템 참조를 저장해 크기가 다른 아이템의 배치와 충돌을 검사했습니다. 큰 아이템을 잡을 때 포인터가 중심에 고정돼 배치가 어긋나던 문제를 잡은 칸 기준으로 바꿔 해결했습니다.']}
   ],
   troubles:[
     {t:'스킬이 늘어날수록 클래스와 중복 코드가 늘어나는 문제',
-     sit:'스킬마다 클래스를 하나씩 만들다 보니 데미지, 파티클, 상태이상처럼 같은 효과를 스킬마다 다시 구현하고 있었고, 효과 조합만 다른 스킬도 클래스를 새로 만들어야 했습니다. 포션 같은 아이템에는 스킬 코드를 가져다 쓸 수도 없었습니다.',
-     cause:'효과가 스킬 클래스 안에 묶여 있어서 효과만 따로 재사용할 수 없었습니다.',
+     sit:'스킬마다 클래스를 하나씩 만들다 보니, 데미지, 파티클, 상태이상처럼 똑같은 효과를 스킬마다 다시 구현하고 있었고, 효과 조합만 다른 스킬인데도 클래스를 새로 만들어야 했습니다. 포션 같은 아이템에는 스킬 코드를 가져다 쓸 수도 없었습니다.',
+     cause:'효과가 스킬 클래스 안에 묶여 있어서, 효과만 따로 분리하여 재사용할 수가 없었습니다.',
      sol:['언리얼 GAS가 스킬을 Ability(발동), Effect(효과), Attribute(스탯)로 나눠 데이터로 조합하는 구조를 참고','스킬은 SkillData(데이터)와 SkillBase(쿨타임, 마나 체크)로, 효과는 EffectBase를 상속한 독립 클래스로 분리','[SerializeReference]로 인스펙터에서 효과를 골라 리스트로 조합, 즉시 효과와 지속 효과(UniTask)로 구분','프로젝트 규모에 맞춰 GAS의 Tag 시스템과 네트워크 예측은 제외'],
      img:'assets/abyss-skilldata.png',
-     res:'새 스킬은 기존 효과를 조합해 만들 수 있게 됐고, 같은 효과 리스트를 포션에도 그대로 붙였습니다. 전체 스킬 10종 중 6종은 코드 수정 없이 기존 효과 조합으로 추가했습니다.',
-     learn:'Not Hero 카드에서 썼던 효과 조합 방식을 GAS 구조와 비교하며 스킬 전체로 넓힐 수 있었습니다. 상태이상일 때만 추가 데미지가 들어가는 식의 조건부 효과는 아직 처리하지 못해 다음에 보완하고 싶습니다.'}
+     res:'새 스킬은 기존 효과를 조합해서 만들 수 있게 됐고, 같은 효과 리스트를 포션에도 그대로 붙였습니다. 전체 스킬 10종 중 6종은 코드 수정 없이 기존 효과 조합으로 추가했습니다.',
+     learn:'Not Hero 카드에서 썼던 효과 조합 방식을 GAS 구조와 비교해 보면서 스킬 전체에 적용할 수 있었습니다. 하지만 상태이상일 때만 추가 데미지가 들어가는 것처럼 조건이 붙는 효과는 아직 처리하지 못하는 한계가 존재하기 때문에, 다음에 보완하고 싶습니다.', learnLabel:'알게 된 점'}
   ],
-  gallery:['assets/yt/abyss-maxresdefault.jpg','assets/abyss-weapon.jpg','assets/yt/abyss-hq2.jpg','assets/abyss-inventory.png','assets/yt/abyss-hq3.jpg','assets/abyss.png']
+  gallery:['assets/yt/abyss-maxresdefault.jpg','assets/abyss.png','assets/abyss-weapon.jpg','assets/abyss-inventory.png','assets/yt/abyss-hq2.jpg','assets/yt/abyss-hq3.jpg']
 },
 {
   id:'figureout', name:'Figure Out', kicker:'PC · Looter Shooter', filter:'team',
-  badge:'Team Project', meta:'2026.05 - 2026.06 · 4인 팀',
+  badge:'팀 프로젝트', meta:'2026.05 - 2026.06 · 4인',
   thumb:'assets/figureout.png', hero:'assets/yt/figureout-maxresdefault.jpg',
-  summary:'장비를 루팅하며 총격전에서 살아남는 생존 액션. Addressable 데이터 관리, 박싱 없는 이벤트, 씬 전환, 퀘스트·장비 시스템을 맡았습니다.',
-  stack:['Unity','C#','Addressable','UniTask'],
+  summary:'루트 슈터 생존 액션. Addressable 데이터 관리, 이벤트 매니저, 씬 전환, 퀘스트, 장비 시스템을 맡았습니다.',
   video:{yt:'t1ltyD3_bxM'},
-  tags:[['hot','Team Project'],['','Unity'],['','PC'],['','4인']],
   info:[['기간','2026.05 - 2026.06'],['인원','4인 팀 프로젝트'],['장르','루트 슈터 생존 액션'],['플랫폼','PC'],['기술','Unity, C#, Addressable, UniTask, ScriptableObject']],
   role:'데이터 관리(Addressable), 이벤트 매니저, 씬 컨트롤, 퀘스트, 인벤토리, 장비 시스템',
   links:[['GitHub','https://github.com/lbiotitel/FigureOut'],['YouTube','https://youtu.be/t1ltyD3_bxM']],
-  kpis:[['Resources → Addressable','경로 대신 키로 로드','var(--sky)'],['박싱 없는 이벤트','구조체 + 제네릭 제약','var(--c2)'],['데이터만으로 퀘스트 추가','코드 수정 없이 확장','var(--lime)']],
-  overview:['이전 프로젝트의 아쉬운 구조를 직접 개선해 본 프로젝트입니다.','장비를 루팅하면서 적과 총격전을 벌이는 생존 액션 게임입니다. Not Hero에서 쓰던 Resources 로드를 Addressable로, object 기반 이벤트를 박싱 없는 제네릭 이벤트로 바꿨고, 팀원이 데이터만 추가하면 새 퀘스트와 아이템이 생기도록 만드는 것을 목표로 했습니다.'],
+  kpis:[['Resources → Addressable','경로 대신 키로 에셋 로드','var(--sky)'],['박싱 없는 제네릭 이벤트','IEventData + 구조체 이벤트 데이터','var(--c2)'],['데이터만으로 퀘스트·아이템 추가','코드 수정 없이','var(--lime)']],
+  overview:['장비를 루팅하면서 적과 총격전을 벌이는 생존 액션 게임입니다.','이전 프로젝트(Not Hero)에서 쓰던 Resources 로드를 Addressable로, object 기반 이벤트를 박싱이 없는 제네릭 이벤트로 바꿨습니다. 또 팀원이 데이터만 추가하면 새 퀘스트와 아이템이 생기도록 만드는 것을 목표로 했습니다.'],
   features:[
-    {t:'박싱 없는 이벤트 매니저', img:'assets/fo-event.png', fit:'contain', d:'지난 프로젝트의 이벤트는 매개변수가 object라 박싱 오버헤드가 있고 어떤 타입이 오는지 알 수 없었습니다. IEventData 제네릭 제약과 구조체 이벤트 데이터로 바꿔 박싱을 없애고 정확한 매개변수 타입을 받게 했습니다.', k:['IEventData','struct','Generic']},
-    {t:'Bootstrap 씬 + Additive 씬 컨트롤', img:'assets/fo-scene.png', fit:'contain', d:'DontDestroyOnLoad로 매니저를 유지하면 해제 시점을 계속 신경 써야 했습니다. Bootstrap 씬을 먼저 쌓고 게임 씬을 Additive로 올리는 구조와 빌더 패턴(Fade, 언로드, 데이터 로드, 씬 로드 순)으로 바꿨고, 에디터에서 어떤 씬을 실행해도 Bootstrap을 먼저 불러와 팀원이 자기 씬에서 바로 테스트할 수 있게 했습니다.', k:['Bootstrap','Additive Scene','Builder']},
-    {t:'데이터 기반 퀘스트, 아이템', img:'assets/fo-quest.jpg', d:'퀘스트와 아이템을 ScriptableObject 데이터로 분리해, 팀원이 데이터를 추가하고 Addressable에 등록하면 코드 수정 없이 새 퀘스트와 아이템이 생기게 했습니다.', k:['ScriptableObject','Editor Tool','Addressable']}
+    {t:'박싱 없는 이벤트 매니저', img:'assets/fo-event.png', fit:'contain', d:['지난 프로젝트의 이벤트는 매개변수가 object라 박싱 오버헤드가 있고 어떤 타입이 오는지 알 수 없었습니다. IEventData 제네릭 제약과 구조체 이벤트 데이터로 바꿔 박싱을 없애고 정확한 매개변수 타입을 받을 수 있게 하였습니다.']},
+    {t:'Bootstrap 씬 + Additive 씬 컨트롤', img:'assets/fo-scene.png', fit:'contain', d:['DontDestroyOnLoad로 매니저를 유지하면 해제 시점을 계속 신경 써야 했습니다. Bootstrap 씬을 먼저 쌓고 게임 씬을 Additive로 올리는 구조와 빌더 패턴(Fade, 언로드, 데이터 로드, 씬 로드 순)으로 바꿨습니다. 또 에디터에서 어떤 씬을 실행해도 BootStrap 씬과 리소스를 먼저 불러오게 해서, 팀원이 자기 작업 씬에서 바로 테스트할 수 있게 했습니다.']},
+    {t:'데이터 기반 퀘스트, 아이템', img:'assets/fo-quest.jpg', d:['퀘스트와 아이템을 ScriptableObject 데이터로 분리해, 팀원이 데이터를 추가하고 Addressable에 등록하면 코드 수정 없이 새 퀘스트와 아이템이 생기게 했습니다.']}
   ],
   troubles:[
     {t:'Resources 로드의 경로 의존성과 메모리 관리 한계',
-     sit:'이전 프로젝트에서 빠른 개발을 위해 Resources 폴더를 썼는데, 에셋 위치나 파일명이 바뀔 때마다 코드의 경로를 고쳐야 했고, 폴더 단위로 한꺼번에 로드돼 필요한 것만 올리고 내리기 어려웠습니다.',
+     sit:'이전 프로젝트에서 빠른 개발을 위해 Resources 폴더를 골랐는데, 에셋 위치나 파일명이 바뀔 때마다 코드의 경로를 고쳐야 하는 일이 발생하였고 폴더 단위로 한꺼번에 로드돼 필요한 것만 올리고 내리기 어려웠습니다.',
      cause:'Resources는 문자열 경로에 직접 묶여 있고, 에셋을 원하는 단위로 묶어서 해제할 방법이 마땅치 않았습니다.',
-     sol:['Addressable로 바꿔 경로 대신 키로 에셋을 로드, 폴더 구조가 바뀌어도 코드 수정 불필요','로드한 핸들을 딕셔너리로 관리하고, 씬 이름을 라벨로 로드한 뒤 씬 전환 시 모든 핸들을 해제','UniTask로 모든 데이터가 로드·캐싱될 때까지 대기해 로드 전 접근 방지','ScriptableObject는 원본을 복사해 써서 런타임 수정이 원본 에셋에 저장되는 문제 방지'],
-     res:'에셋 경로 변경에 따른 코드 수정이 사라졌고, 씬마다 필요한 에셋만 로드·해제할 수 있게 되었습니다.',
-     learn:'Not Hero에서는 팀원 숙련도와 일정 때문에 일부러 Resources를 골랐는데, 내부 구현만 바꾸면 되도록 캡슐화해 둔 덕분에 바깥 코드는 거의 그대로 두고 교체할 수 있었습니다.'}
+     sol:['Addressable로 바꿔 경로 대신 키로 에셋을 로드, 폴더 구조가 바뀌어도 코드 수정 불필요','로드한 핸들을 딕셔너리로 관리하고, 라벨 단위로 로드한 뒤 Clear에서 모든 핸들을 해제','UniTask로 모든 데이터가 로드, 캐싱될 때까지 대기해 로드 전 접근 방지','ScriptableObject는 원본을 복사해 써서, 런타임 수정이 원본 에셋에 저장되는 문제 방지'],
+     dg:'assets/diagram/fo-loader.svg',
+     res:'에셋 경로 변경에 따른 코드 수정이 사라졌고, 씬마다 필요한 에셋만 로드, 해제할 수 있게 되었습니다.',
+     learn:'Not Hero에서는 팀원 숙련도와 일정 때문에 일부러 Resources를 골랐고, 내부 구현만 바꾸면 되도록 캡슐화해둔 덕분에 바깥 코드는 거의 그대로 두고 교체할 수 있었습니다. 캡슐화를 통해 나중에 새로운 기술로 바꾸게 되더라도 수정 범위가 많이 줄어든다는 것을 알게 되는 계기가 되었습니다.', learnLabel:'알게 된 점'}
   ],
-  gallery:['assets/yt/figureout-maxresdefault.jpg','assets/fo-quest.jpg','assets/yt/figureout-hq1.jpg','assets/yt/figureout-hq2.jpg','assets/figureout.png','assets/yt/figureout-hq3.jpg']
+  gallery:['assets/yt/figureout-maxresdefault.jpg','assets/figureout.png','assets/fo-quest.jpg','assets/yt/figureout-hq1.jpg','assets/yt/figureout-hq2.jpg','assets/yt/figureout-hq3.jpg']
 },
 {
   id:'nothero', name:'Not Hero', kicker:'PC · Deckbuilding Roguelike', filter:'team',
-  badge:'Team Project', meta:'2026.03 - 2026.04 · 4인 팀',
+  badge:'팀 프로젝트', meta:'2026.03 - 2026.04 · 4인',
   thumb:'assets/nothero.png', hero:'assets/yt/nothero-maxresdefault.jpg',
-  summary:'파티의 덱을 꾸려 랜덤 맵을 나아가는 덱빌딩 로그라이크. 카드 데이터 구조, 절차적 맵 생성, 매니저·이벤트 구조를 맡았습니다.',
-  stack:['Unity','C#','ScriptableObject','DOTween'],
+  summary:'덱빌딩 로그라이크. 카드 데이터 구조, 절차적 맵 생성, 매니저 이벤트 구조를 맡았습니다.',
   video:{yt:'ChbWpCXmwUg'},
-  tags:[['hot','Team Project'],['','Unity'],['','PC'],['','4인']],
   info:[['기간','2026.03 - 2026.04'],['인원','4인 팀 프로젝트'],['장르','덱빌딩 로그라이크'],['플랫폼','PC'],['기술','Unity, C#, ScriptableObject, DOTween']],
   role:'카드 시스템, 절차적 맵 생성, 매니저, 이벤트, 데이터 관리, 상점, 오브젝트 풀링',
   links:[['GitHub','https://github.com/lbiotitel/Not-Hero'],['YouTube','https://www.youtube.com/watch?v=ChbWpCXmwUg']],
-  kpis:[['효과 조합형 카드','인스펙터에서 효과만 골라 생성','var(--sky)'],['절차적 맵 생성','보스까지 경로 보장','var(--c2)'],['드로우 누락 0','큐 기반 연출 처리','var(--lime)']],
-  overview:['카드가 늘어나도 코드를 고치지 않는 구조를 처음 설계해 본 팀 프로젝트입니다.','덱을 구성해서 무작위로 생성된 맵을 진행하는 덱빌딩 로그라이크입니다. 카드 데이터 구조와 드로우 연출을 주로 작업했고, 여러 명이 동시에 기능을 붙이는 상황이라 매니저 초기화 순서를 직접 잡고 이벤트 매니저로 서로의 코드를 직접 참조하지 않게 했습니다.'],
+  kpis:[['효과를 조합해 만드는 카드','인스펙터에서 효과만 골라 생성','var(--sky)'],['절차적 맵 생성','모든 시작 지점에서 보스까지 경로 보장','var(--c2)'],['연속 드로우 누락 없이 처리','큐로 순서 관리','var(--lime)']],
+  overview:['덱을 구성해서 무작위로 생성된 맵을 진행하는 덱빌딩 로그라이크 게임입니다. 카드가 곧 스킬이기 때문에, 카드가 늘어나도 코드 수정 없이 추가하고 조합할 수 있는 데이터 구조와 드로우 연출을 주로 작업했습니다.','여러 명이 동시에 기능을 붙이는 상황이어서 매니저 초기화 순서를 직접 잡고 이벤트 매니저를 둬서 서로의 코드를 직접 참조하지 않아도 되게 했습니다.'],
   features:[
-    {t:'효과를 조합해 만드는 카드 데이터 구조', img:'assets/nh-card.png', fit:'contain', d:'CardEffect 추상 클래스를 상속한 효과(데미지, 드로우 등)를 [SerializeReference] 리스트로 조합해, 새 카드는 인스펙터에서 효과만 골라 만들 수 있게 했습니다. 카드 설명도 효과 값을 키워드로 자동 생성합니다.', k:['CardEffect','SerializeReference','Keyword']},
-    {t:'절차적 맵 생성', img:'assets/nh-map.jpg', d:'트리 형태의 노드를 무작위로 연결하되 이웃 노드의 경로와 교차하는지 검사하고, 모든 시작 지점에서 보스까지 경로가 있도록 보장했습니다. 방 종류를 가중치로 정해 매번 다른 맵을 경험할 수 있습니다.', k:['Procedural','Graph','Weighted Random']},
-    {t:'초기화 순서 제어와 이벤트 매니저', img:'assets/yt/nothero-hq2.jpg', d:'Awake / Start로는 매니저 간 초기화 순서를 보장할 수 없어, Managers에서 데이터를 먼저 로드한 뒤 UI, 사운드, 풀링, 전투 순으로 직접 초기화했습니다. 이벤트 매니저로 팀원 간 스크립트 직접 참조를 줄여 협업 효율을 높였습니다.', k:['Managers','Init Order','EventManager']}
+    {t:'효과를 조합해 만드는 카드 데이터 구조', img:'assets/nh-card.png', fit:'contain', d:['CardEffect 추상 클래스를 상속한 효과(데미지, 드로우 등)를 [SerializeReference] 리스트로 조합해, 새 카드는 인스펙터에서 효과만 골라 만들 수 있게 했습니다. 카드 설명도 효과 값을 키워드를 통해 자동 생성합니다.']},
+    {t:'절차적 맵 생성', img:'assets/nh-map.jpg', d:['트리 형태의 노드를 무작위로 연결하되, 이웃 노드의 경로와 교차하는지 검사하고 모든 시작 지점에서 보스까지 경로가 있도록 보장했습니다. 방 종류를 가중치로 계산하기 때문에 여러 랜덤한 맵 경험을 할 수 있게 하였습니다.']},
+    {t:'초기화 순서 제어와 이벤트 매니저', dg:'assets/diagram/nh-managers.svg', d:['Awake / Start로는 매니저끼리의 초기화 순서를 보장할 수 없어, Managers에서 데이터를 먼저 로드한 뒤 사운드, 풀링, 전투 순으로 직접 초기화했습니다. 이벤트 매니저로 팀원 간 스크립트 직접 참조를 줄여 협업 효율을 높였습니다.']}
   ],
   troubles:[
     {t:'연속 드로우 요청 시 카드 연출과 로직이 꼬이는 문제',
      sit:'턴 시작 드로우와 카드 효과로 인한 추가 드로우가 연달아 들어오면, 이전 카드 연출이 밀리거나 손패 정렬과 로직이 꼬였습니다.',
      cause:'드로우 요청이 들어올 때마다 연출을 바로 실행해서, 앞 연출이 끝나기 전에 다음 요청이 끼어들었습니다.',
-     sol:['드로우 요청을 큐에 쌓고, 연출이 끝나면 다음 요청을 꺼내 순서대로 처리','손패 수에 따라 카드 위치를 다시 계산해 추가 드로우가 생겨도 정렬 유지','턴 시작·종료는 이벤트로 받아 BattleManager와의 직접 참조 제거','전투 종료 시 모든 카드 트윈을 멈추고 초기화해 의도치 않은 동작 방지'],
+     sol:['드로우 요청을 큐에 쌓고, 연출이 끝나면 다음 요청을 꺼내 순서대로 처리','손패 수에 따라 카드 위치를 다시 계산해 추가 드로우가 생겨도 정렬 유지','턴 시작, 종료는 이벤트로 받아 BattleManager와의 직접 참조 제거','전투 종료 시 모든 카드 트윈을 멈추고 초기화해 의도치 않은 동작 방지'],
      img:'assets/nh-drawqueue.png',
      res:'드로우 요청이 연속으로 들어와도 누락 없이 순서대로 연출과 로직이 처리되었습니다.',
-     learn:'연출이 들어간 로직은 요청 시점과 실제 실행 시점이 다를 수 있어서, 큐로 순서를 관리해야 한다는 걸 알게 됐습니다.'}
+     learn:'연출이 들어간 로직은 요청한 시점과 실제로 실행되는 시점이 다를 수 있어서, 큐로 순서를 관리해야 한다는 걸 알게 됐습니다.', learnLabel:'알게 된 점'}
   ],
-  gallery:['assets/yt/nothero-maxresdefault.jpg','assets/nh-map.jpg','assets/yt/nothero-hq1.jpg','assets/nh-card.png','assets/yt/nothero-hq3.jpg','assets/nothero.png']
+  gallery:['assets/yt/nothero-maxresdefault.jpg','assets/nothero.png','assets/nh-map.jpg','assets/nh-card.png','assets/yt/nothero-hq1.jpg','assets/yt/nothero-hq3.jpg']
 },
 {
-  id:'factory', name:'Tiny Factory', kicker:'C++ · MFC · Arduino', filter:'personal',
-  badge:'졸업 작품 최우수상', meta:'2024.11 · 3주 · 2인',
+  id:'factory', name:'Tiny Factory', kicker:'C++ · MFC · Arduino', filter:'etc',
+  badge:'졸업 작품 최우수상', meta:'2024.11 · 졸업 작품',
   thumb:'assets/yt/factory-maxresdefault.jpg', hero:'assets/yt/factory-maxresdefault.jpg',
-  summary:'카메라로 물체를 인식해 정상품과 불량품을 분류하는 작은 스마트 공장. MFC 프로그램으로 컨베이어, 로봇팔, 운반차를 제어합니다.',
-  stack:['C++','MFC','OpenCV','Arduino'],
+  summary:'카메라로 물체를 인식해 정상품과 불량품을 분류하는 작은 스마트 공장입니다. MFC로 만든 프로그램이 컨베이어 벨트, 로봇팔, 운반차를 제어합니다.',
   video:{yt:'Ssp9-5lVbss'},
-  tags:[['hot','졸업 작품 최우수상'],['','C++ / MFC'],['','Arduino'],['','2인']],
-  info:[['기간','2024.11 (3주)'],['인원','2인 (후배와 함께)'],['구분','졸업 작품'],['기술','C++, MFC, OpenCV (YOLO), Arduino, 시리얼 통신, HTTP']],
-  role:'MFC 관제 프로그램, 장치 시리얼 통신, 스레드 구조 (AI 학습은 팀원 담당)',
+  info:[['구분','졸업 작품 (최우수상 수상)'],['개발 기간','2024.11'],['인원','2인 (후배와 함께)'],['기술','C++, MFC, OpenCV (YOLO), Arduino, 시리얼 통신, HTTP']],
+  role:'시리얼 통신 및 MFC 개발 (AI 학습은 후배 담당)',
   links:[['GitHub','https://github.com/lbiotitel/TinyFactory'],['YouTube','https://www.youtube.com/watch?v=Ssp9-5lVbss']],
-  kpis:[['졸업 작품 최우수상','3주 만에 2인으로 완성','var(--gold)'],['장치 4개 스레드 분리','카메라 · 인식 · 컨베이어 · 로봇팔','var(--sky)'],['3종 객체 인식','정상 · 모양 불량 · 색상 불량','var(--c2)']],
-  overview:['소프트웨어와 하드웨어를 직접 연결해 실제로 움직이는 공장을 만든 졸업 작품입니다.','카메라로 물체를 인식해 정상품과 불량품을 분류합니다. 3D 프린터로 공장을 만들고 MFC 프로그램이 컨베이어 벨트, 로봇팔, 운반차를 제어하며, 불량품은 밀어낸 뒤 운반차가 출발합니다.'],
+  kpis:[['졸업 작품 최우수상','후배와 3주 안에 구현','var(--gold)'],['장치별 스레드 분리','카메라, YOLO 인식, 컨베이어, 로봇팔','var(--sky)'],['정상품 · 불량품 분류','정상, 모양 불량, 색상 불량','var(--c2)']],
+  overview:['카메라로 물체를 인식해 정상품과 불량품을 분류하는 작은 스마트 공장입니다. MFC로 만든 프로그램이 컨베이어 벨트, 로봇팔, 운반차를 제어합니다.','정상품은 컨베이어가 계속 진행되고 로봇팔이 정상 위치로 이동합니다. 모양이나 색상이 다른 불량품은 컨베이어에서 밀어내고, 로봇팔이 불량 위치로 이동한 뒤 운반차가 출발합니다.'],
   features:[
-    {t:'장치별 스레드 분리', img:'assets/yt/factory-hq1.jpg', d:'카메라 출력, YOLO 인식, 컨베이어 벨트, 로봇팔 통신을 각각 별도 스레드(AfxBeginThread)로 돌려 UI가 멈추지 않게 했습니다. 스레드에서 UI를 직접 건드리지 않고 PostMessage로 메인 다이얼로그에 결과를 알립니다.', k:['AfxBeginThread','PostMessage','MFC']},
-    {t:'매니저 구조', img:'assets/yt/factory-hq2.jpg', d:'WorkManager가 인식 결과를 받아 컨베이어, 로봇팔, 운반차에 작업을 지시하고, DataManager는 정상품과 불량품 개수를 집계, LogManager는 작업 로그를 파일로 저장합니다.', k:['WorkManager','DataManager','LogManager']},
-    {t:'장치 통신과 객체 인식', img:'assets/yt/factory-hq3.jpg', d:'컨베이어와 로봇팔(아두이노)은 시리얼 통신(115200bps)으로 명령 문자열을 주고받고, 운반차는 Wi-Fi 모듈에 HTTP GET 요청으로 제어합니다. OpenCV DNN으로 직접 학습한 YOLO 모델을 불러와 정상품, 모양 불량, 색상 불량을 구분합니다.', k:['Serial 115200','HTTP GET','OpenCV DNN']}
+    {t:'장치별 스레드 분리', img:'assets/yt/factory-hq1.jpg', d:['카메라 출력, YOLO 인식, 컨베이어 벨트, 로봇팔 통신을 각각 별도 스레드(AfxBeginThread)로 돌려 UI가 멈추지 않게 했습니다.','스레드에서 UI를 직접 건드리지 않고 PostMessage로 메인 다이얼로그에 결과를 알립니다.']},
+    {t:'매니저 구조', img:'assets/yt/factory-hq2.jpg', d:['WorkManager: 인식 결과를 받아 컨베이어, 로봇팔, 운반차에 작업을 지시합니다.','DataManager: 정상품과 불량품 개수를 집계합니다.','LogManager: 작업 로그를 남기고 파일로 저장합니다.','여러 스레드가 함께 쓰는 매니저는 싱글톤으로 만들고 std::mutex로 보호했습니다.']},
+    {t:'장치 통신과 객체 인식', img:'assets/yt/factory-hq3.jpg', d:['컨베이어 벨트와 로봇팔(아두이노)은 시리얼 통신(115200bps)으로 명령 문자열을 주고받습니다. 운반차는 Wi-Fi 모듈에 HTTP GET 요청(/start, /wait)으로 제어합니다.','OpenCV DNN으로 직접 학습한 YOLO 모델을 불러와, 정상품(NORMAL), 모양 불량(DIFFERENTSHAPE), 색상 불량(DIFFERENTCOLOR)을 구분합니다.']}
   ],
   troubles:[
-    {t:'멀티스레드에서 장치로 이상한 값이 전송되는 문제',
-     sit:'카메라 영상 처리와 시리얼 통신을 동시에 돌리던 중, 장치로 이상한 값이 전송되는 문제가 생겼습니다.',
+    {t:'두 스레드가 공유 자원에 동시에 접근해 이상한 값이 전송되는 문제',
+     sit:'멀티스레드를 이용해 카메라 영상 처리와 시리얼 통신을 동시에 돌리던 중 이상한 값이 전송되는 문제를 겪었습니다.',
      cause:'두 스레드가 공유 자원에 동시에 접근하고 있었습니다.',
-     sol:['하드웨어부터 의심해 순서대로 테스트하고, 디버깅으로 원인을 추적해 스레드 문제임을 확인','여러 스레드가 함께 쓰는 매니저를 싱글톤으로 만들고 std::mutex로 공유 구간을 보호'],
-     res:'전송 값이 섞이지 않고 장치가 정상 동작했고, 3주 안에 목표를 달성해 졸업 작품 최우수상을 받았습니다.',
-     learn:'멀티스레드 환경의 문제를 하나씩 좁혀 가며 찾는 법과, 공유 자원을 보호하는 방법을 배웠습니다.'}
+     sol:['하드웨어부터 의심하고 순서대로 테스트','디버깅을 통해 원인을 추적해 스레드의 문제임을 확인','mutex로 공유 구간을 보호'],
+     res:'mutex로 공유 구간을 보호해 해결했고, 후배와 3주 안에 목표를 달성해 졸업 작품 최우수상을 받았습니다.',
+     learn:'이 경험으로 멀티스레드에서 일어나는 문제를 해결하는 법을 배웠습니다.', learnLabel:'알게 된 점'}
   ],
   gallery:['assets/yt/factory-maxresdefault.jpg','assets/yt/factory-hq1.jpg','assets/yt/factory-hq2.jpg','assets/yt/factory-hq3.jpg']
 },
 {
-  id:'toeic', name:'TOEIC Management System', kicker:'Desktop App', filter:'personal',
-  badge:'Personal', meta:'개인 프로젝트',
-  thumbVideo:'assets/toeic.mp4#t=3', railIcon:'📚',
-  summary:'토익 단어 공부를 도와주는 프로그램. 단어를 관리하며 공부하고, 친구와 함께 토익 단어 게임을 할 수 있습니다.',
-  stack:['Desktop App'],
+  id:'toeic', name:'TOEIC Management System', kicker:'Program', filter:'etc',
+  badge:'Program', meta:'토익 단어 학습 프로그램',
+  thumbVideo:'assets/toeic.mp4#t=3',
+  summary:'토익 단어 공부를 도와주는 프로그램입니다. 친구와 함께 토익 단어 게임을 할 수 있습니다.',
   video:{mp4:'assets/toeic.mp4'},
-  tags:[['hot','Personal'],['','Desktop App']],
-  info:[['구분','개인 프로젝트'],['종류','데스크톱 프로그램']],
-  role:'기획, 개발 전체',
+  info:[],
   links:[],
-  overview:['공부하면서 불편했던 점을 직접 해결해 보려고 만든 프로그램입니다.','토익 단어를 관리하면서 공부할 수 있고, 친구와 함께 토익 단어 게임을 할 수 있습니다. 위 영상에서 실제 실행 화면을 볼 수 있습니다.']
+  overview:['토익 단어 공부를 도와주는 프로그램입니다. 친구와 함께 토익 단어 게임을 할 수 있습니다.']
 },
 {
-  id:'risa', name:'Risa Project MK.2', kicker:'Arduino', filter:'personal',
-  badge:'Personal', meta:'60시간 목표 단기 프로젝트',
-  thumbVideo:'assets/risa.mp4#t=2', railIcon:'🐶',
-  summary:'시간을 맞추면 정해진 시간에 밥을 주는 강아지 자동 배급기. 아두이노로 60시간 안에 완성하는 것을 목표로 만들었습니다.',
-  stack:['Arduino'],
+  id:'risa', name:'Risa Project MK.2', kicker:'Arduino', filter:'etc',
+  badge:'Arduino', meta:'60시간 목표 프로젝트',
+  thumbVideo:'assets/risa.mp4#t=2',
+  summary:'시간을 맞추면 정해진 시간에 밥을 주는 강아지 배급기입니다.',
   video:{mp4:'assets/risa.mp4'},
-  tags:[['hot','Personal'],['','Arduino'],['','60시간 목표']],
-  info:[['구분','개인 프로젝트'],['기간','60시간 목표'],['기술','Arduino']],
-  role:'기획, 하드웨어 조립, 개발 전체',
+  info:[['목표','60시간 안에 완성'],['기술','Arduino']],
   links:[],
-  kpis:[['60시간 완성 목표','짧고 명확한 단기 개발','var(--c1)'],['첫 아두이노 프로젝트','자료구조 지식으로 빠르게 적응','var(--sky)'],['다음 단계로','Tiny Factory 도전의 발판','var(--lime)']],
-  overview:['끝까지 완성하는 습관을 만들기 위해 시작한 단기 프로젝트입니다.','시간을 맞춰 두면 정해진 시간에 사료를 주는 강아지 자동 배급기입니다. 긴 프로젝트에서 지치는 문제를 고치려고 60시간 안에 완성하는 것을 목표로 만들었고, 처음 다뤄 본 아두이노도 공부해 둔 자료구조를 활용해 빠르게 적응할 수 있었습니다. 이 경험을 발판으로 Tiny Factory에 도전했습니다.']
+  kpis:[['60시간 안에 완성 목표','단기간의 집중력 강화','var(--c1)'],['아두이노 첫 프로젝트','자료구조 지식으로 빠르게 적응','var(--sky)']],
+  overview:['시간을 맞추면 정해진 시간에 밥을 주는 강아지 배급기입니다.','프로젝트 기간이 길어질수록 지치고 집중력이 떨어지는 문제를, 짧고 기능이 명확한 개발의 반복으로 해결하고자 했습니다. 이 프로젝트는 60시간 안에 만드는 것을 목표로 단기간의 집중력을 강화했습니다.','아두이노는 이 프로젝트에서 처음 접했지만, 자료구조 공부를 해왔기 때문에 이를 이용해 원하는 기능을 더욱 빠르고 효율적으로 개발하고 금방 적응할 수 있었습니다.']
 }
 ];
 
@@ -715,7 +702,6 @@ grid.innerHTML = P.map(function(p,i){
   return '<article class="card rv'+(i===0?' featured':'')+'" tabindex="0" role="link" data-id="'+p.id+'" data-f="'+p.filter+'" aria-label="'+esc(p.name)+' 자세히 보기">'
     + '<div class="img">'+media+'<span class="badge'+(p.hot?' hot':'')+'">'+esc(p.badge)+'</span><span class="playbtn">'+ICON_PLAY+'</span></div>'
     + '<div class="c-body"><div class="c-meta">'+esc(p.kicker)+' · '+esc(p.meta)+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.summary)+'</p>'
-    + '<div class="stack">'+p.stack.map(function(s){return '<span>'+esc(s)+'</span>';}).join('')+'</div>'
     + '<span class="more">영상과 개발 내용 보기 '+ICON_ARROW+'</span></div></article>';
 }).join('');
 grid.querySelectorAll('.card').forEach(function(c){
@@ -770,12 +756,6 @@ window.addEventListener('resize', function(){
   });
 });
 
-/* 탭 필터 */
-var tabs = document.querySelectorAll('#tabs button');
-tabs.forEach(function(b){ b.addEventListener('click', function(){
-  tabs.forEach(function(x){ x.classList.toggle('on', x===b); });
-  grid.querySelectorAll('.card').forEach(function(c){ c.style.display = (b.dataset.f==='all'||c.dataset.f===b.dataset.f)?'':'none'; });
-}); });
 
 /* 레일 프로젝트 썸네일 */
 var tip = document.getElementById('tip');
@@ -790,17 +770,25 @@ function renderDetail(p){
   var i = P.indexOf(p), prev = P[(i-1+P.length)%P.length], next = P[(i+1)%P.length];
   var bg = p.hero || p.thumb || 'assets/yt/abyss-maxresdefault.jpg';
   var h = '<div class="d-hero"><div class="d-bg">'+(p.hero||p.thumb ? '<img src="'+bg+'" alt="" style="object-position:'+(p.heroPos||'center')+'">' : '<video src="'+p.video.mp4+'#t=2" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;filter:blur(3px)"></video>')+'</div>'
-    + '<button class="back" type="button" data-back>← 프로젝트 목록</button>'
-    + '<div class="wrap"><div class="d-kicker">'+esc(p.kicker)+'</div><h1 class="d-title">'+esc(p.name)+'</h1><div class="d-tags">'+p.tags.map(function(t){return '<span class="'+t[0]+'">'+esc(t[1])+'</span>';}).join('')+'</div></div></div>';
+    + '<button class="back" type="button" data-back>← 포트폴리오</button>'
+    + '<div class="wrap"><div class="d-kicker">'+esc(p.kicker)+'</div><h1 class="d-title">'+esc(p.name)+'</h1></div></div>';
   h += '<div class="wrap d-body">';
-  h += '<div class="d-grid">'+videoHTML(p.video)+'<aside class="info"><dl>'+p.info.map(function(r){return '<div><dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd></div>';}).join('')+'</dl>'
-     + '<div class="role"><b>담당 업무</b>'+esc(p.role)+'</div>'
-     + (p.links.length ? '<div class="links">'+p.links.map(lnk).join('')+'</div>' : '') + '</aside></div>';
+  var hasAside = p.info.length || p.role || p.links.length;
+  h += '<div class="d-grid'+(hasAside?'':' solo')+'">'+videoHTML(p.video)
+     + (hasAside ? '<aside class="info">'
+       + (p.info.length ? '<dl>'+p.info.map(function(r){return '<div><dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd></div>';}).join('')+'</dl>' : '')
+       + (p.role ? '<div class="role"><b>담당</b>'+esc(p.role)+'</div>' : '')
+       + (p.links.length ? '<div class="links">'+p.links.map(lnk).join('')+'</div>' : '') + '</aside>' : '')
+     + '</div>';
   if(p.kpis) h += '<div class="kpis">'+p.kpis.map(function(k){return '<div class="kpi" style="--c:'+k[2]+'"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>';}).join('')+'</div>';
   h += '<div class="d-sec"><div class="d-h"><small>Overview</small><h3>프로젝트 소개</h3></div><div class="overview">'+p.overview.map(function(t){return '<p>'+esc(t)+'</p>';}).join('')+'</div></div>';
   if(p.features){
     h += '<div class="d-sec"><div class="d-h"><small>Key Development</small><h3>핵심 개발</h3></div><div class="feats">'
-      + p.features.map(function(f,n){ return '<div class="feat"><div class="f-img '+(f.fit||'')+'"><img src="'+f.img+'" alt="'+esc(f.t)+'" loading="lazy"></div><div class="f-txt"><span class="f-no">'+(n+1)+'</span><h4>'+esc(f.t)+'</h4><p>'+esc(f.d)+'</p></div></div>'; }).join('')
+      + p.features.map(function(f,n){
+          var txt = '<div class="f-txt"><span class="f-no">'+(n+1)+'</span><h4>'+esc(f.t)+'</h4>'+f.d.map(function(x){return '<p>'+esc(x)+'</p>';}).join('')+'</div>';
+          if(f.dg) return '<div class="feat dg">'+txt+'<button type="button" class="dg-box" data-zoom="'+f.dg+'" aria-label="흐름도 크게 보기"><img src="'+f.dg+'" alt="'+esc(f.t)+' 흐름도" loading="lazy"></button></div>';
+          return '<div class="feat"><div class="f-img '+(f.fit||'')+'"><img src="'+f.img+'" alt="'+esc(f.t)+'" loading="lazy"></div>'+txt+'</div>';
+        }).join('')
       + '</div></div>';
   }
   if(p.troubles){
@@ -811,6 +799,7 @@ function renderDetail(p){
           + '<div class="blk"><h5><i style="background:var(--sky)"></i>상황</h5><p>'+esc(t.sit)+'</p></div>'
           + '<div class="blk"><h5><i style="background:var(--c1)"></i>원인</h5><p>'+esc(t.cause)+'</p></div>'
           + '</div><div class="tr-col"><div class="blk"><h5><i style="background:var(--lime)"></i>해결</h5><ul>'+t.sol.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>'+(t.img?'<figure><img src="'+t.img+'" alt="" loading="lazy"></figure>':'')+'</div></div></div>'
+          + (t.dg ? '<button type="button" class="dg-box tr-dg" data-zoom="'+t.dg+'" aria-label="흐름도 크게 보기"><img src="'+t.dg+'" alt="'+esc(t.t)+' 흐름도" loading="lazy"></button>' : '')
           + '<div class="res-box"><h5>결과</h5><p>'+esc(t.res)+'</p></div>'
           + '<p class="learn"><b>'+esc(t.learnLabel||'배운 점')+'</b>'+esc(t.learn)+'</p></div>';
       }).join('') + '</div>';
