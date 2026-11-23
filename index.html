@@ -626,7 +626,7 @@ footer a{color:var(--muted)}
     wrap.className = 'player' + (v.vertical ? ' vertical' : '');
     if(v.yt){
       var f = document.createElement('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + v.yt + '?autoplay=1&rel=0&playsinline=1';
+      f.src = 'https://www.youtube-nocookie.com/embed/' + v.yt + '?autoplay=1&mute=1&rel=0&playsinline=1';
       f.title = '플레이 영상';
       f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
       f.allowFullscreen = true;
@@ -634,8 +634,9 @@ footer a{color:var(--muted)}
     } else {
       var vid = document.createElement('video');
       vid.src = v.mp4; vid.controls = true; vid.autoplay = true; vid.playsInline = true;
+      vid.muted = true; vid.defaultMuted = true; vid.setAttribute('muted', '');
       wrap.appendChild(vid);
-      setTimeout(function(){ var p = vid.play(); if(p && p.catch) p.catch(function(){ vid.muted = true; vid.play(); }); }, 0);
+      setTimeout(function(){ vid.play(); }, 0);
     }
     return wrap;
   }
