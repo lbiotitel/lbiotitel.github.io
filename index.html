@@ -6,301 +6,347 @@
 <title>최진모 | Game Client Programmer</title>
 <meta name="description" content="Unity / C# 게임 클라이언트 프로그래머 최진모의 포트폴리오">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;700&family=Nanum+Gothic+Coding:wght@400;700&family=Raleway:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#1d212b; --bg2:#262b37; --bg3:#2d3341; --panel:#171a22; --line:#363c4b;
-  --text:#d5ced9; --dim:#a8afbf; --faint:#6b7386;
-  --yellow:#ffda4c; --teal:#0be8c6; --purple:#a35cff; --pink:#ff6b9d; --orange:#ff9f43; --green:#5fd38d; --blue:#5aa9ff; --red:#ff6b6b;
-  --kw:#c792ea; --type:#ffcb6b; --str:#c3e88d; --fn:#82aaff; --cm:#6b7386; --num:#f78c6c;
-  --mono: Inconsolata, "Nanum Gothic Coding", ui-monospace, Consolas, monospace;
-  --head: Raleway, "Noto Sans KR", system-ui, sans-serif;
-  --kr: "Noto Sans KR", system-ui, sans-serif;
-  --sidew: 240px;
+  --bg:#0c0d11; --bg2:#121419; --card:#171a21; --card2:#1d2029; --line:#262a35; --line2:#323746;
+  --text:#eceef3; --text2:#b7bcc9; --muted:#7c8294;
+  --c1:#ff8a3d; --c2:#ff4d8d; --sky:#4cc9f0; --lime:#b8f35c; --gold:#ffc94d;
+  --grad:linear-gradient(90deg,var(--c1),var(--c2));
+  --font:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --en:"Space Grotesk","Pretendard",system-ui,sans-serif;
+  --sidew:92px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:20px}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--mono);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit}
-::selection{background:rgba(163,92,255,.45)}
+::selection{background:rgba(255,77,141,.4)}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-/* ================= sidebar : editor explorer ================= */
-.side{position:fixed;inset:0 auto 0 0;width:var(--sidew);background:var(--panel);border-right:1px solid #262a35;z-index:50;display:flex;flex-direction:column;font-size:14px}
-.side-head{display:flex;align-items:center;gap:10px;padding:18px 16px 14px;border-bottom:1px solid #262a35}
-.side-head img{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:center 25%;border:2px solid var(--purple)}
-.side-head b{display:block;font-family:var(--kr);font-size:15px;color:#fff}
-.side-head small{display:block;color:var(--teal);font-size:12px;margin-top:-2px}
-.side-body{flex:1;overflow-y:auto;padding:10px 0 20px}
-.tree-label{font-size:11px;letter-spacing:.08em;color:var(--faint);padding:10px 16px 4px;text-transform:uppercase}
-.tree a{display:flex;align-items:center;gap:8px;padding:5px 16px;color:var(--dim);border-left:2px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tree a:hover{background:rgba(255,255,255,.04);color:#fff}
-.tree a.on{background:rgba(163,92,255,.12);color:#fff;border-left-color:var(--purple)}
-.tree .ext{font-size:11px;font-weight:700;width:22px;text-align:center;border-radius:3px;flex:0 0 22px}
-.ext.cs{color:#9b6bff} .ext.dir{color:var(--yellow)}
-.tree .sub{padding-left:34px}
-.side-foot{border-top:1px solid #262a35;padding:12px 16px;display:flex;gap:8px}
-.side-foot a{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:34px;border:1px solid var(--line);border-radius:6px;color:var(--dim);font-size:13px}
-.side-foot a:hover{border-color:var(--purple);color:#fff}
-.menu-btn{display:none;position:fixed;top:12px;right:12px;z-index:60;width:42px;height:42px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--teal);cursor:pointer;align-items:center;justify-content:center}
+/* ================= sidebar : game menu rail ================= */
+.rail{position:fixed;inset:0 auto 0 0;width:var(--sidew);background:#0a0b0e;border-right:1px solid var(--line);z-index:50;display:flex;flex-direction:column;align-items:center;padding:18px 0}
+.rail-logo{width:52px;height:52px;border-radius:16px;overflow:hidden;border:2px solid transparent;background:var(--grad) border-box;margin-bottom:22px}
+.rail-logo img{width:100%;height:100%;object-fit:cover;object-position:center 25%;border-radius:14px}
+.rail nav{display:flex;flex-direction:column;gap:6px;width:100%;padding:0 10px;flex:1;overflow-y:auto;scrollbar-width:none}
+.rail nav::-webkit-scrollbar{display:none}
+.rail a.item{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;border-radius:12px;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.02em;transition:color .2s,background .2s}
+.rail a.item svg{width:22px;height:22px}
+.rail a.item:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.rail a.item.on{color:#fff;background:rgba(255,138,61,.12)}
+.rail a.item.on::before{content:"";position:absolute;left:-10px;top:12px;bottom:12px;width:3px;border-radius:0 3px 3px 0;background:var(--grad)}
+.rail .sep{height:1px;background:var(--line);margin:8px 10px}
+.rail .proj{display:flex;justify-content:center;padding:4px 0}
+.rail .proj a{width:44px;height:44px;border-radius:12px;overflow:hidden;border:2px solid transparent;transition:border-color .2s,transform .2s;position:relative}
+.rail .proj a img{width:100%;height:100%;object-fit:cover}
+.rail .proj a:hover{transform:scale(1.06);border-color:var(--line2)}
+.rail .proj a.on{border-color:var(--c1)}
+.rail .proj a .tip{position:absolute;left:54px;top:50%;transform:translateY(-50%);white-space:nowrap;background:#000;color:#fff;font-size:12px;padding:4px 10px;border-radius:6px;pointer-events:none;opacity:0;transition:opacity .15s}
+.rail .projs{display:flex;flex-direction:column;gap:6px;overflow:visible}
+.rail .tipwrap{position:relative}
+.rail .tipwrap:hover .tip2{opacity:1}
+.tip2{position:fixed;left:calc(var(--sidew) + 6px);background:#000;color:#fff;font-size:12px;padding:4px 10px;border-radius:6px;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;z-index:60}
+.menu-btn{display:none;position:fixed;top:12px;left:12px;z-index:60;width:44px;height:44px;border-radius:12px;border:1px solid var(--line2);background:rgba(12,13,17,.9);color:#fff;cursor:pointer;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .scrim{display:none}
 
 .main{margin-left:var(--sidew)}
-.wrap{max-width:1080px;margin:0 auto;padding:0 40px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 44px}
 
 /* ================= hero ================= */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:60px 0}
-.hero::before{content:"";position:absolute;inset:-20%;background:radial-gradient(600px 400px at 80% 20%,rgba(163,92,255,.18),transparent 60%),radial-gradient(500px 400px at 10% 90%,rgba(11,232,198,.10),transparent 60%);pointer-events:none}
-.hero-grid{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center}
-.editor{background:#13161d;border:1px solid #2b3040;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden}
-.ed-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#191c25;border-bottom:1px solid #2b3040}
-.dot{width:12px;height:12px;border-radius:50%}
-.ed-tab{margin-left:14px;font-size:13px;color:#fff;background:#13161d;padding:4px 12px;border-radius:6px 6px 0 0;border:1px solid #2b3040;border-bottom:none;position:relative;top:11px}
-.ed-body{display:flex;padding:18px 0 22px;font-size:16.5px;line-height:1.85;overflow-x:auto}
-.ln{padding:0 16px 0 18px;color:#3f4658;text-align:right;user-select:none;white-space:pre}
-.code{padding-right:24px;white-space:pre;color:#d5ced9}
-.k{color:var(--kw)} .t{color:var(--type)} .s{color:var(--str)} .f{color:var(--fn)} .c{color:var(--cm);font-style:italic} .n{color:var(--num)} .a{color:var(--teal)}
-.caret{display:inline-block;width:9px;height:1.1em;background:var(--teal);vertical-align:-3px;animation:blink 1s steps(1) infinite;margin-left:1px}
-@keyframes blink{50%{opacity:0}}
-.hero-side{text-align:center}
-.avatar{width:220px;height:220px;margin:0 auto 20px;border-radius:50%;padding:5px;background:conic-gradient(from 180deg,var(--purple),var(--teal),var(--yellow),var(--purple))}
-.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 25%;border:4px solid var(--bg)}
-.hero-name{font-family:var(--kr);font-weight:900;font-size:48px;color:#fff;margin:0;line-height:1.1;letter-spacing:-.02em}
-.hero-en{font-family:var(--head);color:var(--dim);font-size:16px;letter-spacing:.2em;margin:6px 0 14px}
-.hero-role{display:inline-block;font-size:14px;color:var(--teal);border:1px solid rgba(11,232,198,.4);padding:4px 12px;border-radius:999px}
-.cta{display:inline-flex;align-items:center;gap:10px;margin-top:26px;padding:12px 18px;border:1px solid var(--purple);border-radius:8px;color:#fff;font-size:15px;transition:background .2s,transform .2s}
-.cta:hover{background:rgba(163,92,255,.18);transform:translateY(-2px)}
-.cta.ghost{border-color:var(--line);color:var(--dim);margin-left:8px}
-.cta.ghost:hover{border-color:var(--teal);color:#fff;background:rgba(11,232,198,.08)}
-.scroll-hint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);color:var(--faint);font-size:12px;letter-spacing:.2em;animation:float 2s ease-in-out infinite}
-@keyframes float{50%{transform:translate(-50%,6px)}}
+.hero{position:relative;padding:80px 0 0;overflow:hidden}
+.hero::before{content:"";position:absolute;width:900px;height:900px;right:-300px;top:-420px;background:radial-gradient(closest-side,rgba(255,77,141,.22),transparent);pointer-events:none}
+.hero::after{content:"";position:absolute;width:700px;height:700px;left:-260px;top:120px;background:radial-gradient(closest-side,rgba(76,201,240,.12),transparent);pointer-events:none}
+.hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1fr 360px;gap:56px;align-items:center;min-height:calc(100vh - 260px)}
+.hello{display:inline-flex;align-items:center;gap:8px;font-family:var(--en);font-size:14px;font-weight:600;letter-spacing:.14em;color:var(--sky);text-transform:uppercase}
+.hello i{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(184,243,92,.18);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(184,243,92,0)}}
+.hero h1{font-size:76px;line-height:1.05;font-weight:900;letter-spacing:-.04em;margin:18px 0 18px}
+.hero h1 small{display:block;font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--text2);margin-bottom:10px}
+.hero .lead{font-size:19px;color:var(--text2);max-width:560px;margin:0 0 28px;line-height:1.75}
+.hero .lead b{color:#fff;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:34px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;padding:6px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line2);color:var(--text2)}
+.chip img{width:16px;height:16px}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:13px 22px;border-radius:12px;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s}
+.btn.main-b{background:var(--grad);color:#fff;box-shadow:0 10px 30px rgba(255,77,141,.35)}
+.btn.main-b:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(255,77,141,.5)}
+.btn.line{border:1px solid var(--line2);color:var(--text)}
+.btn.line:hover{border-color:var(--c1);background:rgba(255,138,61,.08)}
+.player{position:relative;border-radius:28px;padding:2px;background:linear-gradient(140deg,var(--c1),var(--c2) 45%,var(--sky));box-shadow:0 30px 80px rgba(0,0,0,.5);transform:rotate(2deg);transition:transform .4s}
+.player:hover{transform:rotate(0)}
+.player-in{border-radius:26px;overflow:hidden;background:var(--card)}
+.player img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 22%}
+.player-cap{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font-family:var(--en);font-size:13px;letter-spacing:.12em;color:var(--text2)}
+.player-cap b{color:#fff;font-size:15px;letter-spacing:.04em}
+.lv{font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.marquee{position:relative;margin-top:70px;overflow:hidden;padding:22px 0 60px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:16px;width:max-content;animation:slide 50s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.track a{flex:0 0 auto;width:300px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line2);transform:rotate(-1.5deg);transition:transform .3s}
+.track a:nth-child(even){transform:rotate(1.5deg) translateY(10px)}
+.track a:hover{transform:scale(1.05)}
+.track img{width:100%;height:100%;object-fit:cover}
+@keyframes slide{to{transform:translateX(-50%)}}
 
 /* ================= sections ================= */
-section.sec{padding:110px 0}
-section.alt{background:var(--bg2)}
-.sec-h{text-align:center;margin-bottom:60px}
-.sec-h .rg{display:block;color:var(--faint);font-size:15px}
-.sec-h .rg b{color:var(--kw);font-weight:500}
-.sec-h h2{font-family:var(--head);font-size:40px;font-weight:700;color:#e7e9ef;margin:4px 0 4px;letter-spacing:.01em}
-.sec-h p{color:var(--dim);margin:10px 0 0;font-size:15px}
+section.sec{padding:120px 0}
+.head{display:flex;align-items:flex-end;gap:18px;margin-bottom:52px}
+.head .num{font-family:var(--en);font-size:84px;font-weight:700;line-height:.8;color:transparent;-webkit-text-stroke:1.5px var(--line2)}
+.head h2{margin:0;font-family:var(--en);font-size:44px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.head h2 span{display:block;font-family:var(--font);font-size:15px;font-weight:600;color:var(--c1);letter-spacing:0;margin-bottom:8px}
 
 /* about */
-.about{display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:start}
-.decl{font-size:16.5px;line-height:1.9;margin:0 0 34px;white-space:pre-wrap}
-.h-yellow{font-family:var(--head);color:var(--yellow);font-size:26px;font-weight:700;margin:0 0 14px}
-.about p{font-family:var(--kr);font-size:16px;line-height:1.9;margin:0 0 14px;color:#cfc9d4}
+.about{display:grid;grid-template-columns:320px 1fr;gap:56px;align-items:start}
+.about-photo{border-radius:24px;overflow:hidden;position:relative}
+.about-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 22%}
+.about-photo::after{content:"";position:absolute;inset:0;border-radius:24px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.about h3{font-size:30px;line-height:1.4;font-weight:800;letter-spacing:-.02em;margin:0 0 20px}
+.about p{font-size:17px;color:var(--text2);margin:0 0 16px;line-height:1.9}
 .about p b{color:#fff}
-.photo-card{position:relative;border-radius:14px;overflow:hidden;background:var(--bg3);box-shadow:0 20px 50px rgba(0,0,0,.35)}
-.photo-card img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 22%}
-.photo-card figcaption{position:absolute;inset:auto 0 0 0;padding:40px 16px 14px;background:linear-gradient(transparent,rgba(13,15,20,.92));font-size:13px;color:var(--teal)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
-.stat{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px 16px;text-align:center}
-.stat b{display:block;font-family:var(--head);font-size:30px;font-weight:800;line-height:1.1}
-.stat span{font-family:var(--kr);font-size:13px;color:var(--dim)}
-.values{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
-.value{background:linear-gradient(135deg,rgba(163,92,255,.12),rgba(11,232,198,.06));border:1px solid var(--line);border-radius:12px;padding:18px 20px}
-.value h4{margin:0 0 6px;font-family:var(--kr);font-size:16px;color:#fff}
-.value p{margin:0;font-size:14.5px;line-height:1.75}
+.profile{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:28px 0 30px}
+.pf{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.pf .ic{flex:0 0 38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,138,61,.12);color:var(--c1)}
+.pf small{display:block;font-size:12px;color:var(--muted)}
+.pf b{font-size:15px;font-weight:600;word-break:break-all}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.value{border-radius:16px;padding:22px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden}
+.value::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad)}
+.value:nth-child(2)::before{background:linear-gradient(90deg,var(--sky),var(--lime))}
+.value h4{margin:0 0 8px;font-size:17px}
+.value p{margin:0;font-size:15px;line-height:1.75}
 
 /* skills */
-.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.skill{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:28px 22px;text-align:center;transition:transform .2s,border-color .2s}
-.skill:hover{transform:translateY(-4px);border-color:var(--teal)}
-.skill .logos{display:flex;justify-content:center;gap:12px;height:48px;margin-bottom:16px}
-.skill .logos img{height:48px;width:48px;object-fit:contain}
-.skill h3{font-family:var(--head);color:var(--teal);font-size:19px;font-weight:600;margin:0 0 6px}
-.skill .main-s{color:#fff;font-size:15px;margin:0 0 10px}
-.skill ul{list-style:none;margin:0;padding:0;font-family:var(--kr);font-size:13.5px;color:var(--dim);line-height:1.8}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.skill{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .25s,border-color .25s}
+.skill:hover{transform:translateY(-4px);border-color:var(--line2)}
+.skill-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.skill-top .logos{display:flex;gap:6px}
+.skill-top .logos span{width:46px;height:46px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center}
+.skill-top .logos img{width:28px;height:28px}
+.skill h3{margin:0;font-size:20px;font-weight:800}
+.skill h3 small{display:block;font-size:13px;color:var(--muted);font-weight:500}
+.skill ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.skill li{display:flex;gap:10px;font-size:15px;color:var(--text2);line-height:1.6}
+.skill li::before{content:"";flex:0 0 6px;height:6px;border-radius:2px;margin-top:9px;background:var(--c1);transform:rotate(45deg)}
 
-/* resume timeline */
-.resume{display:grid;grid-template-columns:1fr 1fr;gap:56px}
-.col-h{font-family:var(--head);font-size:26px;color:#fff;margin:0 0 26px;font-weight:700}
-.tl{position:relative;padding-left:28px;border-left:2px solid var(--purple)}
-.tl-item{position:relative;padding-bottom:34px}
-.tl-item:last-child{padding-bottom:0}
-.tl-item::before{content:"";position:absolute;left:-36px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--purple)}
-.tl-item h4{font-family:var(--kr);color:var(--yellow);font-size:19px;margin:0 0 6px;font-weight:700}
-.tl-date{display:inline-block;background:var(--bg3);color:var(--dim);font-size:13px;padding:2px 10px;border-radius:4px;margin-bottom:8px}
-.tl-item p{margin:0;font-family:var(--kr);font-size:15px}
-.tl-item .st{color:var(--teal);margin-top:6px;font-family:var(--mono)}
-
-/* awards */
-.awards{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.award{display:flex;gap:20px;align-items:flex-start;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:24px}
-.award .medal{flex:0 0 64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:32px;background:linear-gradient(135deg,rgba(255,218,76,.25),rgba(255,159,67,.12));border:1px solid rgba(255,218,76,.35)}
-.award h4{margin:0;font-family:var(--kr);color:var(--yellow);font-size:19px}
-.award .org{color:var(--teal);font-size:14px}
-.award p{margin:8px 0 0;font-family:var(--kr);font-size:14.5px;color:#cfc9d4}
+/* resume */
+.resume{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.r-box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px}
+.r-box h3{display:flex;align-items:center;gap:10px;margin:0 0 18px;font-size:20px}
+.r-box h3 .ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(76,201,240,.12);color:var(--sky)}
+.r-item{display:flex;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.r-item:first-of-type{border-top:none}
+.yr{flex:0 0 auto;font-family:var(--en);font-size:13px;font-weight:600;color:var(--c1);background:rgba(255,138,61,.1);border-radius:8px;padding:3px 10px;height:max-content}
+.r-item b{display:block;font-size:16px}
+.r-item span{font-size:14px;color:var(--muted)}
+.awards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+.award{display:flex;align-items:center;gap:18px;border-radius:20px;padding:24px;background:linear-gradient(135deg,rgba(255,201,77,.12),rgba(255,138,61,.05) 60%,transparent),var(--card);border:1px solid rgba(255,201,77,.25)}
+.award .tro{flex:0 0 60px;height:60px;border-radius:16px;background:rgba(255,201,77,.15);display:flex;align-items:center;justify-content:center;font-size:30px}
+.award b{display:block;font-size:18px;color:var(--gold)}
+.award span{font-size:14px;color:var(--text2)}
 
 /* portfolio */
-.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:40px}
-.filters button{background:none;border:1px solid var(--line);color:var(--dim);padding:7px 16px;border-radius:999px;cursor:pointer;font-size:13px;letter-spacing:.08em;transition:all .2s}
-.filters button:hover{color:#fff;border-color:var(--teal)}
-.filters button.on{background:var(--purple);border-color:var(--purple);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.card{display:flex;flex-direction:column;background:var(--bg2);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;text-align:left;padding:0;transition:transform .25s,box-shadow .25s,border-color .25s}
-.card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,0,0,.4);border-color:rgba(163,92,255,.6)}
-.card:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-.thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:#000}
-.thumb img,.thumb video{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.card:hover .thumb img,.card:hover .thumb video{transform:scale(1.07)}
-.thumb .badge{position:absolute;left:12px;top:12px;font-family:var(--kr);font-size:12px;font-weight:700;padding:3px 9px;border-radius:5px;background:rgba(13,15,20,.8);color:var(--yellow);border:1px solid rgba(255,218,76,.4)}
-.thumb .play-ic{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;background:rgba(163,92,255,.9);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(6px);transition:all .25s}
-.card:hover .play-ic{opacity:1;transform:none}
-.meta-line{padding:9px 18px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--faint);background:rgba(0,0,0,.12)}
-.card-body{padding:18px 18px 20px;display:flex;flex-direction:column;flex:1}
-.cat{color:var(--teal);font-size:14px;margin-bottom:4px}
-.card h3{font-family:var(--kr);color:var(--yellow);font-size:21px;font-weight:700;margin:0 0 10px;line-height:1.35}
-.card p{font-family:var(--kr);font-size:14px;line-height:1.75;color:#c7c1cc;margin:0 0 16px;flex:1}
-.btns{display:flex;flex-wrap:wrap;gap:8px}
-.btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:6px 12px;border-radius:6px;background:var(--bg3);color:#e6e1ea;border:1px solid transparent;transition:all .2s}
-.btn:hover{border-color:var(--teal);color:#fff}
-.btn.pri{background:rgba(163,92,255,.2);border-color:rgba(163,92,255,.5)}
-.btn.pri:hover{background:rgba(163,92,255,.35)}
-.btn svg{flex:0 0 auto}
+.tabs{display:inline-flex;gap:4px;padding:5px;border-radius:14px;background:var(--card);border:1px solid var(--line);margin-bottom:34px;flex-wrap:wrap}
+.tabs button{border:none;background:none;color:var(--muted);font-weight:700;font-size:14px;padding:9px 18px;border-radius:10px;cursor:pointer;transition:all .2s}
+.tabs button:hover{color:#fff}
+.tabs button.on{background:var(--grad);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{position:relative;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:var(--card);border:1px solid var(--line);cursor:pointer;transition:transform .3s,box-shadow .3s,border-color .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.45);border-color:var(--line2)}
+.card:focus-visible{outline:3px solid var(--c1);outline-offset:3px}
+.card.featured{grid-column:1/-1;flex-direction:row}
+.card .img{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
+.card.featured .img{flex:0 0 58%;aspect-ratio:auto;height:420px}
+.card.featured .img img{position:absolute;inset:0}
+.card .img img,.card .img video{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card:hover .img img,.card:hover .img video{transform:scale(1.06)}
+.card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(12,13,17,.75))}
+.card.featured .img::after{background:linear-gradient(90deg,transparent 60%,rgba(23,26,33,1))}
+.badge{position:absolute;z-index:2;left:16px;top:16px;font-size:12.5px;font-weight:800;padding:5px 11px;border-radius:999px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.15)}
+.badge.hot{background:var(--grad);border-color:transparent}
+.playbtn{position:absolute;z-index:2;right:16px;bottom:16px;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);color:#111;display:flex;align-items:center;justify-content:center;transform:scale(.85);opacity:.9;transition:transform .25s,opacity .25s}
+.card:hover .playbtn{transform:scale(1);opacity:1}
+.c-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+.card.featured .c-body{padding:40px 40px 36px;justify-content:center}
+.c-meta{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:6px}
+.card h3{margin:0 0 10px;font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
+.card.featured h3{font-size:36px}
+.card p{margin:0 0 18px;font-size:15px;color:var(--text2);line-height:1.75;flex:1}
+.card.featured p{flex:0;font-size:16.5px}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.stack span{font-size:12.5px;font-weight:600;color:var(--text2);background:var(--card2);border:1px solid var(--line2);padding:3px 10px;border-radius:999px}
+.more{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--c1)}
+.card:hover .more svg{transform:translateX(4px)}
+.more svg{transition:transform .2s}
 
 /* contact */
-.contact{max-width:760px;margin:0 auto}
-.contact .editor .code{white-space:pre-wrap}
-.contact-btns{display:flex;justify-content:center;gap:12px;margin-top:30px;flex-wrap:wrap}
-footer{padding:30px 0 40px;text-align:center;color:var(--faint);font-size:13px;border-top:1px solid #262a35}
+.contact-band{position:relative;border-radius:32px;overflow:hidden;padding:72px 56px;background:radial-gradient(600px 300px at 90% 0%,rgba(255,77,141,.35),transparent 70%),radial-gradient(500px 300px at 0% 100%,rgba(76,201,240,.2),transparent 70%),var(--card);border:1px solid var(--line2)}
+.contact-band h2{margin:0 0 14px;font-size:44px;font-weight:900;letter-spacing:-.03em;line-height:1.25}
+.contact-band p{margin:0 0 34px;font-size:18px;color:var(--text2);max-width:620px}
+.c-links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.c-link{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:16px;background:rgba(12,13,17,.6);border:1px solid var(--line2);transition:border-color .2s,transform .2s}
+.c-link:hover{border-color:var(--c1);transform:translateY(-3px)}
+.c-link .ic{flex:0 0 44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--grad);color:#fff}
+.c-link small{display:block;font-size:12px;color:var(--muted)}
+.c-link b{font-size:15px;word-break:break-all}
+footer{padding:36px 0 50px;text-align:center;color:var(--muted);font-size:13px}
 
-/* reveal */
-.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
 
-/* ================= project detail page ================= */
+/* ================= detail ================= */
 .detail{display:none}
 body.show-detail .home{display:none}
 body.show-detail .detail{display:block}
-.d-top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:12px 24px;background:rgba(23,26,34,.92);backdrop-filter:blur(10px);border-bottom:1px solid #262a35;font-size:14px}
-.back{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:6px;color:var(--dim);cursor:pointer;background:none}
-.back:hover{border-color:var(--teal);color:#fff}
-.d-path{color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.d-path b{color:var(--yellow);font-weight:500}
-.d-hero{position:relative;height:420px;overflow:hidden}
-.d-hero img{width:100%;height:100%;object-fit:cover;filter:saturate(1.1)}
-.d-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,33,43,.15) 0%,rgba(29,33,43,.55) 55%,var(--bg) 100%)}
-.d-hero .wrap{position:absolute;left:0;right:0;bottom:30px;z-index:2}
-.d-cat{color:var(--teal);font-size:15px}
-.d-title{font-family:var(--kr);font-weight:900;font-size:54px;color:#fff;margin:2px 0 10px;line-height:1.1;letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.d-hero{position:relative;min-height:520px;display:flex;align-items:flex-end;overflow:hidden}
+.d-bg{position:absolute;inset:0}
+.d-bg img{width:100%;height:100%;object-fit:cover;filter:blur(2px) saturate(1.1);transform:scale(1.04)}
+.d-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,13,17,.35),rgba(12,13,17,.7) 55%,var(--bg))}
+.d-hero .wrap{position:relative;z-index:1;width:100%;padding-top:90px;padding-bottom:40px}
+.back{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:9px 16px;border-radius:999px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.15);cursor:pointer;backdrop-filter:blur(8px);position:absolute;top:24px;left:44px}
+.back:hover{border-color:var(--c1)}
+.d-kicker{font-weight:700;color:var(--c1);font-size:15px;margin-bottom:6px}
+.d-title{margin:0 0 16px;font-size:64px;font-weight:900;letter-spacing:-.04em;line-height:1.05}
 .d-tags{display:flex;flex-wrap:wrap;gap:8px}
-.chip{font-family:var(--kr);font-size:13px;padding:3px 11px;border-radius:999px;background:rgba(13,15,20,.65);border:1px solid var(--line);color:#e6e1ea}
-.chip.y{border-color:rgba(255,218,76,.5);color:var(--yellow)}
-.chip.t{border-color:rgba(11,232,198,.5);color:var(--teal)}
-.chip.p{border-color:rgba(163,92,255,.6);color:#cfb2ff}
-.d-body{padding-top:30px;padding-bottom:100px}
-.d-grid{display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:start}
-.video{position:relative;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.35)}
-.video.vertical{aspect-ratio:auto;height:600px;max-height:78vh;display:flex;justify-content:center;background:#0d0f14}
-.video.vertical iframe{width:min(100%,calc(min(600px,78vh) * 9 / 16));height:100%}
-.video iframe,.video video{width:100%;height:100%;border:0;display:block;background:#000}
-.info{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:22px}
-.info h4{margin:0 0 14px;font-family:var(--head);color:#fff;font-size:17px}
-.info dl{margin:0;display:grid;grid-template-columns:76px 1fr;gap:10px 10px;font-size:14px}
-.info dt{color:var(--faint)}
-.info dd{margin:0;font-family:var(--kr);color:#e6e1ea;line-height:1.6}
-.info .btns{margin-top:18px}
-.role-box{margin-top:16px;background:rgba(163,92,255,.1);border:1px solid rgba(163,92,255,.35);border-radius:10px;padding:14px 16px;font-family:var(--kr);font-size:14px;line-height:1.75}
-.role-box b{display:block;color:#cfb2ff;font-family:var(--mono);font-weight:500;margin-bottom:4px}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0 10px}
-.kpi{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px 18px;position:relative;overflow:hidden}
-.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c,var(--teal))}
-.kpi b{display:block;font-family:var(--kr);font-weight:900;font-size:22px;color:#fff;line-height:1.3}
-.kpi span{font-family:var(--kr);font-size:13px;color:var(--dim)}
-.d-sec{margin-top:64px}
-.d-h{display:flex;align-items:baseline;gap:12px;margin:0 0 22px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.d-h .no{color:var(--purple);font-size:15px}
-.d-h h3{font-family:var(--head);font-size:28px;color:#fff;margin:0;font-weight:700}
-.d-h h3 small{font-family:var(--kr);font-size:16px;color:var(--dim);font-weight:500;margin-left:6px}
-.overview{font-family:var(--kr);font-size:16.5px;line-height:1.95;color:#d7d1db}
-.overview p{margin:0 0 14px}
-.feat{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;align-items:center;padding:26px 0}
-.feat + .feat{border-top:1px dashed var(--line)}
-.feat:nth-child(even) .feat-img{order:2}
-.feat-img{border-radius:12px;overflow:hidden;background:#0f1117;border:1px solid var(--line);aspect-ratio:16/10;display:flex;align-items:center;justify-content:center}
-.feat-img img{width:100%;height:100%;object-fit:cover}
-.feat-img.contain img{object-fit:contain;padding:10px}
-.feat-img.tall img{object-fit:contain}
-.feat-no{font-family:var(--head);font-size:44px;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--purple);line-height:1}
-.feat h4{font-family:var(--kr);font-size:21px;color:var(--yellow);margin:8px 0 10px;line-height:1.4}
-.feat p{font-family:var(--kr);font-size:15.5px;line-height:1.9;margin:0;color:#d0cad5}
-.feat .tagline{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.feat .tagline span{font-size:12.5px;color:var(--teal);background:rgba(11,232,198,.08);border:1px solid rgba(11,232,198,.25);padding:1px 8px;border-radius:4px}
-.trouble{background:var(--bg2);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:26px}
-.tr-head{display:flex;align-items:center;gap:12px;padding:18px 24px;background:linear-gradient(90deg,rgba(255,107,107,.16),transparent 70%);border-bottom:1px solid var(--line)}
-.tr-head .ic{width:36px;height:36px;border-radius:9px;background:rgba(255,107,107,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 36px}
-.tr-head h4{margin:0;font-family:var(--kr);font-size:18px;color:#fff;line-height:1.45}
-.tr-body{padding:8px 24px 22px}
-.step{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid rgba(54,60,75,.6)}
-.step:last-child{border-bottom:none}
-.lbl{align-self:start;justify-self:start;font-size:13px;font-weight:700;padding:3px 10px;border-radius:5px;letter-spacing:.04em;font-family:var(--kr)}
-.l-sit{background:rgba(90,169,255,.16);color:var(--blue)}
-.l-cause{background:rgba(255,159,67,.16);color:var(--orange)}
-.l-sol{background:rgba(95,211,141,.16);color:var(--green)}
-.l-res{background:rgba(255,218,76,.16);color:var(--yellow)}
-.l-learn{background:rgba(163,92,255,.18);color:#cfb2ff}
-.step .v{font-family:var(--kr);font-size:15.5px;line-height:1.85;color:#d7d1db}
-.step .v p{margin:0}
-.step .v ul{margin:0;padding-left:18px}
-.step .v li{margin:3px 0}
-.step .v li::marker{color:var(--green)}
-.step .v figure{margin:12px 0 0;border-radius:10px;overflow:hidden;background:#0f1117;border:1px solid var(--line)}
-.step .v figure img{margin:0 auto;max-height:300px;padding:10px}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.gallery button{padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#000;cursor:zoom-in;aspect-ratio:16/10}
-.gallery button.tall{aspect-ratio:9/14}
-.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.gallery button:hover img{transform:scale(1.06)}
-.pn{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:80px}
-.pn button{display:flex;align-items:center;gap:14px;text-align:left;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;transition:border-color .2s}
-.pn button:hover{border-color:var(--purple)}
-.pn button.next{flex-direction:row-reverse;text-align:right}
-.pn img{width:96px;height:60px;object-fit:cover;border-radius:6px}
-.pn small{display:block;color:var(--faint);font-size:12px}
-.pn b{font-family:var(--kr);color:var(--yellow);font-size:16px}
-.lightbox{border:none;padding:0;background:transparent;max-width:92vw;max-height:92vh}
-.lightbox::backdrop{background:rgba(0,0,0,.85)}
-.lightbox img{max-width:92vw;max-height:88vh;border-radius:8px}
-.to-top{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;background:var(--purple);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(163,92,255,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.d-tags span{font-size:13.5px;font-weight:700;padding:5px 13px;border-radius:999px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px)}
+.d-tags span.hot{background:var(--grad);border-color:transparent}
+.d-body{padding-bottom:120px}
+.d-grid{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
+.video{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--line2);box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.video.vertical{aspect-ratio:auto;height:620px;max-height:80vh;display:flex;justify-content:center;background:radial-gradient(circle at 50% 30%,#2a1d2b,#0c0d11)}
+.video.vertical iframe{width:min(100%,calc(min(620px,80vh) * 9 / 16));height:100%}
+.video iframe,.video video{display:block;width:100%;height:100%;border:0;background:#000}
+.info{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
+.info dl{margin:0;display:grid;gap:14px}
+.info dl div{display:grid;grid-template-columns:64px 1fr;gap:10px;font-size:14.5px}
+.info dt{color:var(--muted);font-weight:600}
+.info dd{margin:0;color:var(--text);line-height:1.6}
+.role{margin-top:20px;padding:16px;border-radius:14px;background:linear-gradient(135deg,rgba(255,138,61,.14),rgba(255,77,141,.08));border:1px solid rgba(255,138,61,.3);font-size:14.5px;line-height:1.75}
+.role b{display:block;color:var(--c1);margin-bottom:4px;font-size:13px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.lnk{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:13.5px;padding:8px 14px;border-radius:10px;background:var(--card2);border:1px solid var(--line2);transition:border-color .2s}
+.lnk:hover{border-color:var(--c1)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.kpi{border-radius:18px;padding:22px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:var(--c,var(--c1));opacity:.14}
+.kpi b{display:block;font-size:22px;font-weight:900;letter-spacing:-.02em;line-height:1.3;margin-bottom:4px}
+.kpi span{font-size:13.5px;color:var(--text2)}
+.d-sec{margin-top:96px}
+.d-h{margin:0 0 30px}
+.d-h small{display:block;font-family:var(--en);font-size:14px;font-weight:600;letter-spacing:.16em;color:var(--sky);text-transform:uppercase;margin-bottom:6px}
+.d-h h3{margin:0;font-size:34px;font-weight:900;letter-spacing:-.03em}
+.overview{display:grid;grid-template-columns:1fr 1fr;gap:28px;font-size:17px;color:var(--text2);line-height:1.95}
+.overview p{margin:0}
+.overview p:first-child{font-size:21px;color:#fff;font-weight:700;line-height:1.7}
+.feats{display:flex;flex-direction:column;gap:22px}
+.feat{display:grid;grid-template-columns:1.1fr 1fr;border-radius:24px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.feat:nth-child(even){grid-template-columns:1fr 1.1fr}
+.feat:nth-child(even) .f-img{order:2}
+.f-img{position:relative;min-height:300px;background:#08090c}
+.f-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.f-img.contain img{object-fit:contain;padding:16px}
+.f-img.tall img{object-fit:contain}
+.f-txt{padding:36px 38px;display:flex;flex-direction:column;justify-content:center}
+.f-no{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--grad);font-family:var(--en);font-weight:700;margin-bottom:16px}
+.f-txt h4{margin:0 0 12px;font-size:23px;font-weight:800;letter-spacing:-.02em;line-height:1.4}
+.f-txt p{margin:0 0 18px;font-size:15.5px;color:var(--text2);line-height:1.9}
+.f-tags{display:flex;flex-wrap:wrap;gap:6px}
+.f-tags span{font-size:12.5px;font-weight:700;color:var(--sky);background:rgba(76,201,240,.1);border:1px solid rgba(76,201,240,.25);padding:3px 10px;border-radius:999px}
+.trouble{border-radius:24px;overflow:hidden;background:var(--card);border:1px solid var(--line);margin-bottom:24px}
+.tr-top{padding:26px 30px;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:center;background:linear-gradient(90deg,rgba(255,77,141,.14),transparent 70%)}
+.tr-top .q{flex:0 0 auto;font-family:var(--en);font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--c2);border:1px solid rgba(255,77,141,.5);border-radius:8px;padding:4px 10px}
+.tr-top h4{margin:0;font-size:20px;font-weight:800;line-height:1.45}
+.tr-flow{display:grid;grid-template-columns:1fr 1fr}
+.tr-col{padding:26px 30px}
+.tr-col + .tr-col{border-left:1px solid var(--line)}
+.blk + .blk{margin-top:22px}
+.blk h5{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-size:14px;font-weight:800;letter-spacing:.02em}
+.blk h5 i{width:8px;height:8px;border-radius:50%}
+.blk p{margin:0;font-size:15.5px;line-height:1.85;color:var(--text2)}
+.blk ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.blk li{position:relative;padding-left:22px;font-size:15.5px;line-height:1.75;color:var(--text2)}
+.blk li::before{content:"✓";position:absolute;left:0;top:0;color:var(--lime);font-weight:900}
+.blk figure{margin:16px 0 0;border-radius:14px;overflow:hidden;background:#08090c;border:1px solid var(--line)}
+.blk figure img{margin:0 auto;max-height:280px;padding:12px}
+.res-box{margin:0 30px 26px;padding:18px 22px;border-radius:16px;background:linear-gradient(135deg,rgba(184,243,92,.12),rgba(76,201,240,.06));border:1px solid rgba(184,243,92,.3)}
+.res-box h5{margin:0 0 6px;font-size:14px;color:var(--lime);font-weight:800}
+.res-box p{margin:0;font-size:15.5px;line-height:1.85}
+.learn{margin:0 30px 28px;font-size:15px;line-height:1.85;color:var(--text2);padding-left:16px;border-left:3px solid var(--sky)}
+.learn b{color:var(--sky);margin-right:6px}
+.gallery{columns:3;column-gap:14px}
+.gallery button{display:block;width:100%;margin:0 0 14px;padding:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000;cursor:zoom-in;break-inside:avoid}
+.gallery img{width:100%;height:auto;transition:transform .5s}
+.gallery button:hover img{transform:scale(1.05)}
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:100px}
+.pn button{position:relative;height:180px;border-radius:22px;overflow:hidden;border:1px solid var(--line2);cursor:pointer;padding:0;text-align:left;background:#000}
+.pn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;transition:opacity .3s,transform .5s}
+.pn button:hover img{opacity:.7;transform:scale(1.05)}
+.pn span{position:absolute;left:26px;bottom:22px;right:26px}
+.pn button.next span{text-align:right}
+.pn small{display:block;font-family:var(--en);font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--text2)}
+.pn b{font-size:26px;font-weight:900;letter-spacing:-.02em}
+.lightbox{border:none;padding:0;background:transparent;max-width:94vw;max-height:94vh}
+.lightbox::backdrop{background:rgba(0,0,0,.88)}
+.lightbox img{max-width:94vw;max-height:90vh;border-radius:12px}
+.to-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:14px;background:var(--grad);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(255,77,141,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
 .to-top.show{opacity:1;pointer-events:auto}
 
 /* ================= responsive ================= */
-@media (max-width:1180px){ .grid{grid-template-columns:repeat(2,1fr)} .skills{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:1000px){
-  .side{transform:translateX(-100%);transition:transform .25s ease;box-shadow:0 0 50px rgba(0,0,0,.6)}
-  body.side-open .side{transform:none}
-  body.side-open .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:45}
+@media (max-width:1100px){
+  .skills{grid-template-columns:1fr 1fr}
+  .card.featured{flex-direction:column}
+  .card.featured .img{flex:none;aspect-ratio:16/9;height:auto}
+  .card.featured .img::after{background:linear-gradient(180deg,transparent 55%,rgba(12,13,17,.75))}
+  .card.featured .c-body{padding:24px}
+  .card.featured h3{font-size:28px}
+}
+@media (max-width:960px){
+  .rail{transform:translateX(-100%);transition:transform .25s ease;box-shadow:0 0 50px rgba(0,0,0,.6)}
+  body.side-open .rail{transform:none}
+  body.side-open .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:45}
   .menu-btn{display:flex}
   .main{margin-left:0}
-  .hero-grid{grid-template-columns:1fr}
-  .hero-side{order:-1}
+  .hero-in{grid-template-columns:1fr;gap:36px}
+  .player{max-width:300px;order:-1}
   .about{grid-template-columns:1fr}
-  .photo-card{max-width:300px}
+  .about-photo{max-width:320px}
   .d-grid{grid-template-columns:1fr}
+  .back{left:70px}
 }
 @media (max-width:720px){
-  .wrap{padding:0 16px}
-  section.sec{padding:80px 0}
-  .sec-h h2{font-size:30px}
-  .ed-body{font-size:13.5px}
-  .avatar{width:160px;height:160px}
-  .hero-name{font-size:38px}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .values,.resume,.awards,.skills,.grid{grid-template-columns:1fr}
-  .d-hero{height:300px}
-  .d-title{font-size:36px}
-  .kpis{grid-template-columns:1fr}
-  .feat{grid-template-columns:1fr;gap:16px}
-  .feat:nth-child(even) .feat-img{order:0}
-  .step{grid-template-columns:1fr;gap:8px}
-  .gallery{grid-template-columns:repeat(2,1fr)}
+  .wrap{padding:0 18px}
+  .hero{padding-top:76px}
+  .player{max-width:230px}
+  .hero h1{font-size:50px}
+  .hero h1 small{font-size:22px}
+  .hero .lead{font-size:16.5px}
+  .track a{width:220px}
+  section.sec{padding:84px 0}
+  .head .num{font-size:56px}
+  .head h2{font-size:32px}
+  .profile,.values,.skills,.resume,.awards,.grid,.c-links,.kpis,.overview{grid-template-columns:1fr}
+  .contact-band{padding:44px 24px;border-radius:24px}
+  .contact-band h2{font-size:30px}
+  .d-hero{min-height:420px}
+  .d-title{font-size:40px}
+  .back{left:70px;top:18px}
+  .feat,.feat:nth-child(even){grid-template-columns:1fr}
+  .feat:nth-child(even) .f-img{order:0}
+  .f-img{min-height:220px}
+  .f-txt{padding:24px}
+  .tr-flow{grid-template-columns:1fr}
+  .tr-col + .tr-col{border-left:none;border-top:1px solid var(--line)}
+  .tr-top,.tr-col{padding:22px}
+  .res-box,.learn{margin-left:22px;margin-right:22px}
+  .gallery{columns:2}
   .pn{grid-template-columns:1fr}
-  .d-top{padding:10px 64px 10px 16px}
-  .cta.ghost{margin-left:0;margin-top:10px}
+  .video.vertical{height:560px}
 }
 </style>
 </head>
@@ -308,30 +354,22 @@ body.show-detail .detail{display:block}
 
 <button class="menu-btn" id="menuBtn" type="button" aria-label="메뉴 열기"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
 
-<!-- ================= SIDEBAR ================= -->
-<aside class="side" id="side" aria-label="사이트 메뉴">
-  <div class="side-head">
-    <img src="assets/profile.jpg" alt="">
-    <div><b>최진모</b><small>Game Client Programmer</small></div>
-  </div>
-  <div class="side-body">
-    <div class="tree-label">Explorer</div>
-    <nav class="tree" id="tree">
-      <a href="#home" data-sec="home"><span class="ext cs">C#</span>Home.cs</a>
-      <a href="#about" data-sec="about"><span class="ext cs">C#</span>About.cs</a>
-      <a href="#skills" data-sec="skills"><span class="ext cs">C#</span>Skills.cs</a>
-      <a href="#resume" data-sec="resume"><span class="ext cs">C#</span>Resume.cs</a>
-      <a href="#awards" data-sec="awards"><span class="ext cs">C#</span>Awards.cs</a>
-      <a href="#portfolio" data-sec="portfolio"><span class="ext dir">▾</span>Portfolio/</a>
-      <div id="treeProjects"></div>
-      <a href="#contact" data-sec="contact"><span class="ext cs">C#</span>Contact.cs</a>
-    </nav>
-  </div>
-  <div class="side-foot">
-    <a href="https://github.com/lbiotitel" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
-    <a href="mailto:biotite135@naver.com"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Mail</a>
-  </div>
+<!-- ================= SIDE RAIL ================= -->
+<aside class="rail" id="rail" aria-label="사이트 메뉴">
+  <a class="rail-logo" href="#home" aria-label="맨 위로"><img src="assets/profile.jpg" alt=""></a>
+  <nav>
+    <a class="item" href="#home" data-sec="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>HOME</a>
+    <a class="item" href="#about" data-sec="about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>ABOUT</a>
+    <a class="item" href="#skills" data-sec="skills"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 9-12h-7z"/></svg>SKILLS</a>
+    <a class="item" href="#resume" data-sec="resume"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>RESUME</a>
+    <a class="item" href="#portfolio" data-sec="portfolio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4M15.5 12h.01M18 14h.01"/></svg>WORKS</a>
+    <div class="sep"></div>
+    <div class="projs" id="railProjects"></div>
+    <div class="sep"></div>
+    <a class="item" href="#contact" data-sec="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>CONTACT</a>
+  </nav>
 </aside>
+<div class="tip2" id="tip"></div>
 <div class="scrim" id="scrim"></div>
 
 <div class="main">
@@ -339,79 +377,69 @@ body.show-detail .detail{display:block}
 <div class="home">
 
   <header class="hero" id="home">
-    <div class="wrap hero-grid">
-      <div class="editor rv">
-        <div class="ed-bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="ed-tab">ChoiJinmo.cs</span></div>
-        <div class="ed-body"><div class="ln" id="lineNos"></div><div class="code" id="heroCode"><span class="k">using</span> <span class="t">UnityEngine</span>;
-<span class="k">using</span> <span class="t">Cysharp.Threading.Tasks</span>;
-
-<span class="k">public class</span> <span class="t">ChoiJinmo</span> : <span class="t">MonoBehaviour</span>
-{
-    [<span class="a">SerializeField</span>] <span class="k">string</span> role  = <span class="s">"Game Client Programmer"</span>;
-    [<span class="a">SerializeField</span>] <span class="k">string</span> motto = <span class="s">"팀을 지탱하는 기둥처럼"</span>;
-
-    <span class="k">async</span> <span class="t">UniTask</span> <span class="f">Start</span>()
-    {
-        <span class="k">await</span> <span class="f">Build</span>(<span class="s" id="typed"></span><span class="caret"></span>);
-    }
-}</div></div>
+    <div class="wrap hero-in">
+      <div class="rv">
+        <span class="hello"><i></i>Game Client Programmer</span>
+        <h1><small>팀을 지탱하는 기둥 같은 개발자,</small><span class="grad-text">최진모</span>입니다.</h1>
+        <p class="lead">Unity와 C#으로 게임 클라이언트를 만듭니다. 2인 팀의 팀장으로 <b>말랑 돌격대!</b>를 구글 플레이에 출시했고, 팀원이 데이터만 추가해도 기능이 늘어나는 구조를 고민합니다.</p>
+        <div class="chips">
+          <span class="chip"><img src="assets/logo/unity.svg" alt="" style="filter:invert(1)">Unity</span>
+          <span class="chip"><img src="assets/logo/csharp.svg" alt="">C#</span>
+          <span class="chip">⚡ UniTask</span>
+          <span class="chip">📦 Addressable</span>
+          <span class="chip">☁️ 뒤끝 서버</span>
+          <span class="chip"><img src="assets/logo/cpp.svg" alt="">C++</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn main-b" href="#portfolio">포트폴리오 보기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn line" href="https://github.com/lbiotitel" target="_blank" rel="noopener">GitHub</a>
+        </div>
       </div>
-      <div class="hero-side rv">
-        <div class="avatar"><img src="assets/profile.jpg" alt="최진모 프로필 사진"></div>
-        <h1 class="hero-name">최진모</h1>
-        <div class="hero-en">CHOI JIN-MO</div>
-        <span class="hero-role">Unity · C# · Client</span>
-        <div>
-          <a class="cta" href="#portfolio">Explore my portfolio <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="cta ghost" href="https://github.com/lbiotitel" target="_blank" rel="noopener">GitHub</a>
+      <div class="player rv">
+        <div class="player-in">
+          <img src="assets/profile.jpg" alt="최진모 프로필 사진">
+          <div class="player-cap"><span>PLAYER</span><b>CHOI JIN-MO</b><span class="lv">CLIENT</span></div>
         </div>
       </div>
     </div>
-    <div class="scroll-hint" aria-hidden="true">SCROLL ↓</div>
+    <div class="marquee" aria-label="프로젝트 장면">
+      <div class="track" id="track"></div>
+    </div>
   </header>
 
   <!-- ABOUT -->
   <section class="sec" id="about">
     <div class="wrap">
-      <div class="sec-h rv"><span class="rg"><b>#region</b> 01</span><h2>About</h2><span class="rg"><b>#endregion</b></span></div>
+      <div class="head rv"><span class="num">01</span><h2><span>소개</span>About Me</h2></div>
       <div class="about">
+        <div class="about-photo rv"><img src="assets/profile.jpg" alt="최진모 프로필 사진"></div>
         <div class="rv">
-<pre class="decl"><span class="k">var</span> me = <span class="k">new</span> <span class="t">Developer</span>
-{
-    Name     = <span class="s">"최진모"</span>,
-    Role     = <span class="s">"Game Client Programmer"</span>,
-    Email    = <span class="s">"biotite135@naver.com"</span>,
-    Location = <span class="s">"Daejeon, Korea"</span>,
-    GitHub   = <span class="s">"github.com/lbiotitel"</span>
-};</pre>
-          <h3 class="h-yellow">About myself</h3>
-          <p>“팀을 지탱하는 기둥처럼” 맡은 역할에 책임을 다하고, 팀원들과 함께 더 나은 결과를 만들어가는 게임 클라이언트 프로그래머 최진모입니다.</p>
-          <p>작은 프로젝트부터 하나씩 끝까지 만들어 보면서 실력을 쌓았고, 2인 팀의 팀장으로 <b>말랑 돌격대!</b>를 구글 플레이에 출시했습니다. 팀원이 코드 수정 없이 데이터만 추가해도 기능이 늘어나는 구조, 매니저 초기화 순서와 리소스 해제처럼 눈에 잘 띄지 않지만 프로젝트를 지탱하는 부분을 중요하게 생각합니다.</p>
+          <h3>맡은 역할에 책임을 다하고,<br>팀과 함께 더 나은 결과를 만듭니다.</h3>
+          <p>작은 프로젝트부터 하나씩 끝까지 만들어 보면서 실력을 쌓았습니다. 60시간 목표로 만든 강아지 자동 배급기에서 시작해 3주짜리 졸업 작품, 4인 팀 프로젝트, 그리고 2인 팀의 팀장으로 <b>말랑 돌격대!</b>를 구글 플레이에 출시하기까지 점점 더 긴 프로젝트에 도전해 왔습니다.</p>
+          <p>매니저 초기화 순서와 리소스 해제처럼 눈에 잘 띄지 않지만 프로젝트를 지탱하는 부분, 그리고 팀원이 코드 수정 없이 데이터만 추가해도 기능이 늘어나는 구조를 중요하게 생각합니다.</p>
+          <div class="profile">
+            <div class="pf"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><div><small>이름</small><b>최진모</b></div></div>
+            <div class="pf"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4"/></svg></span><div><small>지원 분야</small><b>게임 클라이언트 개발</b></div></div>
+            <div class="pf"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><small>이메일</small><b>biotite135@naver.com</b></div></div>
+            <div class="pf"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><small>지역</small><b>대전</b></div></div>
+          </div>
           <div class="values">
-            <div class="value"><h4>🔨 꾸준함과 끈기로 끝까지 완성</h4><p>60시간짜리 배급기에서 3주 졸업 작품, 그리고 출시까지 점점 긴 프로젝트에 도전했습니다.</p></div>
-            <div class="value"><h4>🤝 신뢰를 바탕으로 소통</h4><p>말보다 프로토타입과 근거로 제안하고, 팀원의 강점을 인정하며 역할을 나눕니다.</p></div>
+            <div class="value"><h4>🔨 꾸준함과 끈기로 끝까지 완성합니다</h4><p>처음부터 기능을 많이 넣으려다 완성하지 못한 경험이 있어, 필수 기능부터 짧게 끝까지 만드는 습관을 들였습니다.</p></div>
+            <div class="value"><h4>🤝 신뢰를 바탕으로 소통합니다</h4><p>말로만 하지 않고 프로토타입과 근거를 함께 보여주며 제안하고, 팀원의 강점을 인정하며 역할을 나눕니다.</p></div>
           </div>
         </div>
-        <figure class="photo-card rv"><img src="assets/profile.jpg" alt="최진모 프로필 사진"><figcaption>// Unity Client Developer</figcaption></figure>
-      </div>
-      <div class="stats rv">
-        <div class="stat"><b style="color:var(--yellow)">1</b><span>구글 플레이 출시작</span></div>
-        <div class="stat"><b style="color:var(--teal)">4</b><span>Unity 팀 프로젝트</span></div>
-        <div class="stat"><b style="color:#cfb2ff">2</b><span>수상 (최우수상)</span></div>
-        <div class="stat"><b style="color:var(--pink)">4</b><span>보유 자격증</span></div>
       </div>
     </div>
   </section>
 
   <!-- SKILLS -->
-  <section class="sec alt" id="skills">
+  <section class="sec" id="skills" style="background:var(--bg2)">
     <div class="wrap">
-      <div class="sec-h rv"><span class="rg"><b>#region</b> 02</span><h2>Skills</h2><span class="rg"><b>#endregion</b></span></div>
+      <div class="head rv"><span class="num">02</span><h2><span>기술 스택</span>Skills</h2></div>
       <div class="skills">
-        <div class="skill rv"><div class="logos"><img src="assets/logo/unity.svg" alt="Unity" style="filter:invert(1)"><img src="assets/logo/csharp.svg" alt="C#"></div><h3>Game Engine</h3><p class="main-s">Unity / C#</p><ul><li>ScriptableObject 데이터 설계</li><li>Addressable 리소스 관리</li><li>UniTask 비동기 · DOTween 연출</li></ul></div>
-        <div class="skill rv"><div class="logos"><img src="assets/logo/nodejs.svg" alt="Node.js"></div><h3>Server</h3><p class="main-s">뒤끝 / Node.js</p><ul><li>뒤끝(BACKND) 서버 연동</li><li>트랜잭션 저장 · 롤백</li><li>Express REST API 구현</li></ul></div>
-        <div class="skill rv"><div class="logos"><img src="assets/logo/cpp.svg" alt="C++"><img src="assets/logo/arduino.svg" alt="Arduino"></div><h3>Languages</h3><p class="main-s">C++ / MFC</p><ul><li>MFC 응용 프로그램</li><li>멀티스레드 · mutex 동기화</li><li>아두이노 시리얼 통신</li></ul></div>
-        <div class="skill rv"><div class="logos"><img src="assets/logo/git.svg" alt="Git"><img src="assets/logo/github.svg" alt="GitHub" style="filter:invert(1)"></div><h3>Collaboration</h3><p class="main-s">Git / Unity VCS</p><ul><li>Unity Version Control 팀 관리</li><li>Git 개인 프로젝트 관리</li><li>AI로 설계 검증 · 문서화</li></ul></div>
+        <div class="skill rv"><div class="skill-top"><div class="logos"><span><img src="assets/logo/unity.svg" alt="Unity"></span><span><img src="assets/logo/csharp.svg" alt="C#"></span></div><h3>Unity / C#<small>주력 개발 환경</small></h3></div><ul><li>ScriptableObject·SerializeReference로 데이터 기반 설계</li><li>Addressable로 씬 단위 리소스 로드·해제</li><li>UniTask로 로딩·서버 통신 흐름 제어</li><li>DOTween으로 UI·카드 연출</li></ul></div>
+        <div class="skill rv"><div class="skill-top"><div class="logos"><span style="font-size:24px">☁️</span></div><h3>뒤끝 서버<small>BACKND</small></h3></div><ul><li>구글 로그인, 유저 데이터, 차트, 우편, 랭킹 연동</li><li>바뀐 데이터만 저장하는 dirty 기반 저장 구조</li><li>트랜잭션 저장과 스냅샷 롤백</li><li>서버 에러를 이벤트 하나로 통합 처리</li></ul></div>
+        <div class="skill rv"><div class="skill-top"><div class="logos"><span><img src="assets/logo/cpp.svg" alt="C++"></span><span><img src="assets/logo/git.svg" alt="Git"></span></div><h3>C++ · 협업<small>MFC · Git · Unity VCS</small></h3></div><ul><li>MFC 응용 프로그램, 멀티스레드와 mutex 동기화</li><li>아두이노 시리얼 통신</li><li>Unity Version Control로 팀 프로젝트 관리</li><li>AI를 설계 검증과 문서 정리에 활용</li></ul></div>
       </div>
     </div>
   </section>
@@ -419,78 +447,61 @@ body.show-detail .detail{display:block}
   <!-- RESUME -->
   <section class="sec" id="resume">
     <div class="wrap">
-      <div class="sec-h rv"><span class="rg"><b>#region</b> 03</span><h2>Resume</h2><span class="rg"><b>#endregion</b></span></div>
+      <div class="head rv"><span class="num">03</span><h2><span>학력 · 자격증 · 수상</span>Resume</h2></div>
       <div class="resume">
-        <div class="rv">
-          <h3 class="col-h">Education</h3>
-          <div class="tl">
-            <div class="tl-item"><h4>대전보건대학교 전공심화과정</h4><span class="tl-date">2025.03 - 2026.02</span><p>컴퓨터정보학과 학사 학위</p><p class="st">Graduate</p></div>
-            <div class="tl-item"><h4>대전보건대학교</h4><span class="tl-date">2018.03 - 2025.02</span><p>컴퓨터정보학과 전문학사 (휴학 포함)</p><p class="st">Graduate</p></div>
-          </div>
+        <div class="r-box rv">
+          <h3><span class="ic">🎓</span>학력</h3>
+          <div class="r-item"><span class="yr">2025 - 2026</span><div><b>대전보건대학교 전공심화과정</b><span>컴퓨터정보학과 · 학사 졸업</span></div></div>
+          <div class="r-item"><span class="yr">2018 - 2025</span><div><b>대전보건대학교</b><span>컴퓨터정보학과 · 전문학사 졸업 (휴학 포함)</span></div></div>
         </div>
-        <div class="rv">
-          <h3 class="col-h">Certificates</h3>
-          <div class="tl">
-            <div class="tl-item"><h4>정보처리기사</h4><span class="tl-date">2025</span><p>한국산업인력공단</p></div>
-            <div class="tl-item"><h4>정보처리산업기사</h4><span class="tl-date">2021</span><p>한국산업인력공단</p></div>
-            <div class="tl-item"><h4>컴퓨터활용능력 1급</h4><span class="tl-date">2020</span><p>대한상공회의소</p></div>
-            <div class="tl-item"><h4>정보처리기능사</h4><span class="tl-date">2019</span><p>한국산업인력공단</p></div>
-          </div>
+        <div class="r-box rv">
+          <h3><span class="ic">📜</span>자격증</h3>
+          <div class="r-item"><span class="yr">2025</span><div><b>정보처리기사</b><span>한국산업인력공단</span></div></div>
+          <div class="r-item"><span class="yr">2021</span><div><b>정보처리산업기사</b><span>한국산업인력공단</span></div></div>
+          <div class="r-item"><span class="yr">2020</span><div><b>컴퓨터활용능력 1급</b><span>대한상공회의소</span></div></div>
+          <div class="r-item"><span class="yr">2019</span><div><b>정보처리기능사</b><span>한국산업인력공단</span></div></div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- AWARDS -->
-  <section class="sec alt" id="awards">
-    <div class="wrap">
-      <div class="sec-h rv"><span class="rg"><b>#region</b> 04</span><h2>Awards</h2><span class="rg"><b>#endregion</b></span></div>
       <div class="awards">
-        <div class="award rv"><div class="medal" aria-hidden="true">🏆</div><div><h4>졸업 작품 최우수상</h4><div class="org">대전보건대학교 · 2024.11</div><p>MFC와 아두이노로 만든 작은 스마트 공장 <b>Tiny Factory</b></p></div></div>
-        <div class="award rv"><div class="medal" aria-hidden="true">🥇</div><div><h4>학과 최우수상</h4><div class="org">대전보건대학교 · 2025.02</div><p>학과 성적 1위</p></div></div>
+        <div class="award rv"><span class="tro" aria-hidden="true">🏆</span><div><b>졸업 작품 최우수상</b><span>대전보건대학교 · 2024.11 · Tiny Factory</span></div></div>
+        <div class="award rv"><span class="tro" aria-hidden="true">🥇</span><div><b>학과 최우수상</b><span>대전보건대학교 · 2025.02 · 학과 성적 1위</span></div></div>
       </div>
     </div>
   </section>
 
   <!-- PORTFOLIO -->
-  <section class="sec" id="portfolio">
+  <section class="sec" id="portfolio" style="background:var(--bg2)">
     <div class="wrap">
-      <div class="sec-h rv"><span class="rg"><b>#region</b> 05</span><h2>Portfolio</h2><span class="rg"><b>#endregion</b></span><p>카드를 누르면 플레이 영상, 핵심 개발, 문제 해결을 볼 수 있습니다.</p></div>
-      <div class="filters rv" id="filters">
-        <button class="on" data-f="all">ALL</button>
-        <button data-f="release">RELEASED</button>
-        <button data-f="team">TEAM PROJECT</button>
-        <button data-f="personal">PERSONAL</button>
+      <div class="head rv"><span class="num">04</span><h2><span>프로젝트</span>Works</h2></div>
+      <div class="tabs rv" id="tabs">
+        <button class="on" data-f="all">전체</button>
+        <button data-f="release">출시</button>
+        <button data-f="team">팀 프로젝트</button>
+        <button data-f="personal">개인 프로젝트</button>
       </div>
       <div class="grid" id="grid"></div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section class="sec alt" id="contact">
-    <div class="wrap contact">
-      <div class="sec-h rv"><span class="rg"><b>#region</b> 06</span><h2>Contact</h2><span class="rg"><b>#endregion</b></span></div>
-      <div class="editor rv">
-        <div class="ed-bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="ed-tab">Contact.cs</span></div>
-        <div class="ed-body"><div class="code"><span class="c">// 함께 일할 기회를 기다리고 있습니다.</span>
-<span class="t">Contact</span>.<span class="f">Send</span>(
-    to:     <span class="s">"biotite135@naver.com"</span>,
-    github: <span class="s">"github.com/lbiotitel"</span>,
-    blog:   <span class="s">"blog.naver.com/biotite135"</span>
-);</div></div>
-      </div>
-      <div class="contact-btns rv">
-        <a class="cta" href="mailto:biotite135@naver.com">✉ 메일 보내기</a>
-        <a class="cta ghost" href="https://github.com/lbiotitel" target="_blank" rel="noopener">GitHub</a>
-        <a class="cta ghost" href="https://blog.naver.com/biotite135" target="_blank" rel="noopener">Blog</a>
+  <section class="sec" id="contact">
+    <div class="wrap">
+      <div class="contact-band rv">
+        <h2>함께 게임을 만들<br>기회를 기다리고 있습니다.</h2>
+        <p>포트폴리오를 봐 주셔서 감사합니다. 궁금한 점이나 제안이 있으시면 편하게 연락 주세요.</p>
+        <div class="c-links">
+          <a class="c-link" href="mailto:biotite135@naver.com"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><small>Email</small><b>biotite135@naver.com</b></div></a>
+          <a class="c-link" href="https://github.com/lbiotitel" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg></span><div><small>GitHub</small><b>github.com/lbiotitel</b></div></a>
+          <a class="c-link" href="https://blog.naver.com/biotite135" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/></svg></span><div><small>Blog</small><b>알고리즘 풀이 기록</b></div></a>
+        </div>
       </div>
     </div>
   </section>
-  <footer>© 2026 Choi Jin-mo · Built with HTML &amp; CSS</footer>
+  <footer>© 2026 최진모 · Game Client Programmer</footer>
 </div>
 
 <!-- ================= DETAIL ================= -->
-<div class="detail" id="detail" aria-live="polite"></div>
+<div class="detail" id="detail"></div>
 </div>
 
 <dialog class="lightbox" id="lightbox"><img id="lbImg" alt=""></dialog>
@@ -502,17 +513,18 @@ body.show-detail .detail{display:block}
    ===================================================================== */
 var P = [
 {
-  id:'squishy', icon:'📱', name:'말랑 돌격대!', cat:'Unity · Mobile', filter:'release',
-  badge:'Google Play 출시', meta:'2026.07 - 2026.10 · 2인 (팀장)',
-  thumb:'assets/squishy2.png', thumbPos:'center 30%', hero:'assets/squishy2.png', heroPos:'center 32%',
-  summary:'유닛을 모아 6대6 자동전투로 35라운드를 진행하는 모바일 오토배틀러. 팀장으로 로비, 서버 연동, 데이터 구조를 맡아 구글 플레이에 출시했습니다.',
+  id:'squishy', name:'말랑 돌격대!', kicker:'Mobile · Auto Battler', filter:'release',
+  badge:'Google Play 출시', hot:true, meta:'2026.07 - 2026.10 · 2인 개발 (팀장)',
+  thumb:'assets/squishy2.png', thumbPos:'center 30%', hero:'assets/squishy2.png', heroPos:'center 30%', railImg:'assets/squishy2.png',
+  summary:'유닛을 모아 6대6 자동전투로 35라운드를 진행하는 모바일 오토배틀러입니다. 팀장으로 로비, 서버 연동, 데이터 저장 구조를 맡아 구글 플레이에 출시했습니다.',
+  stack:['Unity 2022.3','C#','뒤끝','UniTask','Addressable'],
   video:{yt:'y16HKZqZzsU', vertical:true},
-  tags:[['y','Google Play 출시'],['t','Unity 2022.3'],['p','뒤끝 서버'],['','Android']],
+  tags:[['hot','Google Play 출시'],['','Unity'],['','Android'],['','2인 · 팀장']],
   info:[['기간','2026.07 - 2026.10'],['인원','2인 개발 (팀장)'],['장르','유닛 수집형 오토배틀러'],['플랫폼','Android (Google Play)'],['기술','Unity 2022.3, C#, 뒤끝(BACKND), UniTask, Addressable']],
   role:'로비 UI, 뒤끝 서버 연동, 전역 매니저 구조, 데이터 모델 설계, 아티팩트 시스템, 출시 작업',
   links:[['Google Play','https://play.google.com/store/apps/details?id=com.TinyTeams.SquishyRush&hl=ko'],['GitHub','https://github.com/lbiotitel/SquishyRush'],['YouTube','https://www.youtube.com/shorts/y16HKZqZzsU']],
-  kpis:[['Google Play 출시','2인 팀 팀장으로 런칭까지','var(--yellow)'],['서버 호출 8회 → 1회','바뀐 테이블만 저장','var(--teal)'],['저장 누락 3건 수정','dirty 추적 + AI 교차 검토','var(--purple)']],
-  overview:['유닛을 모아 배치하고 6대6 자동전투로 35라운드를 진행하는 모바일 오토배틀러입니다. 2인으로 개발했고, 팀장을 맡아 로비와 메타 시스템, 서버 연동, 데이터 저장 구조를 설계하고 구글 플레이 출시까지 진행했습니다.','화면 전환 시 리소스 로드와 해제, 서버 데이터의 비동기 처리, 팝업과 시트 UI를 나눠 관리하는 구조를 중점적으로 작업했습니다.'],
+  kpis:[['Google Play 출시','2인 팀 팀장으로 런칭까지','var(--c1)'],['서버 호출 8회 → 1회','바뀐 테이블만 저장','var(--sky)'],['저장 누락 3건 수정','dirty 추적 + AI 교차 검토','var(--lime)']],
+  overview:['팀장으로 기획부터 구글 플레이 출시까지 끝까지 책임진 첫 상용 프로젝트입니다.','유닛을 모아 배치하고 6대6 자동전투로 35라운드를 진행하는 모바일 오토배틀러입니다. 로비와 메타 시스템, 서버 연동, 데이터 저장 구조를 설계했고, 화면 전환 시 리소스 로드와 해제, 서버 데이터의 비동기 처리, 팝업과 시트 UI를 나눠 관리하는 구조를 중점적으로 작업했습니다.'],
   features:[
     {t:'전역 매니저 구조와 재시작 처리', img:'assets/yt/squishy-hq1.jpg', fit:'tall', d:'모든 매니저를 먼저 생성한 뒤 Initialize / Release로 순서대로 초기화와 해제를 해서 매니저끼리 서로 참조해도 null이 나지 않게 했습니다. 재시작 시에는 빈 씬을 거쳐 씬·리소스 해제 → 매니저 재초기화 → 타이틀 순서를 보장했고, 씬 전환은 빌더 패턴으로 묶었습니다.', k:['GlobalManagers','Initialize / Release','Builder Pattern']},
     {t:'시트 · 팝업 UI 프레임워크', img:'assets/squishy.png', fit:'tall', d:'팝업은 화면 위에 쌓이고 시트는 화면을 교체하기 때문에 각각 별도의 컨테이너로 관리해, 화면마다 동작을 따로 구현하지 않아도 되게 했습니다. 모든 UI는 BaseUI를 상속하고 OpenUI<T>()로 열며, 닫힌 UI는 파괴하지 않고 풀링해서 재사용합니다.', k:['SheetContainer','PopUpContainer','UI Pooling']},
@@ -530,22 +542,23 @@ var P = [
      cause:'세 단계가 하나로 묶이지 않고 따로 처리돼, 중간에 실패하면 앞 단계를 되돌릴 방법이 없었습니다.',
      sol:['확률은 뒤끝 서버 확률표에서 받아와 클라이언트 조작을 막고, 앱 업데이트 없이 확률 변경','로컬 반영 전에 재화와 유닛·아티팩트 데이터의 스냅샷을 만들고, 두 테이블을 하나의 트랜잭션으로 저장','저장 실패나 예외가 나면 스냅샷으로 롤백하고 에러 이벤트 알림, 결과 UI는 저장 성공 후에만 표시','뒤끝 SDK 호출(GachaBackEnd)과 게임 규칙(GachaService)을 분리'],
      res:'저장이 실패해도 재화와 결과가 어긋나지 않고, 유저는 실패한 가챠 결과를 보지 않게 되었습니다. 네트워크가 불안정해도 성공과 실패 처리가 명확해졌습니다.',
-     learn:'재화 차감 값은 클라이언트가 계산하므로 메모리 변조까지는 막지 못합니다. 이후에는 서버 코드(뒤끝 펑션)에서 추첨, 차감, 지급을 한 번에 처리하는 것이 목표입니다.', learnLabel:'한계·개선'}
+     learn:'재화 차감 값은 클라이언트가 계산하므로 메모리 변조까지는 막지 못합니다. 이후에는 서버 코드(뒤끝 펑션)에서 추첨, 차감, 지급을 한 번에 처리하는 것이 목표입니다.', learnLabel:'한계와 개선'}
   ],
-  gallery:[['assets/squishy2.png',1],['assets/squishy.png',1],['assets/yt/squishy-hq1.jpg',1],['assets/yt/squishy-hq2.jpg',1],['assets/yt/squishy-hq3.jpg',1]]
+  gallery:['assets/squishy2.png','assets/yt/squishy-hq1.jpg','assets/squishy.png','assets/yt/squishy-hq2.jpg','assets/yt/squishy-hq3.jpg']
 },
 {
-  id:'abyss', icon:'⚔️', name:'Abyss', cat:'Unity · PC', filter:'team',
-  badge:'Team Project', meta:'2026.06 - 2026.07 · 3인',
+  id:'abyss', name:'Abyss', kicker:'PC · Action', filter:'team',
+  badge:'Team Project', meta:'2026.06 - 2026.07 · 3인 팀',
   thumb:'assets/abyss.png', hero:'assets/yt/abyss-maxresdefault.jpg',
   summary:'심연을 탐험하며 몬스터와 싸우는 액션 게임. 언리얼 GAS를 참고한 스킬 효과 시스템, 스탯, 무기 FSM, 격자 인벤토리를 만들었습니다.',
+  stack:['Unity','C#','SerializeReference','UniTask'],
   video:{yt:'fS3M2WcU6ik'},
-  tags:[['t','Team Project'],['p','Unity'],['','PC'],['','Action']],
+  tags:[['hot','Team Project'],['','Unity'],['','PC'],['','3인']],
   info:[['기간','2026.06 - 2026.07'],['인원','3인 팀 프로젝트'],['장르','탐험 액션'],['플랫폼','PC'],['기술','Unity, C#, ScriptableObject, SerializeReference, UniTask']],
   role:'스킬·효과 시스템, 스탯 시스템, 무기 FSM, 격자 인벤토리, 장비 장착(MVC)',
   links:[['GitHub','https://github.com/lbiotitel/Abyss'],['YouTube','https://youtu.be/fS3M2WcU6ik']],
-  kpis:[['스킬 10종 중 6종','코드 수정 없이 효과 조합으로 추가','var(--teal)'],['언리얼 GAS 구조 참고','Ability · Effect · Attribute 분리','var(--purple)'],['장비 스탯 어긋남 0','수정자 + dirty 재계산','var(--yellow)']],
-  overview:['심연을 탐험하며 몬스터와 싸우고 보물을 얻어 영지를 발전시키는 액션 게임입니다.','언리얼 GAS의 데이터 구조를 참고해 스킬과 아이템 효과를 코드 수정 없이 데이터만으로 조합할 수 있게 만들었고, 장비를 바꿀 때마다 달라지는 스탯이 어긋나지 않도록 계산 구조도 따로 설계했습니다.'],
+  kpis:[['스킬 10종 중 6종','코드 수정 없이 효과 조합으로 추가','var(--sky)'],['언리얼 GAS 구조 참고','Ability · Effect · Attribute 분리','var(--c2)'],['장비 스탯 어긋남 0','수정자 + dirty 재계산','var(--lime)']],
+  overview:['스킬과 아이템 효과를 코드가 아닌 데이터로 조합하는 구조를 만든 프로젝트입니다.','심연을 탐험하며 몬스터와 싸우고 보물을 얻어 영지를 발전시키는 액션 게임입니다. 언리얼 GAS의 데이터 구조를 참고해 효과를 독립시켰고, 장비를 바꿀 때마다 달라지는 스탯이 어긋나지 않도록 계산 구조도 따로 설계했습니다.'],
   features:[
     {t:'스탯 시스템', img:'assets/yt/abyss-hq1.jpg', d:'스탯 값을 직접 바꾸지 않고 기본값에 수정자 리스트를 적용해 계산했습니다. 바뀌었을 때만 다시 계산하고(dirty 플래그), HP·MP는 최대값 변경 이벤트를 구독해 장비를 바꿔도 현재 값이 어긋나지 않게 했습니다. 장비를 해제하면 출처가 같은 수정자만 제거합니다.', k:['ModifierStat','ResourceStat','Dirty Cache']},
     {t:'FSM 기반 무기, 패링', img:'assets/abyss-weapon.jpg', d:'공격, 패링, 대기를 FSM 상태로 나눠 진입, 종료, 전환 조건을 관리하고, 애니메이션 이벤트로 타격 판정과 패링 성공 구간을 맞췄습니다. 무기별 애니메이션은 WeaponMotionData로 분리해 새 무기를 FSM 코드 수정 없이 추가할 수 있습니다.', k:['FSM','Animation Event','WeaponMotionData']},
@@ -560,20 +573,21 @@ var P = [
      res:'새 스킬은 기존 효과를 조합해 만들 수 있게 됐고, 같은 효과 리스트를 포션에도 그대로 붙였습니다. 전체 스킬 10종 중 6종은 코드 수정 없이 기존 효과 조합으로 추가했습니다.',
      learn:'Not Hero 카드에서 썼던 효과 조합 방식을 GAS 구조와 비교하며 스킬 전체로 넓힐 수 있었습니다. 상태이상일 때만 추가 데미지가 들어가는 식의 조건부 효과는 아직 처리하지 못해 다음에 보완하고 싶습니다.'}
   ],
-  gallery:[['assets/yt/abyss-maxresdefault.jpg'],['assets/yt/abyss-hq2.jpg'],['assets/yt/abyss-hq3.jpg'],['assets/abyss.png'],['assets/abyss-weapon.jpg'],['assets/abyss-inventory.png']]
+  gallery:['assets/yt/abyss-maxresdefault.jpg','assets/abyss-weapon.jpg','assets/yt/abyss-hq2.jpg','assets/abyss-inventory.png','assets/yt/abyss-hq3.jpg','assets/abyss.png']
 },
 {
-  id:'figureout', icon:'🔫', name:'Figure Out', cat:'Unity · PC', filter:'team',
-  badge:'Team Project', meta:'2026.05 - 2026.06 · 4인',
+  id:'figureout', name:'Figure Out', kicker:'PC · Looter Shooter', filter:'team',
+  badge:'Team Project', meta:'2026.05 - 2026.06 · 4인 팀',
   thumb:'assets/figureout.png', hero:'assets/yt/figureout-maxresdefault.jpg',
   summary:'장비를 루팅하며 총격전에서 살아남는 생존 액션. Addressable 데이터 관리, 박싱 없는 이벤트, 씬 전환, 퀘스트·장비 시스템을 맡았습니다.',
+  stack:['Unity','C#','Addressable','UniTask'],
   video:{yt:'t1ltyD3_bxM'},
-  tags:[['t','Team Project'],['p','Unity'],['','PC'],['','Looter Shooter']],
+  tags:[['hot','Team Project'],['','Unity'],['','PC'],['','4인']],
   info:[['기간','2026.05 - 2026.06'],['인원','4인 팀 프로젝트'],['장르','루트 슈터 생존 액션'],['플랫폼','PC'],['기술','Unity, C#, Addressable, UniTask, ScriptableObject']],
   role:'데이터 관리(Addressable), 이벤트 매니저, 씬 컨트롤, 퀘스트, 인벤토리, 장비 시스템',
   links:[['GitHub','https://github.com/lbiotitel/FigureOut'],['YouTube','https://youtu.be/t1ltyD3_bxM']],
-  kpis:[['Resources → Addressable','경로 대신 키로 로드','var(--teal)'],['박싱 없는 이벤트','구조체 + 제네릭 제약','var(--purple)'],['데이터만으로 퀘스트 추가','코드 수정 없이 확장','var(--yellow)']],
-  overview:['장비를 루팅하면서 적과 총격전을 벌이는 생존 액션 게임입니다.','이전 프로젝트(Not Hero)에서 쓰던 Resources 로드를 Addressable로, object 기반 이벤트를 박싱 없는 제네릭 이벤트로 바꿨습니다. 또 팀원이 데이터만 추가하면 새 퀘스트와 아이템이 생기도록 만드는 것을 목표로 했습니다.'],
+  kpis:[['Resources → Addressable','경로 대신 키로 로드','var(--sky)'],['박싱 없는 이벤트','구조체 + 제네릭 제약','var(--c2)'],['데이터만으로 퀘스트 추가','코드 수정 없이 확장','var(--lime)']],
+  overview:['이전 프로젝트의 아쉬운 구조를 직접 개선해 본 프로젝트입니다.','장비를 루팅하면서 적과 총격전을 벌이는 생존 액션 게임입니다. Not Hero에서 쓰던 Resources 로드를 Addressable로, object 기반 이벤트를 박싱 없는 제네릭 이벤트로 바꿨고, 팀원이 데이터만 추가하면 새 퀘스트와 아이템이 생기도록 만드는 것을 목표로 했습니다.'],
   features:[
     {t:'박싱 없는 이벤트 매니저', img:'assets/fo-event.png', fit:'contain', d:'지난 프로젝트의 이벤트는 매개변수가 object라 박싱 오버헤드가 있고 어떤 타입이 오는지 알 수 없었습니다. IEventData 제네릭 제약과 구조체 이벤트 데이터로 바꿔 박싱을 없애고 정확한 매개변수 타입을 받게 했습니다.', k:['IEventData','struct','Generic']},
     {t:'Bootstrap 씬 + Additive 씬 컨트롤', img:'assets/fo-scene.png', fit:'contain', d:'DontDestroyOnLoad로 매니저를 유지하면 해제 시점을 계속 신경 써야 했습니다. Bootstrap 씬을 먼저 쌓고 게임 씬을 Additive로 올리는 구조와 빌더 패턴(Fade, 언로드, 데이터 로드, 씬 로드 순)으로 바꿨고, 에디터에서 어떤 씬을 실행해도 Bootstrap을 먼저 불러와 팀원이 자기 씬에서 바로 테스트할 수 있게 했습니다.', k:['Bootstrap','Additive Scene','Builder']},
@@ -587,20 +601,21 @@ var P = [
      res:'에셋 경로 변경에 따른 코드 수정이 사라졌고, 씬마다 필요한 에셋만 로드·해제할 수 있게 되었습니다.',
      learn:'Not Hero에서는 팀원 숙련도와 일정 때문에 일부러 Resources를 골랐는데, 내부 구현만 바꾸면 되도록 캡슐화해 둔 덕분에 바깥 코드는 거의 그대로 두고 교체할 수 있었습니다.'}
   ],
-  gallery:[['assets/yt/figureout-maxresdefault.jpg'],['assets/yt/figureout-hq1.jpg'],['assets/yt/figureout-hq2.jpg'],['assets/yt/figureout-hq3.jpg'],['assets/figureout.png'],['assets/fo-quest.jpg']]
+  gallery:['assets/yt/figureout-maxresdefault.jpg','assets/fo-quest.jpg','assets/yt/figureout-hq1.jpg','assets/yt/figureout-hq2.jpg','assets/figureout.png','assets/yt/figureout-hq3.jpg']
 },
 {
-  id:'nothero', icon:'🃏', name:'Not Hero', cat:'Unity · PC', filter:'team',
-  badge:'Team Project', meta:'2026.03 - 2026.04 · 4인',
+  id:'nothero', name:'Not Hero', kicker:'PC · Deckbuilding Roguelike', filter:'team',
+  badge:'Team Project', meta:'2026.03 - 2026.04 · 4인 팀',
   thumb:'assets/nothero.png', hero:'assets/yt/nothero-maxresdefault.jpg',
   summary:'파티의 덱을 꾸려 랜덤 맵을 나아가는 덱빌딩 로그라이크. 카드 데이터 구조, 절차적 맵 생성, 매니저·이벤트 구조를 맡았습니다.',
+  stack:['Unity','C#','ScriptableObject','DOTween'],
   video:{yt:'ChbWpCXmwUg'},
-  tags:[['t','Team Project'],['p','Unity'],['','PC'],['','Roguelike']],
+  tags:[['hot','Team Project'],['','Unity'],['','PC'],['','4인']],
   info:[['기간','2026.03 - 2026.04'],['인원','4인 팀 프로젝트'],['장르','덱빌딩 로그라이크'],['플랫폼','PC'],['기술','Unity, C#, ScriptableObject, DOTween']],
   role:'카드 시스템, 절차적 맵 생성, 매니저, 이벤트, 데이터 관리, 상점, 오브젝트 풀링',
   links:[['GitHub','https://github.com/lbiotitel/Not-Hero'],['YouTube','https://www.youtube.com/watch?v=ChbWpCXmwUg']],
-  kpis:[['효과 조합형 카드','인스펙터에서 효과만 골라 생성','var(--teal)'],['절차적 맵 생성','보스까지 경로 보장','var(--purple)'],['드로우 누락 0','큐 기반 연출 처리','var(--yellow)']],
-  overview:['덱을 구성해서 무작위로 생성된 맵을 진행하는 덱빌딩 로그라이크입니다. 카드가 곧 스킬이기 때문에, 카드가 늘어나도 코드 수정 없이 추가하고 조합할 수 있는 데이터 구조와 드로우 연출을 주로 작업했습니다.','여러 명이 동시에 기능을 붙이는 상황이라 매니저 초기화 순서를 직접 잡고 이벤트 매니저를 둬서 서로의 코드를 직접 참조하지 않아도 되게 했습니다.'],
+  kpis:[['효과 조합형 카드','인스펙터에서 효과만 골라 생성','var(--sky)'],['절차적 맵 생성','보스까지 경로 보장','var(--c2)'],['드로우 누락 0','큐 기반 연출 처리','var(--lime)']],
+  overview:['카드가 늘어나도 코드를 고치지 않는 구조를 처음 설계해 본 팀 프로젝트입니다.','덱을 구성해서 무작위로 생성된 맵을 진행하는 덱빌딩 로그라이크입니다. 카드 데이터 구조와 드로우 연출을 주로 작업했고, 여러 명이 동시에 기능을 붙이는 상황이라 매니저 초기화 순서를 직접 잡고 이벤트 매니저로 서로의 코드를 직접 참조하지 않게 했습니다.'],
   features:[
     {t:'효과를 조합해 만드는 카드 데이터 구조', img:'assets/nh-card.png', fit:'contain', d:'CardEffect 추상 클래스를 상속한 효과(데미지, 드로우 등)를 [SerializeReference] 리스트로 조합해, 새 카드는 인스펙터에서 효과만 골라 만들 수 있게 했습니다. 카드 설명도 효과 값을 키워드로 자동 생성합니다.', k:['CardEffect','SerializeReference','Keyword']},
     {t:'절차적 맵 생성', img:'assets/nh-map.jpg', d:'트리 형태의 노드를 무작위로 연결하되 이웃 노드의 경로와 교차하는지 검사하고, 모든 시작 지점에서 보스까지 경로가 있도록 보장했습니다. 방 종류를 가중치로 정해 매번 다른 맵을 경험할 수 있습니다.', k:['Procedural','Graph','Weighted Random']},
@@ -615,20 +630,21 @@ var P = [
      res:'드로우 요청이 연속으로 들어와도 누락 없이 순서대로 연출과 로직이 처리되었습니다.',
      learn:'연출이 들어간 로직은 요청 시점과 실제 실행 시점이 다를 수 있어서, 큐로 순서를 관리해야 한다는 걸 알게 됐습니다.'}
   ],
-  gallery:[['assets/yt/nothero-maxresdefault.jpg'],['assets/yt/nothero-hq1.jpg'],['assets/yt/nothero-hq3.jpg'],['assets/nothero.png'],['assets/nh-map.jpg'],['assets/nh-card.png']]
+  gallery:['assets/yt/nothero-maxresdefault.jpg','assets/nh-map.jpg','assets/yt/nothero-hq1.jpg','assets/nh-card.png','assets/yt/nothero-hq3.jpg','assets/nothero.png']
 },
 {
-  id:'factory', icon:'🏭', name:'Tiny Factory', cat:'C++ · MFC · Arduino', filter:'personal',
+  id:'factory', name:'Tiny Factory', kicker:'C++ · MFC · Arduino', filter:'personal',
   badge:'졸업 작품 최우수상', meta:'2024.11 · 3주 · 2인',
   thumb:'assets/yt/factory-maxresdefault.jpg', hero:'assets/yt/factory-maxresdefault.jpg',
   summary:'카메라로 물체를 인식해 정상품과 불량품을 분류하는 작은 스마트 공장. MFC 프로그램으로 컨베이어, 로봇팔, 운반차를 제어합니다.',
+  stack:['C++','MFC','OpenCV','Arduino'],
   video:{yt:'Ssp9-5lVbss'},
-  tags:[['y','졸업 작품 최우수상'],['t','C++ / MFC'],['p','Arduino'],['','OpenCV YOLO']],
+  tags:[['hot','졸업 작품 최우수상'],['','C++ / MFC'],['','Arduino'],['','2인']],
   info:[['기간','2024.11 (3주)'],['인원','2인 (후배와 함께)'],['구분','졸업 작품'],['기술','C++, MFC, OpenCV (YOLO), Arduino, 시리얼 통신, HTTP']],
   role:'MFC 관제 프로그램, 장치 시리얼 통신, 스레드 구조 (AI 학습은 팀원 담당)',
   links:[['GitHub','https://github.com/lbiotitel/TinyFactory'],['YouTube','https://www.youtube.com/watch?v=Ssp9-5lVbss']],
-  kpis:[['졸업 작품 최우수상','3주 만에 2인으로 완성','var(--yellow)'],['장치 4개 스레드 분리','카메라 · 인식 · 컨베이어 · 로봇팔','var(--teal)'],['3종 객체 인식','정상 · 모양 불량 · 색상 불량','var(--purple)']],
-  overview:['카메라로 물체를 인식해 정상품과 불량품을 분류하는 작은 스마트 공장입니다. 3D 프린터로 실제로 움직이는 공장을 만들고, MFC로 만든 프로그램이 컨베이어 벨트, 로봇팔, 운반차를 제어합니다.','정상품은 컨베이어를 지나 로봇팔이 정상 위치로 옮기고, 모양이나 색상이 다른 불량품은 밀어낸 뒤 운반차가 출발합니다.'],
+  kpis:[['졸업 작품 최우수상','3주 만에 2인으로 완성','var(--gold)'],['장치 4개 스레드 분리','카메라 · 인식 · 컨베이어 · 로봇팔','var(--sky)'],['3종 객체 인식','정상 · 모양 불량 · 색상 불량','var(--c2)']],
+  overview:['소프트웨어와 하드웨어를 직접 연결해 실제로 움직이는 공장을 만든 졸업 작품입니다.','카메라로 물체를 인식해 정상품과 불량품을 분류합니다. 3D 프린터로 공장을 만들고 MFC 프로그램이 컨베이어 벨트, 로봇팔, 운반차를 제어하며, 불량품은 밀어낸 뒤 운반차가 출발합니다.'],
   features:[
     {t:'장치별 스레드 분리', img:'assets/yt/factory-hq1.jpg', d:'카메라 출력, YOLO 인식, 컨베이어 벨트, 로봇팔 통신을 각각 별도 스레드(AfxBeginThread)로 돌려 UI가 멈추지 않게 했습니다. 스레드에서 UI를 직접 건드리지 않고 PostMessage로 메인 다이얼로그에 결과를 알립니다.', k:['AfxBeginThread','PostMessage','MFC']},
     {t:'매니저 구조', img:'assets/yt/factory-hq2.jpg', d:'WorkManager가 인식 결과를 받아 컨베이어, 로봇팔, 운반차에 작업을 지시하고, DataManager는 정상품과 불량품 개수를 집계, LogManager는 작업 로그를 파일로 저장합니다.', k:['WorkManager','DataManager','LogManager']},
@@ -642,81 +658,87 @@ var P = [
      res:'전송 값이 섞이지 않고 장치가 정상 동작했고, 3주 안에 목표를 달성해 졸업 작품 최우수상을 받았습니다.',
      learn:'멀티스레드 환경의 문제를 하나씩 좁혀 가며 찾는 법과, 공유 자원을 보호하는 방법을 배웠습니다.'}
   ],
-  gallery:[['assets/yt/factory-maxresdefault.jpg'],['assets/yt/factory-hq1.jpg'],['assets/yt/factory-hq2.jpg'],['assets/yt/factory-hq3.jpg']]
+  gallery:['assets/yt/factory-maxresdefault.jpg','assets/yt/factory-hq1.jpg','assets/yt/factory-hq2.jpg','assets/yt/factory-hq3.jpg']
 },
 {
-  id:'toeic', icon:'📚', name:'TOEIC Management System', cat:'Desktop App', filter:'personal',
+  id:'toeic', name:'TOEIC Management System', kicker:'Desktop App', filter:'personal',
   badge:'Personal', meta:'개인 프로젝트',
-  thumbVideo:'assets/toeic.mp4#t=3',
+  thumbVideo:'assets/toeic.mp4#t=3', railIcon:'📚',
   summary:'토익 단어 공부를 도와주는 프로그램. 단어를 관리하며 공부하고, 친구와 함께 토익 단어 게임을 할 수 있습니다.',
+  stack:['Desktop App'],
   video:{mp4:'assets/toeic.mp4'},
-  tags:[['t','Personal'],['p','Desktop App']],
+  tags:[['hot','Personal'],['','Desktop App']],
   info:[['구분','개인 프로젝트'],['종류','데스크톱 프로그램']],
   role:'기획, 개발 전체',
   links:[],
-  overview:['토익 단어 공부를 도와주는 프로그램입니다.','단어를 관리하면서 공부할 수 있고, 친구와 함께 토익 단어 게임을 할 수 있습니다. 위 영상에서 실제 실행 화면을 볼 수 있습니다.']
+  overview:['공부하면서 불편했던 점을 직접 해결해 보려고 만든 프로그램입니다.','토익 단어를 관리하면서 공부할 수 있고, 친구와 함께 토익 단어 게임을 할 수 있습니다. 위 영상에서 실제 실행 화면을 볼 수 있습니다.']
 },
 {
-  id:'risa', icon:'🐶', name:'Risa Project MK.2', cat:'Arduino', filter:'personal',
+  id:'risa', name:'Risa Project MK.2', kicker:'Arduino', filter:'personal',
   badge:'Personal', meta:'60시간 목표 단기 프로젝트',
-  thumbVideo:'assets/risa.mp4#t=2',
+  thumbVideo:'assets/risa.mp4#t=2', railIcon:'🐶',
   summary:'시간을 맞추면 정해진 시간에 밥을 주는 강아지 자동 배급기. 아두이노로 60시간 안에 완성하는 것을 목표로 만들었습니다.',
+  stack:['Arduino'],
   video:{mp4:'assets/risa.mp4'},
-  tags:[['t','Personal'],['p','Arduino'],['y','60시간 목표']],
+  tags:[['hot','Personal'],['','Arduino'],['','60시간 목표']],
   info:[['구분','개인 프로젝트'],['기간','60시간 목표'],['기술','Arduino']],
   role:'기획, 하드웨어 조립, 개발 전체',
   links:[],
-  kpis:[['60시간 완성 목표','짧고 명확한 단기 개발','var(--yellow)'],['첫 아두이노 프로젝트','자료구조 지식으로 빠르게 적응','var(--teal)'],['다음 단계로','Tiny Factory 도전의 발판','var(--purple)']],
-  overview:['시간을 맞춰 두면 정해진 시간에 사료를 주는 강아지 자동 배급기입니다.','긴 프로젝트에서 지치고 집중력이 떨어지는 문제를 고치려고, 기능이 명확한 짧은 개발을 반복하기로 하고 60시간 안에 완성하는 것을 목표로 만들었습니다. 아두이노는 처음이었지만 공부해 둔 자료구조를 활용해 원하는 기능을 빠르게 구현하며 적응할 수 있었고, 이 경험을 발판으로 더 긴 프로젝트인 Tiny Factory에 도전했습니다.']
+  kpis:[['60시간 완성 목표','짧고 명확한 단기 개발','var(--c1)'],['첫 아두이노 프로젝트','자료구조 지식으로 빠르게 적응','var(--sky)'],['다음 단계로','Tiny Factory 도전의 발판','var(--lime)']],
+  overview:['끝까지 완성하는 습관을 만들기 위해 시작한 단기 프로젝트입니다.','시간을 맞춰 두면 정해진 시간에 사료를 주는 강아지 자동 배급기입니다. 긴 프로젝트에서 지치는 문제를 고치려고 60시간 안에 완성하는 것을 목표로 만들었고, 처음 다뤄 본 아두이노도 공부해 둔 자료구조를 활용해 빠르게 적응할 수 있었습니다. 이 경험을 발판으로 Tiny Factory에 도전했습니다.']
 }
 ];
 
 /* =====================================================================
-   렌더링
+   공통
    ===================================================================== */
-var ICON_GH = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>';
-var ICON_YT = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.02V8.98L15.5 12z"/></svg>';
-var ICON_PLAY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
-var ICON_STORE = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1zm11.6 11.6 2.6 2.6-11.2 6.4 8.6-9zm3.9-3.9 3 1.7c.8.5.8 1.6 0 2.1l-3 1.7-2.9-2.9 2.9-2.6zM6.6 1.6l11.2 6.4-2.6 2.6-8.6-9z"/></svg>';
-
+var ICON_GH = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>';
+var ICON_YT = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.02V8.98L15.5 12z"/></svg>';
+var ICON_STORE = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1zm11.6 11.6 2.6 2.6-11.2 6.4 8.6-9zm3.9-3.9 3 1.7c.8.5.8 1.6 0 2.1l-3 1.7-2.9-2.9 2.9-2.6zM6.6 1.6l11.2 6.4-2.6 2.6-8.6-9z"/></svg>';
+var ICON_PLAY = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+var ICON_ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function linkBtn(l){
-  var ic = l[0]==='GitHub' ? ICON_GH : l[0]==='YouTube' ? ICON_YT : ICON_STORE;
-  return '<a class="btn" href="'+esc(l[1])+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'+ic+esc(l[0])+'</a>';
-}
+function lnk(l){ var ic = l[0]==='GitHub'?ICON_GH:l[0]==='YouTube'?ICON_YT:ICON_STORE; return '<a class="lnk" href="'+esc(l[1])+'" target="_blank" rel="noopener">'+ic+esc(l[0])+'</a>'; }
+
+/* 히어로 장면 띠 */
+var shots = ['assets/yt/abyss-maxresdefault.jpg','assets/squishy2.png','assets/yt/figureout-maxresdefault.jpg','assets/yt/nothero-maxresdefault.jpg','assets/yt/factory-maxresdefault.jpg','assets/abyss-weapon.jpg','assets/nh-map.jpg','assets/fo-quest.jpg'];
+var shotLink = ['abyss','squishy','figureout','nothero','factory','abyss','nothero','figureout'];
+var trackHTML = shots.map(function(s,i){ return '<a href="#/'+shotLink[i]+'" tabindex="-1"><img src="'+s+'" alt="" loading="lazy"></a>'; }).join('');
+document.getElementById('track').innerHTML = trackHTML + trackHTML;
 
 /* 카드 */
 var grid = document.getElementById('grid');
-grid.innerHTML = P.map(function(p){
+grid.innerHTML = P.map(function(p,i){
   var media = p.thumbVideo
     ? '<video src="'+p.thumbVideo+'" muted playsinline preload="metadata" aria-hidden="true"></video>'
     : '<img src="'+p.thumb+'" alt="'+esc(p.name)+' 화면" loading="lazy" style="object-position:'+(p.thumbPos||'center')+'">';
-  return '<article class="card rv" tabindex="0" role="link" data-id="'+p.id+'" data-f="'+p.filter+'" aria-label="'+esc(p.name)+' 상세 보기">'
-    + '<div class="thumb">'+media+'<span class="badge">'+esc(p.badge)+'</span><span class="play-ic">'+ICON_PLAY+'</span></div>'
-    + '<div class="meta-line">'+esc(p.meta)+'</div>'
-    + '<div class="card-body"><div class="cat">'+esc(p.cat)+'</div><h3>'+p.icon+' '+esc(p.name)+'</h3><p>'+esc(p.summary)+'</p>'
-    + '<div class="btns"><span class="btn pri">'+ICON_PLAY+'영상 · 상세 보기</span>'+p.links.filter(function(l){return l[0]==='GitHub';}).map(linkBtn).join('')+'</div></div>'
-    + '</article>';
+  return '<article class="card rv'+(i===0?' featured':'')+'" tabindex="0" role="link" data-id="'+p.id+'" data-f="'+p.filter+'" aria-label="'+esc(p.name)+' 자세히 보기">'
+    + '<div class="img">'+media+'<span class="badge'+(p.hot?' hot':'')+'">'+esc(p.badge)+'</span><span class="playbtn">'+ICON_PLAY+'</span></div>'
+    + '<div class="c-body"><div class="c-meta">'+esc(p.kicker)+' · '+esc(p.meta)+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.summary)+'</p>'
+    + '<div class="stack">'+p.stack.map(function(s){return '<span>'+esc(s)+'</span>';}).join('')+'</div>'
+    + '<span class="more">영상과 개발 내용 보기 '+ICON_ARROW+'</span></div></article>';
 }).join('');
 grid.querySelectorAll('.card').forEach(function(c){
   c.addEventListener('click', function(){ location.hash = '#/' + c.dataset.id; });
   c.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); location.hash = '#/' + c.dataset.id; } });
 });
 
-/* 사이드바 프로젝트 목록 */
-document.getElementById('treeProjects').innerHTML = P.map(function(p){
-  return '<a class="sub" href="#/'+p.id+'" data-proj="'+p.id+'"><span class="ext cs">'+p.icon+'</span>'+esc(p.name)+'</a>';
-}).join('');
+/* 탭 필터 */
+var tabs = document.querySelectorAll('#tabs button');
+tabs.forEach(function(b){ b.addEventListener('click', function(){
+  tabs.forEach(function(x){ x.classList.toggle('on', x===b); });
+  grid.querySelectorAll('.card').forEach(function(c){ c.style.display = (b.dataset.f==='all'||c.dataset.f===b.dataset.f)?'':'none'; });
+}); });
 
-/* 필터 */
-var fbtns = document.querySelectorAll('#filters button');
-fbtns.forEach(function(b){
-  b.addEventListener('click', function(){
-    fbtns.forEach(function(x){ x.classList.toggle('on', x===b); });
-    grid.querySelectorAll('.card').forEach(function(c){
-      c.style.display = (b.dataset.f==='all' || c.dataset.f===b.dataset.f) ? '' : 'none';
-    });
-  });
+/* 레일 프로젝트 썸네일 */
+var tip = document.getElementById('tip');
+document.getElementById('railProjects').innerHTML = P.map(function(p){
+  var inner = p.railIcon ? '<span style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;background:var(--card2);font-size:20px">'+p.railIcon+'</span>' : '<img src="'+(p.railImg||p.thumb)+'" alt="">';
+  return '<div class="proj"><a href="#/'+p.id+'" data-proj="'+p.id+'" data-name="'+esc(p.name)+'" aria-label="'+esc(p.name)+'">'+inner+'</a></div>';
+}).join('');
+document.querySelectorAll('.proj a').forEach(function(a){
+  a.addEventListener('mouseenter', function(){ var r = a.getBoundingClientRect(); tip.textContent = a.dataset.name; tip.style.top = (r.top + r.height/2 - 13) + 'px'; tip.style.opacity = 1; });
+  a.addEventListener('mouseleave', function(){ tip.style.opacity = 0; });
 });
 
 /* 상세 페이지 */
@@ -727,49 +749,39 @@ function videoHTML(v){
 }
 function renderDetail(p){
   var i = P.indexOf(p), prev = P[(i-1+P.length)%P.length], next = P[(i+1)%P.length];
-  var heroImg = p.hero || p.thumb;
-  var h = '';
-  h += '<div class="d-top"><button class="back" type="button" data-back>← 목록으로</button><span class="d-path">Portfolio / <b>'+esc(p.name)+'</b></span></div>';
-  if(heroImg){
-    h += '<div class="d-hero"><img src="'+heroImg+'" alt="" style="object-position:'+(p.heroPos||'center')+'"><div class="wrap"><div class="d-cat">// '+esc(p.cat)+'</div><h1 class="d-title">'+p.icon+' '+esc(p.name)+'</h1><div class="d-tags">'+p.tags.map(function(t){return '<span class="chip '+t[0]+'">'+esc(t[1])+'</span>';}).join('')+'</div></div></div>';
-  } else {
-    h += '<div class="wrap" style="padding-top:50px"><div class="d-cat">// '+esc(p.cat)+'</div><h1 class="d-title">'+p.icon+' '+esc(p.name)+'</h1><div class="d-tags">'+p.tags.map(function(t){return '<span class="chip '+t[0]+'">'+esc(t[1])+'</span>';}).join('')+'</div></div>';
-  }
+  var bg = p.hero || p.thumb || 'assets/yt/abyss-maxresdefault.jpg';
+  var h = '<div class="d-hero"><div class="d-bg">'+(p.hero||p.thumb ? '<img src="'+bg+'" alt="" style="object-position:'+(p.heroPos||'center')+'">' : '<video src="'+p.video.mp4+'#t=2" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;filter:blur(3px)"></video>')+'</div>'
+    + '<button class="back" type="button" data-back>← 프로젝트 목록</button>'
+    + '<div class="wrap"><div class="d-kicker">'+esc(p.kicker)+'</div><h1 class="d-title">'+esc(p.name)+'</h1><div class="d-tags">'+p.tags.map(function(t){return '<span class="'+t[0]+'">'+esc(t[1])+'</span>';}).join('')+'</div></div></div>';
   h += '<div class="wrap d-body">';
-  h += '<div class="d-grid"><div>'+videoHTML(p.video)+'</div><aside class="info"><h4>Project Info</h4><dl>'+p.info.map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd>';}).join('')+'</dl>'
-     + '<div class="role-box"><b>// 담당</b>'+esc(p.role)+'</div>'
-     + (p.links.length ? '<div class="btns">'+p.links.map(linkBtn).join('')+'</div>' : '')
-     + '</aside></div>';
+  h += '<div class="d-grid">'+videoHTML(p.video)+'<aside class="info"><dl>'+p.info.map(function(r){return '<div><dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd></div>';}).join('')+'</dl>'
+     + '<div class="role"><b>담당 업무</b>'+esc(p.role)+'</div>'
+     + (p.links.length ? '<div class="links">'+p.links.map(lnk).join('')+'</div>' : '') + '</aside></div>';
   if(p.kpis) h += '<div class="kpis">'+p.kpis.map(function(k){return '<div class="kpi" style="--c:'+k[2]+'"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>';}).join('')+'</div>';
-  h += '<div class="d-sec"><div class="d-h"><span class="no">01</span><h3>Overview <small>개요</small></h3></div><div class="overview">'+p.overview.map(function(t){return '<p>'+esc(t)+'</p>';}).join('')+'</div></div>';
+  h += '<div class="d-sec"><div class="d-h"><small>Overview</small><h3>프로젝트 소개</h3></div><div class="overview">'+p.overview.map(function(t){return '<p>'+esc(t)+'</p>';}).join('')+'</div></div>';
   if(p.features){
-    h += '<div class="d-sec"><div class="d-h"><span class="no">02</span><h3>Key Development <small>핵심 개발</small></h3></div>';
-    h += p.features.map(function(f,n){
-      return '<div class="feat"><div class="feat-img '+(f.fit||'')+'"><img src="'+f.img+'" alt="'+esc(f.t)+'" loading="lazy"></div><div><div class="feat-no">0'+(n+1)+'</div><h4>'+esc(f.t)+'</h4><p>'+esc(f.d)+'</p><div class="tagline">'+f.k.map(function(x){return '<span>'+esc(x)+'</span>';}).join('')+'</div></div></div>';
-    }).join('');
-    h += '</div>';
+    h += '<div class="d-sec"><div class="d-h"><small>Key Development</small><h3>핵심 개발</h3></div><div class="feats">'
+      + p.features.map(function(f,n){ return '<div class="feat"><div class="f-img '+(f.fit||'')+'"><img src="'+f.img+'" alt="'+esc(f.t)+'" loading="lazy"></div><div class="f-txt"><span class="f-no">'+(n+1)+'</span><h4>'+esc(f.t)+'</h4><p>'+esc(f.d)+'</p><div class="f-tags">'+f.k.map(function(x){return '<span>'+esc(x)+'</span>';}).join('')+'</div></div></div>'; }).join('')
+      + '</div></div>';
   }
   if(p.troubles){
-    h += '<div class="d-sec"><div class="d-h"><span class="no">03</span><h3>Trouble Shooting <small>문제 해결</small></h3></div>';
-    h += p.troubles.map(function(t){
-      return '<div class="trouble"><div class="tr-head"><span class="ic" aria-hidden="true">🔥</span><h4>'+esc(t.t)+'</h4></div><div class="tr-body">'
-        + '<div class="step"><span class="lbl l-sit">상황</span><div class="v"><p>'+esc(t.sit)+'</p></div></div>'
-        + '<div class="step"><span class="lbl l-cause">원인</span><div class="v"><p>'+esc(t.cause)+'</p></div></div>'
-        + '<div class="step"><span class="lbl l-sol">해결</span><div class="v"><ul>'+t.sol.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>'+(t.img?'<figure><img src="'+t.img+'" alt="" loading="lazy"></figure>':'')+'</div></div>'
-        + '<div class="step"><span class="lbl l-res">결과</span><div class="v"><p>'+esc(t.res)+'</p></div></div>'
-        + '<div class="step"><span class="lbl l-learn">'+esc(t.learnLabel||'배운 점')+'</span><div class="v"><p>'+esc(t.learn)+'</p></div></div>'
-        + '</div></div>';
-    }).join('');
-    h += '</div>';
+    h += '<div class="d-sec"><div class="d-h"><small>Trouble Shooting</small><h3>문제 해결</h3></div>'
+      + p.troubles.map(function(t,n){
+        return '<div class="trouble"><div class="tr-top"><span class="q">ISSUE '+(n+1)+'</span><h4>'+esc(t.t)+'</h4></div>'
+          + '<div class="tr-flow"><div class="tr-col">'
+          + '<div class="blk"><h5><i style="background:var(--sky)"></i>상황</h5><p>'+esc(t.sit)+'</p></div>'
+          + '<div class="blk"><h5><i style="background:var(--c1)"></i>원인</h5><p>'+esc(t.cause)+'</p></div>'
+          + '</div><div class="tr-col"><div class="blk"><h5><i style="background:var(--lime)"></i>해결</h5><ul>'+t.sol.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>'+(t.img?'<figure><img src="'+t.img+'" alt="" loading="lazy"></figure>':'')+'</div></div></div>'
+          + '<div class="res-box"><h5>결과</h5><p>'+esc(t.res)+'</p></div>'
+          + '<p class="learn"><b>'+esc(t.learnLabel||'배운 점')+'</b>'+esc(t.learn)+'</p></div>';
+      }).join('') + '</div>';
   }
   if(p.gallery){
-    var no = p.troubles ? '04' : '02';
-    h += '<div class="d-sec"><div class="d-h"><span class="no">'+no+'</span><h3>Screenshots <small>스크린샷</small></h3></div><div class="gallery">'
-       + p.gallery.map(function(g){ return '<button type="button" class="'+(g[1]?'tall':'')+'" data-zoom="'+g[0]+'" aria-label="스크린샷 크게 보기"><img src="'+g[0]+'" alt="" loading="lazy"></button>'; }).join('')
-       + '</div></div>';
+    h += '<div class="d-sec"><div class="d-h"><small>Screenshots</small><h3>스크린샷</h3></div><div class="gallery">'
+      + p.gallery.map(function(g){ return '<button type="button" data-zoom="'+g+'" aria-label="스크린샷 크게 보기"><img src="'+g+'" alt="" loading="lazy"></button>'; }).join('') + '</div></div>';
   }
-  h += '<div class="pn"><button type="button" data-go="'+prev.id+'"><img src="'+(prev.hero||prev.thumb||'assets/profile.jpg')+'" alt=""><span><small>← PREV</small><b>'+esc(prev.name)+'</b></span></button>'
-     + '<button type="button" class="next" data-go="'+next.id+'"><img src="'+(next.hero||next.thumb||'assets/profile.jpg')+'" alt=""><span><small>NEXT →</small><b>'+esc(next.name)+'</b></span></button></div>';
+  h += '<div class="pn"><button type="button" data-go="'+prev.id+'">'+(prev.hero||prev.thumb?'<img src="'+(prev.hero||prev.thumb)+'" alt="">':'')+'<span><small>← PREV</small><b>'+esc(prev.name)+'</b></span></button>'
+     + '<button type="button" class="next" data-go="'+next.id+'">'+(next.hero||next.thumb?'<img src="'+(next.hero||next.thumb)+'" alt="">':'')+'<span><small>NEXT →</small><b>'+esc(next.name)+'</b></span></button></div>';
   h += '</div>';
   detail.innerHTML = h;
   detail.querySelector('[data-back]').addEventListener('click', function(){ location.hash = '#portfolio'; });
@@ -778,87 +790,54 @@ function renderDetail(p){
 }
 document.getElementById('lightbox').addEventListener('click', function(){ this.close(); });
 
-/* 라우팅: #/id = 상세, 그 외 = 홈 */
+/* 라우팅 */
 var body = document.body;
-function route(){
-  var h = location.hash;
-  body.classList.remove('side-open');
-  if(h.indexOf('#/') === 0){
-    var p = P.filter(function(x){ return x.id === h.slice(2); })[0];
-    if(p){
-      renderDetail(p); body.classList.add('show-detail');
-      document.title = p.name + ' | 최진모';
-      window.scrollTo(0,0); markTree(null, p.id); return;
-    }
-  }
-  var wasDetail = body.classList.contains('show-detail');
-  body.classList.remove('show-detail'); detail.innerHTML = '';
-  document.title = '최진모 | Game Client Programmer';
-  var el = h && document.getElementById(h.slice(1));
-  if(el){ if(wasDetail){ el.scrollIntoView({behavior:'instant'}); } }
-  else if(wasDetail){ window.scrollTo(0,0); }
-  revealAll(); onScroll();
-}
-window.addEventListener('hashchange', route);
-
-/* 사이드바 현재 위치 */
-var secLinks = document.querySelectorAll('#tree a[data-sec]');
-var projLinks = document.querySelectorAll('#tree a[data-proj]');
-function markTree(sec, proj){
+var secLinks = document.querySelectorAll('.rail a.item[data-sec]');
+var projLinks = document.querySelectorAll('.proj a');
+function mark(sec, proj){
   secLinks.forEach(function(a){ a.classList.toggle('on', a.dataset.sec === sec); });
   projLinks.forEach(function(a){ a.classList.toggle('on', a.dataset.proj === proj); });
 }
-var secIds = ['home','about','skills','resume','awards','portfolio','contact'];
+function route(){
+  var h = location.hash; body.classList.remove('side-open'); tip.style.opacity = 0;
+  if(h.indexOf('#/') === 0){
+    var p = P.filter(function(x){ return x.id === h.slice(2); })[0];
+    if(p){ renderDetail(p); body.classList.add('show-detail'); document.title = p.name + ' | 최진모'; window.scrollTo(0,0); mark(null, p.id); return; }
+  }
+  var was = body.classList.contains('show-detail');
+  body.classList.remove('show-detail'); detail.innerHTML = '';
+  document.title = '최진모 | Game Client Programmer';
+  var el = h && document.getElementById(h.slice(1));
+  if(was){ if(el) el.scrollIntoView({behavior:'instant'}); else window.scrollTo(0,0); }
+  reveal(); onScroll();
+}
+window.addEventListener('hashchange', route);
+
+var secIds = ['home','about','skills','resume','portfolio','contact'];
 var toTop = document.getElementById('toTop');
 function onScroll(){
-  toTop.classList.toggle('show', window.scrollY > 500);
+  toTop.classList.toggle('show', window.scrollY > 600);
   if(body.classList.contains('show-detail')) return;
-  var y = window.scrollY + window.innerHeight * 0.3, cur = 'home';
+  var y = window.scrollY + window.innerHeight*0.35, cur = 'home';
   secIds.forEach(function(id){ var el = document.getElementById(id); if(el && el.getBoundingClientRect().top + window.scrollY <= y) cur = id; });
-  markTree(cur, null);
+  mark(cur, null);
 }
 window.addEventListener('scroll', onScroll, {passive:true});
 toTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
 
-/* 모바일 메뉴 */
 document.getElementById('menuBtn').addEventListener('click', function(){ body.classList.toggle('side-open'); });
 document.getElementById('scrim').addEventListener('click', function(){ body.classList.remove('side-open'); });
-document.querySelectorAll('#side a').forEach(function(a){ a.addEventListener('click', function(){ body.classList.remove('side-open'); }); });
+document.querySelectorAll('.rail a').forEach(function(a){ a.addEventListener('click', function(){ body.classList.remove('side-open'); }); });
 
-/* 스크롤 등장 효과 */
-var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-}, {threshold:.12}) : null;
-function revealAll(){ document.querySelectorAll('.rv:not(.in)').forEach(function(el){ if(io) io.observe(el); else el.classList.add('in'); }); }
-
-/* 히어로 타이핑 */
-(function(){
-  var code = document.getElementById('heroCode');
-  var lines = code.textContent.split('\n').length, ln = '';
-  for(var i=1;i<=lines;i++) ln += i + '\n';
-  document.getElementById('lineNos').textContent = ln;
-  var words = ['"Game Client Programmer"','"말랑 돌격대! 출시"','"데이터로 확장되는 구조"','"팀을 지탱하는 기둥"'];
-  var el = document.getElementById('typed'), wi = 0, ci = 0, del = false;
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){ el.textContent = words[0]; return; }
-  (function tick(){
-    var w = words[wi];
-    el.textContent = w.slice(0, ci);
-    if(!del && ci < w.length){ ci++; setTimeout(tick, 70); }
-    else if(!del){ del = true; setTimeout(tick, 1600); }
-    else if(ci > 0){ ci--; setTimeout(tick, 30); }
-    else { del = false; wi = (wi+1) % words.length; setTimeout(tick, 300); }
-  })();
-})();
+var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, {threshold:.1}) : null;
+function reveal(){ document.querySelectorAll('.rv:not(.in)').forEach(function(el){ if(io) io.observe(el); else el.classList.add('in'); }); }
 
 route();
-/* 첫 진입 시 #about 같은 주소면 그 위치로 */
 if(location.hash && location.hash.indexOf('#/') !== 0){
   var first = document.getElementById(location.hash.slice(1));
   if(first) setTimeout(function(){ first.scrollIntoView({behavior:'instant'}); onScroll(); }, 50);
 }
-/* 등장 효과가 막혀도 내용은 보이도록 */
-setTimeout(function(){ document.querySelectorAll('.rv').forEach(function(el){ var r = el.getBoundingClientRect(); if(r.top < window.innerHeight) el.classList.add('in'); }); }, 1500);
+setTimeout(function(){ document.querySelectorAll('.rv').forEach(function(el){ if(el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in'); }); }, 1500);
 </script>
 </body>
 </html>
