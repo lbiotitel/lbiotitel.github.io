@@ -8,97 +8,105 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
 <style>
 :root{
-  --bg:#191919; --text:#f0efed; --muted:#9b9a97; --faint:#7d7c78;
-  --line:#2f2f2f; --hover:#2a2a2a; --card:#202020; --card-b:#2c2c2c; --box:#2b2b2b;
-  --green:#50946e; --blue:#387dc9; --callout:#1f2d3d;
+  --bg:#191919; --side:#202020; --text:#f0efed; --text2:#d3d2cf; --muted:#9b9a97; --faint:#7f7e7a;
+  --line:#2f2f2f; --hover:rgba(255,255,255,.055); --hover2:rgba(255,255,255,.085);
+  --green:#50946e; --blue:#387dc9; --callout:#252525; --blue-bg:#1f2b3a;
   --font: ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI Variable Display","Segoe UI",Helvetica,"Apple SD Gothic Neo","Malgun Gothic","Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol";
-  /* notion tag colors (dark) */
   --tg-green:rgba(45,153,100,.5); --tg-blue:rgba(40,110,180,.55); --tg-pink:rgba(180,60,120,.45);
   --tg-orange:rgba(200,110,30,.5); --tg-purple:rgba(130,80,190,.5); --tg-gray:rgba(120,120,120,.4);
   --pill-red:rgba(255,104,92,.24); --pill-blue:rgba(67,155,255,.24); --pill-green:rgba(76,200,120,.22);
+  --sidew:248px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:56px}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 img{display:block;max-width:100%}
 .u{text-decoration:underline;text-decoration-color:rgba(240,239,237,.35);text-underline-offset:3px}
 .u:hover{text-decoration-color:var(--text)}
 
-/* ---------- topbar ---------- */
-.topbar{position:sticky;top:0;z-index:20;height:45px;display:flex;align-items:center;justify-content:space-between;padding:0 12px 0 14px;background:rgba(25,25,25,.92);backdrop-filter:blur(8px)}
-.crumb{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--text);text-decoration:none;padding:3px 6px;border-radius:4px}
-.crumb:hover{background:var(--hover)}
-.top-actions{display:flex;align-items:center;gap:6px}
-.top-btn{font-size:14px;font-weight:500;padding:5px 10px;border-radius:6px;background:#2f2f2f;color:var(--text);text-decoration:none}
+/* ================= sidebar (notion app style) ================= */
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidew);background:var(--side);border-right:1px solid #2a2a2a;display:flex;flex-direction:column;z-index:40;font-size:14px;color:var(--text2)}
+.ws{display:flex;align-items:center;gap:8px;margin:8px 8px 4px;padding:6px 8px;border-radius:6px;text-decoration:none;color:var(--text)}
+.ws:hover{background:var(--hover)}
+.ws img{width:22px;height:22px;border-radius:4px;object-fit:cover;object-position:center 25%}
+.ws b{font-weight:600;font-size:14px}
+.ws small{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:-2px}
+.side-scroll{flex:1;overflow-y:auto;padding:6px 8px 16px}
+.side-label{font-size:12px;font-weight:500;color:var(--faint);padding:14px 8px 4px}
+.nav a{display:flex;align-items:center;gap:8px;height:30px;padding:0 8px;border-radius:6px;text-decoration:none;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav a:hover{background:var(--hover)}
+.nav a.on{background:var(--hover2);color:var(--text);font-weight:500}
+.nav .ic{flex:0 0 20px;text-align:center;font-size:15px}
+.nav .sub{padding-left:22px}
+.side-foot{border-top:1px solid #2a2a2a;padding:8px}
+.side-foot a{display:flex;align-items:center;gap:8px;height:30px;padding:0 8px;border-radius:6px;text-decoration:none;color:var(--muted)}
+.side-foot a:hover{background:var(--hover);color:var(--text)}
+
+/* ================= main ================= */
+.main{margin-left:var(--sidew);min-height:100vh}
+.topbar{position:sticky;top:0;z-index:30;height:45px;display:flex;align-items:center;gap:6px;padding:0 12px;background:rgba(25,25,25,.94);backdrop-filter:blur(8px)}
+.menu-btn{display:none;width:30px;height:30px;border:none;border-radius:6px;background:none;color:var(--text);cursor:pointer;align-items:center;justify-content:center}
+.menu-btn:hover{background:var(--hover)}
+.crumbs{display:flex;align-items:center;gap:4px;font-size:14px;min-width:0}
+.crumbs a,.crumbs span{padding:2px 6px;border-radius:4px;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumbs a:hover{background:var(--hover)}
+.crumbs .sep{color:var(--faint);padding:0}
+.top-right{margin-left:auto;display:flex;gap:6px}
+.top-btn{font-size:14px;font-weight:500;padding:4px 10px;border-radius:6px;background:#2f2f2f;color:var(--text);text-decoration:none;white-space:nowrap}
 .top-btn:hover{background:#383838}
 
-/* ---------- page ---------- */
-.page{max-width:900px;margin:0 auto;padding:4px 64px 120px}
-.title{font-size:40px;font-weight:700;line-height:1.2;margin:28px 0 22px;letter-spacing:-.01em}
-.role{font-size:14px;font-weight:700;margin:0 0 22px}
+.page{max-width:900px;margin:0 auto;padding:0 64px 160px}
+.title{font-size:40px;font-weight:700;line-height:1.2;margin:56px 0 20px;letter-spacing:-.01em}
+.role{font-size:14px;font-weight:700;margin:0 0 24px}
 
+/* resume two-column (same as reference) */
 .cols{display:grid;grid-template-columns:140px 1fr;gap:48px;align-items:start}
-
-/* sidebar */
 .photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 22%}
-.side h3{font-size:24px;font-weight:600;margin:36px 0 0;padding:0 0 10px;border-bottom:1px solid var(--line)}
-.side h3.it{font-style:italic}
-.side ul{list-style:none;margin:12px 0 0;padding:0}
-.contact li{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:14px;line-height:1.5;word-break:break-all}
+.left h3{font-size:24px;font-weight:600;margin:36px 0 0;padding:0 0 10px;border-bottom:1px solid var(--line)}
+.left h3.it{font-style:italic}
+.left ul{list-style:none;margin:12px 0 0;padding:0}
+.contact li{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:14px;word-break:break-all}
 .contact .em{flex:0 0 18px;text-align:center}
 .skills li{position:relative;padding:3px 0 3px 22px;font-size:14px}
 .skills li::before{content:"";position:absolute;left:7px;top:12px;width:5px;height:5px;border-radius:50%;background:var(--text)}
 .socials li + li{margin-top:12px}
-.socials a{display:flex;align-items:flex-start;gap:9px;background:var(--box);border-radius:6px;padding:16px 12px;font-size:14px;text-decoration:none;word-break:break-all;transition:background .12s}
+.socials a{display:flex;align-items:flex-start;gap:9px;background:#2b2b2b;border-radius:6px;padding:16px 12px;font-size:14px;text-decoration:none;word-break:break-all}
 .socials a:hover{background:#333}
 .socials .em{flex:0 0 18px;display:flex;justify-content:center;padding-top:1px}
 
-/* main column */
-.intro p{margin:0 0 14px;font-size:16px;line-height:1.6}
-.intro b{font-weight:600}
-details.toggle{margin:4px 0 0;border-radius:4px;background:var(--callout)}
-details.toggle > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:3px 8px;font-weight:500;user-select:none}
-details.toggle > summary::-webkit-details-marker{display:none}
-details.toggle > summary .tri{display:inline-block;transition:transform .15s;font-size:11px;color:var(--muted);width:12px}
-details.toggle[open] > summary .tri{transform:rotate(90deg)}
-.toggle-body{padding:6px 14px 16px 30px;background:var(--bg);border:1px solid var(--callout);border-top:none;border-radius:0 0 4px 4px}
-.toggle-body h4{font-size:16px;font-weight:600;margin:14px 0 4px}
-.toggle-body p{margin:0 0 6px;font-size:15px;line-height:1.6;color:#d9d8d5}
-.toggle-body table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
-.toggle-body td{border:1px solid var(--line);padding:7px 10px;vertical-align:top}
-.toggle-body td:first-child{width:110px;color:var(--muted);white-space:nowrap}
+.right p{margin:0 0 14px;line-height:1.6}
+.right b{font-weight:600}
+.callout{display:flex;gap:10px;background:var(--callout);border-radius:4px;padding:16px 16px 16px 12px;margin:6px 0 14px;line-height:1.6}
+.callout .ci{flex:0 0 24px;font-size:18px;line-height:1.4;text-align:center}
+.callout.blue{background:var(--blue-bg)}
+.callout h4{margin:0 0 4px;font-size:16px;font-weight:600}
+.callout h4 + p{margin-bottom:12px}
+.callout p:last-child{margin-bottom:0}
 
-section.block h2{color:var(--green);font-size:20px;font-weight:600;margin:40px 0 0;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.entry{display:grid;grid-template-columns:140px 1fr;gap:0 24px;padding:26px 0 14px}
-.entry .when{font-size:13px;font-weight:700;line-height:1.55}
-.logo{margin-top:12px;width:80px;height:42px;border-radius:2px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:22px}
-.logo img{width:100%;height:100%;object-fit:cover}
-.logo.portrait img{object-position:center 18%}
-.logo.dark{background:#262626}
-.entry .head{font-weight:600;font-size:16px}
-.entry .head .cat{color:var(--blue)}
-.entry p{margin:12px 0 0;font-size:16px;line-height:1.6}
+h2.sec{color:var(--green);font-size:20px;font-weight:600;margin:40px 0 0;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.entry{display:grid;grid-template-columns:140px 1fr;gap:0 24px;padding:26px 0 10px}
+.when{font-size:13px;font-weight:700;line-height:1.55}
+.logo{margin-top:12px;width:80px;height:42px;border-radius:2px;background:#262626;display:flex;align-items:center;justify-content:center;font-size:22px}
+.e-head{font-weight:600}
+.e-head .cat{color:var(--blue)}
+.entry p{margin:12px 0 0;line-height:1.6}
 .entry .stack{margin-top:12px}
-.entry .stack a{color:var(--blue);text-decoration:none}
-.entry .stack a:hover{text-decoration:underline}
+.skill-table{width:100%;border-collapse:collapse;font-size:15px;margin:18px 0 6px}
+.skill-table td{border:1px solid var(--line);padding:9px 12px;vertical-align:top;line-height:1.55}
+.skill-table td:first-child{width:120px;color:var(--muted);white-space:nowrap}
 
-/* ---------- portfolio ---------- */
-.pf-title{font-size:30px;font-weight:600;margin:64px 0 0;padding-bottom:10px;border-bottom:1px solid var(--line)}
-.tabs{display:flex;align-items:center;gap:2px;padding:8px 0;border-bottom:1px solid var(--line);margin-bottom:12px;overflow-x:auto}
-.tab{display:flex;align-items:center;gap:6px;font:inherit;font-size:14px;color:var(--muted);background:none;border:none;border-radius:6px;padding:5px 9px;cursor:pointer;white-space:nowrap}
-.tab:hover{background:var(--hover)}
-.tab[aria-selected="true"]{color:var(--text);background:#2a2a2a;font-weight:500}
-.tab svg{flex:0 0 auto}
-.count{margin-left:auto;font-size:13px;color:var(--faint);padding-left:12px;white-space:nowrap}
-
+/* ================= portfolio ================= */
+.pf-h1{font-size:30px;font-weight:600;margin:80px 0 0;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.pf-bar{display:flex;align-items:center;gap:2px;padding:8px 0;border-bottom:1px solid var(--line);margin-bottom:12px;font-size:14px;color:var(--muted)}
+.pf-bar span{display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:6px}
+.pf-bar .on{background:#2a2a2a;color:var(--text);font-weight:500}
+.pf-bar .cnt{margin-left:auto;font-size:13px;color:var(--faint)}
 .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.card{display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--card-b);border-radius:8px;overflow:hidden;padding:0;cursor:pointer;box-shadow:0 0 0 0 transparent;transition:background .12s}
+.card{display:flex;flex-direction:column;background:#202020;border:1px solid #2c2c2c;border-radius:8px;overflow:hidden;text-decoration:none;color:inherit;transition:background .12s}
 .card:hover{background:#262626}
-.card:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.cover{width:100%;height:170px;object-fit:cover;background:#151515;border-bottom:1px solid var(--card-b)}
-.cover.portrait{object-position:center 12%}
-.cover.blank{display:flex;align-items:center;justify-content:center;font-size:44px;background:#1c1c1c}
+.cover{width:100%;height:170px;object-fit:cover;background:#151515;border-bottom:1px solid #2c2c2c}
+.cover.top{object-position:center 12%}
 .c-body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:7px}
 .c-name{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:500}
 .c-name svg{color:var(--muted);flex:0 0 auto}
@@ -107,580 +115,524 @@ section.block h2{color:var(--green);font-size:20px;font-weight:600;margin:40px 0
 .g{background:var(--tg-green)} .b{background:var(--tg-blue)} .p{background:var(--tg-pink)} .o{background:var(--tg-orange)} .v{background:var(--tg-purple)} .n{background:var(--tg-gray)}
 .pills{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
 .pill{font-size:12px;font-weight:600;line-height:18px;padding:0 6px;border-radius:3px;text-decoration:none;color:var(--text)}
-.pill:hover{filter:brightness(1.3)}
+a.pill:hover{filter:brightness(1.3)}
 .pill.red{background:var(--pill-red)} .pill.blue{background:var(--pill-blue)} .pill.green{background:var(--pill-green)}
 
-/* list view */
-.listview{display:none;width:100%;border-collapse:collapse;font-size:14px}
-.listview th{text-align:left;font-weight:400;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line)}
-.listview td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-.listview tr.row{cursor:pointer}
-.listview tr.row:hover td{background:#202020}
-.listview .nm{display:flex;align-items:center;gap:6px;font-weight:500}
-.is-list .gallery{display:none}
-.is-list .listview{display:table}
+/* project "sub page" */
+.project{margin-top:88px;padding-top:8px}
+.project + .project{border-top:1px solid var(--line);padding-top:72px;margin-top:72px}
+.media{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden}
+.media.vertical{aspect-ratio:auto;height:560px;display:flex;justify-content:center;background:#0d0d0d}
+.media.vertical .poster,.media.vertical iframe{width:315px;height:100%}
+.media .poster{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;margin:0;cursor:pointer;background:#000}
+.media.vertical .poster{position:relative;inset:auto}
+.media .poster img{width:100%;height:100%;object-fit:cover}
+.media .poster::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.45))}
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;background:rgba(0,0,0,.6);border:2px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;z-index:2;transition:transform .15s,background .15s}
+.poster:hover .play{transform:translate(-50%,-50%) scale(1.08);background:rgba(0,0,0,.75)}
+.play-label{position:absolute;left:14px;bottom:12px;z-index:2;font-size:13px;color:#fff;font-weight:500}
+.media iframe,.media video{display:block;width:100%;height:100%;border:0;background:#000}
+.p-icon{font-size:64px;line-height:1;margin:28px 0 10px}
+.p-title{font-size:36px;font-weight:700;margin:0 0 14px;line-height:1.2}
+.props{display:grid;grid-template-columns:160px 1fr;font-size:14px;margin:0 0 16px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.props dt{color:var(--muted);padding:6px 6px;display:flex;align-items:center;gap:8px}
+.props dd{margin:0;padding:6px 6px;display:flex;flex-wrap:wrap;gap:5px;align-items:center;line-height:1.5}
+.props dt svg{flex:0 0 auto}
+.project h3{font-size:24px;font-weight:600;margin:36px 0 8px;line-height:1.3}
+.project h4{font-size:18px;font-weight:600;margin:24px 0 6px;line-height:1.35}
+.project p{margin:0 0 10px;line-height:1.65}
+.project ul{margin:0 0 10px;padding-left:24px;line-height:1.65}
+.project li{margin:2px 0}
+figure{margin:12px 0 4px}
+figure img{border-radius:4px;background:#111;max-height:360px;width:auto;margin:0 auto}
+figure.frame{background:#202020;border-radius:6px;padding:10px}
+figcaption{font-size:13px;color:var(--muted);margin-top:6px;text-align:center}
 
-/* ---------- peek modal ---------- */
-dialog{border:none;padding:0;background:#202020;color:var(--text);border-radius:10px;width:min(860px,calc(100% - 32px));max-height:90vh;box-shadow:0 0 0 1px #333,0 24px 70px rgba(0,0,0,.6)}
-dialog::backdrop{background:rgba(15,15,15,.7)}
-.m-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:flex-end;padding:8px;background:linear-gradient(#202020 60%,transparent)}
-.m-close{width:30px;height:30px;border:none;border-radius:6px;background:transparent;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
-.m-close:hover{background:var(--hover);color:var(--text)}
-.m-cover{width:100%;height:280px;object-fit:cover;margin-top:-46px;background:#111}
-.m-cover.portrait{object-position:center 15%}
-.m-pad{padding:0 64px 48px}
-.player{margin-top:-46px;background:#000;aspect-ratio:16/9;width:100%}
-.player iframe,.player video{display:block;width:100%;height:100%;border:0;background:#000}
-.player.vertical{aspect-ratio:auto;height:min(70vh,600px);display:flex;justify-content:center}
-.player.vertical iframe{width:min(100%,calc(min(70vh,600px) * 9 / 16))}
-.m-pad.after-player{padding-top:22px}
-.m-pad.after-player .m-icon{margin-top:0}
-.m-icon{font-size:56px;line-height:1;margin:-30px 0 8px;position:relative}
-.m-title{font-size:36px;font-weight:700;margin:0 0 16px;line-height:1.2}
-.props{display:grid;grid-template-columns:150px 1fr;gap:2px 8px;font-size:14px;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid var(--line)}
-.props dt{color:var(--muted);padding:5px 6px;display:flex;align-items:center;gap:6px}
-.props dd{margin:0;padding:5px 6px;display:flex;flex-wrap:wrap;gap:5px;align-items:center}
-.props a{color:var(--text)}
-.m-pad p{margin:0 0 10px;line-height:1.65}
-.m-pad h3{font-size:24px;font-weight:600;margin:30px 0 6px}
-.m-pad h4{font-size:18px;font-weight:600;margin:22px 0 6px}
-.callout{display:flex;gap:10px;background:#252525;border-radius:6px;padding:14px 16px;margin:8px 0 12px;line-height:1.6}
+.ps{border:1px solid var(--line);border-radius:6px;margin:14px 0 6px;overflow:hidden}
+.ps-title{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#202020;font-weight:600;border-bottom:1px solid var(--line)}
+.ps-row{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid var(--line)}
+.ps-row:last-child{border-bottom:none}
+.ps-k{padding:12px 16px;color:var(--muted);font-size:14px;display:flex;align-items:flex-start;gap:6px}
+.ps-v{padding:12px 16px 12px 0;line-height:1.6}
+.ps-v ul{margin:0;padding-left:20px}
+.ps-v p{margin:0}
+.ps .ps-v figure{margin:10px 0 0}
 
-/* ---------- side toc (notion style) ---------- */
-.toc{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;align-items:flex-end;gap:10px;padding:10px 6px}
-.toc a{display:block;height:2px;width:14px;background:#4a4a48;border-radius:2px;transition:background .15s,width .15s}
-.toc a.on{background:var(--text);width:16px}
-.toc-panel{position:absolute;right:0;top:50%;transform:translateY(-50%);background:#252525;border:1px solid #333;border-radius:8px;padding:8px;display:none;flex-direction:column;min-width:170px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
-.toc:hover .toc-panel{display:flex}
-.toc-panel a{height:auto;width:auto;background:none;font-size:13px;color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:4px}
-.toc-panel a:hover{background:var(--hover);color:var(--text)}
-.toc-panel a.on{color:var(--blue);background:none;width:auto}
-
-footer{margin-top:80px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+footer{margin-top:96px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 footer a{color:var(--muted)}
 
-@media (max-width:820px){
-  .page{padding:4px 20px 80px}
-  .toc{display:none}
+.scrim{display:none}
+
+@media (max-width:1100px){ .page{padding:0 40px 140px} }
+@media (max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform .2s ease;box-shadow:0 0 40px rgba(0,0,0,.5)}
+  body.side-open .sidebar{transform:none}
+  body.side-open .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:35}
+  .main{margin-left:0}
+  .menu-btn{display:flex}
 }
 @media (max-width:640px){
-  .page{padding:4px 16px 72px}
-  .title{font-size:32px}
+  .page{padding:0 16px 100px}
+  .title{font-size:32px;margin-top:32px}
   .cols{grid-template-columns:1fr;gap:12px}
   .photo{width:160px}
   .entry{grid-template-columns:1fr;gap:6px}
   .logo{margin-top:6px}
   .gallery{grid-template-columns:1fr}
-  .m-pad{padding:0 20px 36px}
-  .player.vertical{height:65vh}
-  .m-cover{height:200px}
-  .props{grid-template-columns:96px 1fr}
-  .listview .hide-sm{display:none}
+  .props{grid-template-columns:104px 1fr}
+  .ps-row{grid-template-columns:1fr}
+  .ps-k{padding-bottom:0}
+  .ps-v{padding:4px 16px 12px}
+  .media.vertical{height:480px}
+  .media.vertical .poster,.media.vertical iframe{width:270px}
+  .p-title{font-size:30px}
   .top-btn{display:none}
 }
 </style>
 </head>
 <body>
 
-<header class="topbar">
-  <a class="crumb" href="#top"><span aria-hidden="true">🎮</span>최진모 | 게임 클라이언트 프로그래머</a>
-  <div class="top-actions">
-    <a class="top-btn" href="https://github.com/lbiotitel" target="_blank" rel="noopener">GitHub</a>
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar" id="sidebar" aria-label="페이지 목차">
+  <a class="ws" href="#top"><img src="assets/profile.jpg" alt=""><span><b>최진모의 이력서</b><small>Game Client Programmer</small></span></a>
+  <div class="side-scroll">
+    <div class="side-label">Resume</div>
+    <nav class="nav">
+      <a href="#top" data-sec="top"><span class="ic">👋</span>소개</a>
+      <a href="#skills" data-sec="skills"><span class="ic">🧰</span>프로그래밍 역량</a>
+      <a href="#education" data-sec="education"><span class="ic">🎓</span>학력</a>
+      <a href="#awards" data-sec="awards"><span class="ic">🏆</span>수상</a>
+      <a href="#certificates" data-sec="certificates"><span class="ic">📜</span>자격증</a>
+    </nav>
+    <div class="side-label">Portfolio</div>
+    <nav class="nav">
+      <a href="#portfolio" data-sec="portfolio"><span class="ic">🗂️</span>전체 보기</a>
+      <a class="sub" href="#p-squishy" data-sec="p-squishy"><span class="ic">📱</span>말랑 돌격대!</a>
+      <a class="sub" href="#p-abyss" data-sec="p-abyss"><span class="ic">⚔️</span>Abyss</a>
+      <a class="sub" href="#p-figureout" data-sec="p-figureout"><span class="ic">🔫</span>Figure Out</a>
+      <a class="sub" href="#p-nothero" data-sec="p-nothero"><span class="ic">🃏</span>Not Hero</a>
+      <a class="sub" href="#p-factory" data-sec="p-factory"><span class="ic">🏭</span>Tiny Factory</a>
+      <a class="sub" href="#p-toeic" data-sec="p-toeic"><span class="ic">📚</span>TOEIC Management</a>
+      <a class="sub" href="#p-risa" data-sec="p-risa"><span class="ic">🐶</span>Risa Project MK.2</a>
+    </nav>
   </div>
-</header>
+  <div class="side-foot">
+    <a href="https://github.com/lbiotitel" target="_blank" rel="noopener"><span class="ic">🐙</span>GitHub</a>
+    <a href="mailto:biotite135@naver.com"><span class="ic">📧</span>biotite135@naver.com</a>
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
 
-<main class="page" id="top">
-  <h1 class="title">최진모 이력서</h1>
-  <p class="role">게임 클라이언트 프로그래머</p>
+<!-- ================= MAIN ================= -->
+<div class="main">
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="목차 열기"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg></button>
+    <div class="crumbs"><a href="#top">🎮 최진모의 이력서</a><span class="sep">/</span><span id="crumbNow">소개</span></div>
+    <div class="top-right"><a class="top-btn" href="https://github.com/lbiotitel" target="_blank" rel="noopener">GitHub</a></div>
+  </header>
 
-  <div class="cols">
-    <!-- ===== sidebar ===== -->
-    <aside class="side">
-      <img class="photo" src="assets/profile.jpg" alt="최진모 프로필 사진">
+  <main class="page" id="top">
+    <h1 class="title">최진모 이력서</h1>
+    <p class="role">게임 클라이언트 프로그래머 · Unity / C#</p>
 
-      <h3>Contact</h3>
-      <ul class="contact">
-        <li><span class="em" aria-hidden="true">📧</span><a class="u" href="mailto:biotite135@naver.com">biotite135@naver.com</a></li>
-        <li><span class="em" aria-hidden="true">🌐</span><a class="u" href="https://github.com/lbiotitel" target="_blank" rel="noopener">github.com/lbiotitel</a></li>
-        <li><span class="em" aria-hidden="true">🇰🇷</span><span>Daejeon, Korea</span></li>
-      </ul>
+    <div class="cols">
+      <!-- left column -->
+      <div class="left">
+        <img class="photo" src="assets/profile.jpg" alt="최진모 프로필 사진">
 
-      <h3 class="it">Skills</h3>
-      <ul class="skills">
-        <li>Unity / C#</li>
-        <li>UniTask / DOTween</li>
-        <li>Addressable</li>
-        <li>뒤끝 서버</li>
-        <li>C++ / MFC</li>
-        <li>Node.js</li>
-      </ul>
+        <h3>Contact</h3>
+        <ul class="contact">
+          <li><span class="em" aria-hidden="true">📧</span><a class="u" href="mailto:biotite135@naver.com">biotite135@naver.com</a></li>
+          <li><span class="em" aria-hidden="true">🌐</span><a class="u" href="https://github.com/lbiotitel" target="_blank" rel="noopener">github.com/lbiotitel</a></li>
+          <li><span class="em" aria-hidden="true">🇰🇷</span><span>Daejeon, Korea</span></li>
+        </ul>
 
-      <h3>Socials</h3>
-      <ul class="socials">
-        <li><a href="https://github.com/lbiotitel" target="_blank" rel="noopener"><span class="em"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f0efed" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.240-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.170 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg></span><span class="u">@lbiotitel</span></a></li>
-        <li><a href="https://blog.naver.com/biotite135" target="_blank" rel="noopener"><span class="em" aria-hidden="true">📝</span><span class="u">알고리즘 블로그</span></a></li>
-        <li><a href="https://play.google.com/store/apps/details?id=com.TinyTeams.SquishyRush&amp;hl=ko" target="_blank" rel="noopener"><span class="em" aria-hidden="true">▶️</span><span class="u">말랑 돌격대!</span></a></li>
-      </ul>
-    </aside>
+        <h3 class="it">Skills</h3>
+        <ul class="skills">
+          <li>Unity / C#</li>
+          <li>UniTask / DOTween</li>
+          <li>Addressable</li>
+          <li>뒤끝 서버</li>
+          <li>C++ / MFC</li>
+          <li>Node.js</li>
+        </ul>
 
-    <!-- ===== main ===== -->
-    <div>
-      <div class="intro" id="about">
-        <p>“팀을 지탱하는 기둥처럼” 맡은 역할에 책임을 다하고, 팀원들과 함께 더 나은 결과를 만들어가는 게임 클라이언트 프로그래머입니다. 작은 프로젝트부터 하나씩 끝까지 만들어 보면서 실력을 쌓았고, 2인 팀의 팀장으로 <b>말랑 돌격대!</b>를 구글 플레이에 출시했습니다.</p>
-        <p>팀원이 코드 수정 없이 데이터만 추가해도 기능이 늘어나는 구조, 매니저 초기화 순서와 리소스 해제처럼 눈에 잘 띄지 않지만 프로젝트를 지탱하는 부분을 중요하게 생각합니다. 전체 코드는 <a class="u" href="https://github.com/lbiotitel" target="_blank" rel="noopener">GitHub</a>에서 확인하실 수 있습니다.</p>
-
-        <details class="toggle">
-          <summary><span class="tri" aria-hidden="true">▶</span><span aria-hidden="true">😃</span> More About Me</summary>
-          <div class="toggle-body">
-            <h4>꾸준함과 끈기로 끝까지 완성합니다.</h4>
-            <p>작은 프로젝트부터 하나씩 끝까지 만들어 보면서 실력을 쌓았고, 그 경험으로 말랑 돌격대를 구글 플레이에 출시했습니다.</p>
-            <h4>신뢰를 바탕으로 소통하며 팀을 이끕니다.</h4>
-            <p>의견을 낼 때는 프로토타입이나 근거를 같이 보여주려고 하고, 팀원마다 잘하는 부분을 존중하면서 이야기합니다.</p>
-            <h4>프로그래밍 역량</h4>
-            <table>
-              <tr><td>Unity, C#</td><td>ScriptableObject 데이터 설계, Addressable 리소스 관리, UniTask, DOTween</td></tr>
-              <tr><td>Server</td><td>뒤끝(BACKND) 서버 연동, Node.js / Express로 영화 웹사이트 REST API 구현</td></tr>
-              <tr><td>C++</td><td>MFC, 아두이노로 작은 스마트 공장 제작(졸업 작품), 멀티스레드, 시리얼 통신</td></tr>
-              <tr><td>협업</td><td>Unity Version Control로 팀 프로젝트 버전 관리, Git으로 개인 프로젝트 관리</td></tr>
-            </table>
-          </div>
-        </details>
+        <h3>Socials</h3>
+        <ul class="socials">
+          <li><a href="https://github.com/lbiotitel" target="_blank" rel="noopener"><span class="em"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f0efed" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg></span><span class="u">@lbiotitel</span></a></li>
+          <li><a href="https://blog.naver.com/biotite135" target="_blank" rel="noopener"><span class="em" aria-hidden="true">📝</span><span class="u">알고리즘 블로그</span></a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.TinyTeams.SquishyRush&amp;hl=ko" target="_blank" rel="noopener"><span class="em" aria-hidden="true">▶️</span><span class="u">말랑 돌격대!</span></a></li>
+        </ul>
       </div>
 
-      <section class="block" id="experience">
-        <h2>Project Experience</h2>
+      <!-- right column -->
+      <div class="right">
+        <p>“팀을 지탱하는 기둥처럼” 맡은 역할에 책임을 다하고, 팀원들과 함께 더 나은 결과를 만들어가는 게임 클라이언트 프로그래머 최진모입니다. 작은 프로젝트부터 하나씩 끝까지 만들어 보면서 실력을 쌓았고, 2인 팀의 팀장으로 <b>말랑 돌격대!</b>를 구글 플레이에 출시했습니다.</p>
+        <p>팀원이 코드 수정 없이 데이터만 추가해도 기능이 늘어나는 구조, 매니저 초기화 순서와 리소스 해제처럼 눈에 잘 띄지 않지만 프로젝트를 지탱하는 부분을 중요하게 생각합니다. 전체 코드는 <a class="u" href="https://github.com/lbiotitel" target="_blank" rel="noopener">GitHub</a>에서 확인하실 수 있습니다.</p>
 
-        <div class="entry">
-          <div><div class="when">2026.07 -<br>2026.10</div><div class="logo portrait"><img src="assets/squishy.png" alt=""></div></div>
+        <div class="callout blue">
+          <span class="ci" aria-hidden="true">😃</span>
           <div>
-            <div class="head">말랑 돌격대! | <span class="cat">Google Play 출시</span></div>
-            <p>유닛 수집형 모바일 오토배틀러. 2인 개발 팀장으로 로비, 메타 시스템, 뒤끝 서버 연동, 데이터 저장 구조와 출시 작업을 맡았습니다.</p>
-            <p class="stack">[Unity 2022.3, C#, 뒤끝, UniTask, Addressable]</p>
-          </div>
-        </div>
-
-        <div class="entry">
-          <div><div class="when">2026.06 -<br>2026.07</div><div class="logo"><img src="assets/abyss.png" alt=""></div></div>
-          <div>
-            <div class="head">Abyss | <span class="cat">Team Project</span></div>
-            <p>3인 탐험 액션 게임. 언리얼 GAS를 참고한 스킬 효과 시스템과 스탯, 무기 FSM, 격자 인벤토리를 만들었습니다.</p>
-            <p class="stack">[Unity, C#, ScriptableObject, SerializeReference, UniTask]</p>
+            <h4>꾸준함과 끈기로 끝까지 완성합니다.</h4>
+            <p>처음부터 기능을 많이 넣으려다 완성하지 못한 경험이 있어, 작은 프로젝트라도 짧게 끝까지 만드는 습관을 들였습니다. 60시간 목표의 강아지 자동 배급기에서 시작해 3주짜리 졸업 작품, 그리고 출시까지 점점 긴 프로젝트에 도전했습니다.</p>
+            <h4>신뢰를 바탕으로 소통하며 팀을 이끕니다.</h4>
+            <p>의견을 낼 때는 말로만 하지 않고 프로토타입이나 근거를 같이 보여주려고 하고, 팀원마다 잘하는 부분을 인정하면서 역할을 나눕니다. 작업 전에는 필수 기능과 부가 기능을 나눠 범위가 늘어나지 않도록 자주 맞춥니다.</p>
           </div>
         </div>
 
+        <h2 class="sec" id="skills">Programming Skills</h2>
+        <table class="skill-table">
+          <tr><td>Unity, C#</td><td>ScriptableObject 데이터 설계, Addressable 리소스 관리, UniTask 비동기 흐름 제어, DOTween 연출</td></tr>
+          <tr><td>Server</td><td>뒤끝(BACKND) 서버 연동, Node.js / Express로 영화 웹사이트 REST API 구현</td></tr>
+          <tr><td>C++</td><td>MFC 응용 프로그램, 멀티스레드와 mutex 동기화, 아두이노 시리얼 통신</td></tr>
+          <tr><td>협업</td><td>Unity Version Control로 팀 프로젝트 관리, Git으로 개인 프로젝트 관리, AI를 설계 검증 도구로 활용</td></tr>
+        </table>
+
+        <h2 class="sec" id="education">Education</h2>
         <div class="entry">
-          <div><div class="when">2026.05 -<br>2026.06</div><div class="logo"><img src="assets/figureout.png" alt=""></div></div>
-          <div>
-            <div class="head">Figure Out | <span class="cat">Team Project</span></div>
-            <p>4인 루트 슈터 생존 액션. Addressable 데이터 관리, 이벤트 매니저, 씬 전환, 퀘스트, 장비 시스템을 맡았습니다.</p>
-            <p class="stack">[Unity, C#, Addressable, UniTask, ScriptableObject]</p>
-          </div>
+          <div><div class="when">2025.03 -<br>2026.02</div><div class="logo" aria-hidden="true">🎓</div></div>
+          <div><div class="e-head">Bachelor | <span class="cat">대전보건대학교</span></div><p>컴퓨터정보학과 전공심화과정 학사 학위</p></div>
+        </div>
+        <div class="entry">
+          <div><div class="when">2018.03 -<br>2025.02</div><div class="logo" aria-hidden="true">🏫</div></div>
+          <div><div class="e-head">Associate | <span class="cat">대전보건대학교</span></div><p>컴퓨터정보학과 전문학사 학위 (휴학 포함)</p></div>
         </div>
 
+        <h2 class="sec" id="awards">Awards</h2>
         <div class="entry">
-          <div><div class="when">2026.03 -<br>2026.04</div><div class="logo"><img src="assets/nothero.png" alt=""></div></div>
-          <div>
-            <div class="head">Not Hero | <span class="cat">Team Project</span></div>
-            <p>4인 덱빌딩 로그라이크. 카드 데이터 구조, 절차적 맵 생성, 매니저 이벤트 구조를 맡았습니다.</p>
-            <p class="stack">[Unity, C#, ScriptableObject, DOTween]</p>
-          </div>
+          <div><div class="when">2025.02</div><div class="logo" aria-hidden="true">🥇</div></div>
+          <div><div class="e-head">학과 최우수상 | <span class="cat">대전보건대학교</span></div><p>학과 성적 1위</p></div>
         </div>
-      </section>
+        <div class="entry">
+          <div><div class="when">2024.11</div><div class="logo" aria-hidden="true">🏆</div></div>
+          <div><div class="e-head">졸업 작품 최우수상 | <span class="cat">대전보건대학교</span></div><p>MFC와 아두이노로 만든 작은 스마트 공장 Tiny Factory (<a class="u" href="#p-factory">아래 포트폴리오</a>)</p></div>
+        </div>
 
-      <section class="block" id="education">
-        <h2>Education</h2>
+        <h2 class="sec" id="certificates">Certificates</h2>
         <div class="entry">
-          <div><div class="when">2025.03 -<br>2026.02</div><div class="logo dark" aria-hidden="true">🎓</div></div>
-          <div>
-            <div class="head">Bachelor | <span class="cat">대전보건대학교</span></div>
-            <p>컴퓨터정보학과 전공심화과정 학사 학위</p>
-          </div>
+          <div><div class="when">2025</div><div class="logo" aria-hidden="true">📜</div></div>
+          <div><div class="e-head">정보처리기사 | <span class="cat">한국산업인력공단</span></div></div>
         </div>
         <div class="entry">
-          <div><div class="when">2018.03 -<br>2025.02</div><div class="logo dark" aria-hidden="true">🏫</div></div>
-          <div>
-            <div class="head">Associate | <span class="cat">대전보건대학교</span></div>
-            <p>컴퓨터정보학과 전문학사 학위 (휴학 포함)</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="block" id="awards">
-        <h2>Awards</h2>
-        <div class="entry">
-          <div><div class="when">2025.02</div><div class="logo dark" aria-hidden="true">🥇</div></div>
-          <div>
-            <div class="head">학과 최우수상 | <span class="cat">대전보건대학교</span></div>
-            <p>학과 성적 1위</p>
-          </div>
+          <div><div class="when">2021</div><div class="logo" aria-hidden="true">📜</div></div>
+          <div><div class="e-head">정보처리산업기사 | <span class="cat">한국산업인력공단</span></div></div>
         </div>
         <div class="entry">
-          <div><div class="when">2024.11</div><div class="logo dark" aria-hidden="true">🏆</div></div>
-          <div>
-            <div class="head">졸업 작품 최우수상 | <span class="cat">대전보건대학교</span></div>
-            <p>MFC와 아두이노로 만든 작은 스마트 공장 'AI Factory'. 카메라, YOLO 객체 인식, 컨베이어, 로봇팔을 스레드로 분리하고 공유 데이터는 mutex로 동기화했습니다.</p>
-            <p class="stack">[C++, MFC, Arduino] · <a href="https://github.com/lbiotitel/TinyFactory" target="_blank" rel="noopener">GitHub</a></p>
-          </div>
+          <div><div class="when">2020</div><div class="logo" aria-hidden="true">📜</div></div>
+          <div><div class="e-head">컴퓨터활용능력 1급 | <span class="cat">대한상공회의소</span></div></div>
         </div>
-      </section>
-
-      <section class="block" id="certificates">
-        <h2>Certificates</h2>
         <div class="entry">
-          <div><div class="when">2019 - 2025</div><div class="logo dark" aria-hidden="true">📜</div></div>
-          <div>
-            <div class="head">정보처리기사 | <span class="cat">한국산업인력공단</span></div>
-            <p>정보처리기사 (2025) · 정보처리산업기사 (2021) · 정보처리기능사 (2019)<br>컴퓨터활용능력 1급 (2020, 대한상공회의소)</p>
-          </div>
+          <div><div class="when">2019</div><div class="logo" aria-hidden="true">📜</div></div>
+          <div><div class="e-head">정보처리기능사 | <span class="cat">한국산업인력공단</span></div></div>
         </div>
-      </section>
+      </div>
     </div>
-  </div>
 
-  <!-- ===== portfolio gallery ===== -->
-  <h2 class="pf-title" id="portfolio">Portfolio</h2>
-  <div id="pf">
-    <div class="tabs" role="tablist" aria-label="포트폴리오 보기">
-      <button class="tab" role="tab" aria-selected="true" data-filter="all"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>All</button>
-      <button class="tab" role="tab" aria-selected="false" data-filter="release"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>Released</button>
-      <button class="tab" role="tab" aria-selected="false" data-filter="team"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>Team Projects</button>
-      <button class="tab" role="tab" aria-selected="false" data-filter="personal"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>Personal</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="list"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 4h9M5 8h9M5 12h9"/><circle cx="2.3" cy="4" r=".6" fill="currentColor"/><circle cx="2.3" cy="8" r=".6" fill="currentColor"/><circle cx="2.3" cy="12" r=".6" fill="currentColor"/></svg>List</button>
-      <span class="count" id="count"></span>
+    <!-- ================= PORTFOLIO ================= -->
+    <h2 class="pf-h1" id="portfolio">Portfolio</h2>
+    <div class="pf-bar">
+      <span class="on"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>All</span>
+      <span class="cnt">7개 · 카드를 누르면 상세 내용으로 이동합니다</span>
     </div>
 
     <div class="gallery">
-      <button class="card" type="button" data-id="squishy" data-cat="release">
-        <img class="cover portrait" src="assets/squishy.png" alt="말랑 돌격대! 게임 화면">
-        <div class="c-body">
-          <div class="c-name"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M9.5 1.5H4a1.5 1.5 0 0 0-1.5 1.5v10A1.5 1.5 0 0 0 4 14.5h8a1.5 1.5 0 0 0 1.5-1.5V5.5z"/><path d="M9.5 1.5v4h4M5.5 8.5h5M5.5 11h5"/></svg>말랑 돌격대!</div>
-          <div class="tags"><span class="tag o">Google Play</span><span class="tag b">Unity</span></div>
-          <div class="pills"><a class="pill red" href="https://github.com/lbiotitel/SquishyRush" target="_blank" rel="noopener">Github</a><a class="pill blue" href="https://www.youtube.com/shorts/y16HKZqZzsU" target="_blank" rel="noopener">Video</a></div>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-id="abyss" data-cat="team">
-        <img class="cover" src="assets/abyss.png" alt="Abyss 게임 화면">
-        <div class="c-body">
-          <div class="c-name"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M9.5 1.5H4a1.5 1.5 0 0 0-1.5 1.5v10A1.5 1.5 0 0 0 4 14.5h8a1.5 1.5 0 0 0 1.5-1.5V5.5z"/><path d="M9.5 1.5v4h4M5.5 8.5h5M5.5 11h5"/></svg>Abyss</div>
-          <div class="tags"><span class="tag g">Team Project</span><span class="tag b">Unity</span></div>
-          <div class="pills"><a class="pill red" href="https://github.com/lbiotitel/Abyss" target="_blank" rel="noopener">Github</a><a class="pill blue" href="https://youtu.be/fS3M2WcU6ik" target="_blank" rel="noopener">Video</a></div>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-id="figureout" data-cat="team">
-        <img class="cover" src="assets/figureout.png" alt="Figure Out 게임 화면">
-        <div class="c-body">
-          <div class="c-name"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M9.5 1.5H4a1.5 1.5 0 0 0-1.5 1.5v10A1.5 1.5 0 0 0 4 14.5h8a1.5 1.5 0 0 0 1.5-1.5V5.5z"/><path d="M9.5 1.5v4h4M5.5 8.5h5M5.5 11h5"/></svg>Figure Out</div>
-          <div class="tags"><span class="tag g">Team Project</span><span class="tag b">Unity</span></div>
-          <div class="pills"><a class="pill red" href="https://github.com/lbiotitel/FigureOut" target="_blank" rel="noopener">Github</a><a class="pill blue" href="https://youtu.be/t1ltyD3_bxM" target="_blank" rel="noopener">Video</a></div>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-id="nothero" data-cat="team">
-        <img class="cover" src="assets/nothero.png" alt="Not Hero 게임 화면">
-        <div class="c-body">
-          <div class="c-name"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M9.5 1.5H4a1.5 1.5 0 0 0-1.5 1.5v10A1.5 1.5 0 0 0 4 14.5h8a1.5 1.5 0 0 0 1.5-1.5V5.5z"/><path d="M9.5 1.5v4h4M5.5 8.5h5M5.5 11h5"/></svg>Not Hero</div>
-          <div class="tags"><span class="tag g">Team Project</span><span class="tag b">Unity</span></div>
-          <div class="pills"><a class="pill red" href="https://github.com/lbiotitel/Not-Hero" target="_blank" rel="noopener">Github</a><a class="pill blue" href="https://www.youtube.com/watch?v=ChbWpCXmwUg" target="_blank" rel="noopener">Video</a></div>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-id="factory" data-cat="personal">
-        <img class="cover" src="assets/factory.jpg" alt="Tiny Factory 실행 장면">
-        <div class="c-body">
-          <div class="c-name"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M9.5 1.5H4a1.5 1.5 0 0 0-1.5 1.5v10A1.5 1.5 0 0 0 4 14.5h8a1.5 1.5 0 0 0 1.5-1.5V5.5z"/><path d="M9.5 1.5v4h4M5.5 8.5h5M5.5 11h5"/></svg>Tiny Factory (졸업 작품)</div>
-          <div class="tags"><span class="tag v">최우수상</span><span class="tag p">C++ / MFC</span></div>
-          <div class="pills"><a class="pill red" href="https://github.com/lbiotitel/TinyFactory" target="_blank" rel="noopener">Github</a><a class="pill blue" href="https://www.youtube.com/watch?v=Ssp9-5lVbss" target="_blank" rel="noopener">Video</a></div>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-id="toeic" data-cat="personal">
-        <video class="cover" src="assets/toeic.mp4#t=3" muted playsinline preload="metadata" aria-hidden="true"></video>
-        <div class="c-body">
-          <div class="c-name"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M9.5 1.5H4a1.5 1.5 0 0 0-1.5 1.5v10A1.5 1.5 0 0 0 4 14.5h8a1.5 1.5 0 0 0 1.5-1.5V5.5z"/><path d="M9.5 1.5v4h4M5.5 8.5h5M5.5 11h5"/></svg>TOEIC Management System</div>
-          <div class="tags"><span class="tag n">Personal</span><span class="tag p">Desktop App</span></div>
-          <div class="pills"><span class="pill blue">Video</span></div>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-id="risa" data-cat="personal">
-        <video class="cover" src="assets/risa.mp4#t=2" muted playsinline preload="metadata" aria-hidden="true"></video>
-        <div class="c-body">
-          <div class="c-name"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M9.5 1.5H4a1.5 1.5 0 0 0-1.5 1.5v10A1.5 1.5 0 0 0 4 14.5h8a1.5 1.5 0 0 0 1.5-1.5V5.5z"/><path d="M9.5 1.5v4h4M5.5 8.5h5M5.5 11h5"/></svg>Risa Project MK.2</div>
-          <div class="tags"><span class="tag n">Personal</span><span class="tag o">Arduino</span></div>
-          <div class="pills"><span class="pill blue">Video</span></div>
-        </div>
-      </button>
+      <a class="card" href="#p-squishy"><img class="cover top" src="assets/squishy.png" alt="말랑 돌격대! 게임 화면"><div class="c-body"><div class="c-name">📱 말랑 돌격대!</div><div class="tags"><span class="tag o">Google Play 출시</span><span class="tag b">Unity</span><span class="tag n">2인 · 팀장</span></div></div></a>
+      <a class="card" href="#p-abyss"><img class="cover" src="assets/abyss.png" alt="Abyss 게임 화면"><div class="c-body"><div class="c-name">⚔️ Abyss</div><div class="tags"><span class="tag g">Team Project</span><span class="tag b">Unity</span><span class="tag n">3인</span></div></div></a>
+      <a class="card" href="#p-figureout"><img class="cover" src="assets/figureout.png" alt="Figure Out 게임 화면"><div class="c-body"><div class="c-name">🔫 Figure Out</div><div class="tags"><span class="tag g">Team Project</span><span class="tag b">Unity</span><span class="tag n">4인</span></div></div></a>
+      <a class="card" href="#p-nothero"><img class="cover" src="assets/nothero.png" alt="Not Hero 게임 화면"><div class="c-body"><div class="c-name">🃏 Not Hero</div><div class="tags"><span class="tag g">Team Project</span><span class="tag b">Unity</span><span class="tag n">4인</span></div></div></a>
+      <a class="card" href="#p-factory"><img class="cover" src="assets/factory.jpg" alt="Tiny Factory 실행 장면"><div class="c-body"><div class="c-name">🏭 Tiny Factory</div><div class="tags"><span class="tag v">졸업 작품 최우수상</span><span class="tag p">C++ / MFC</span></div></div></a>
+      <a class="card" href="#p-toeic"><video class="cover" src="assets/toeic.mp4#t=3" muted playsinline preload="metadata" aria-hidden="true"></video><div class="c-body"><div class="c-name">📚 TOEIC Management System</div><div class="tags"><span class="tag n">Personal</span><span class="tag p">Desktop App</span></div></div></a>
+      <a class="card" href="#p-risa"><video class="cover" src="assets/risa.mp4#t=2" muted playsinline preload="metadata" aria-hidden="true"></video><div class="c-body"><div class="c-name">🐶 Risa Project MK.2</div><div class="tags"><span class="tag n">Personal</span><span class="tag o">Arduino</span></div></div></a>
     </div>
 
-    <table class="listview">
-      <thead><tr><th>Name</th><th>Type</th><th class="hide-sm">Period</th><th class="hide-sm">Stack</th></tr></thead>
-      <tbody>
-        <tr class="row" data-id="squishy" tabindex="0"><td><span class="nm">📄 말랑 돌격대!</span></td><td><span class="tag o">Google Play</span></td><td class="hide-sm">2026.07 - 10</td><td class="hide-sm">Unity, 뒤끝, UniTask</td></tr>
-        <tr class="row" data-id="abyss" tabindex="0"><td><span class="nm">📄 Abyss</span></td><td><span class="tag g">Team Project</span></td><td class="hide-sm">2026.06 - 07</td><td class="hide-sm">Unity, SerializeReference</td></tr>
-        <tr class="row" data-id="figureout" tabindex="0"><td><span class="nm">📄 Figure Out</span></td><td><span class="tag g">Team Project</span></td><td class="hide-sm">2026.05 - 06</td><td class="hide-sm">Unity, Addressable</td></tr>
-        <tr class="row" data-id="nothero" tabindex="0"><td><span class="nm">📄 Not Hero</span></td><td><span class="tag g">Team Project</span></td><td class="hide-sm">2026.03 - 04</td><td class="hide-sm">Unity, DOTween</td></tr>
-        <tr class="row" data-id="factory" tabindex="0"><td><span class="nm">📄 Tiny Factory</span></td><td><span class="tag v">최우수상</span></td><td class="hide-sm">2024.11</td><td class="hide-sm">C++, MFC, OpenCV, Arduino</td></tr>
-        <tr class="row" data-id="toeic" tabindex="0"><td><span class="nm">📄 TOEIC Management System</span></td><td><span class="tag n">Personal</span></td><td class="hide-sm">-</td><td class="hide-sm">Desktop App</td></tr>
-        <tr class="row" data-id="risa" tabindex="0"><td><span class="nm">📄 Risa Project MK.2</span></td><td><span class="tag n">Personal</span></td><td class="hide-sm">-</td><td class="hide-sm">Arduino</td></tr>
-      </tbody>
-    </table>
-  </div>
+    <!-- ---------- 말랑 돌격대 ---------- -->
+    <section class="project" id="p-squishy">
+      <div class="media vertical" data-yt="y16HKZqZzsU"><button class="poster" type="button" aria-label="말랑 돌격대! 플레이 영상 재생"><img src="assets/squishy.png" alt=""><span class="play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span class="play-label">▶ 플레이 영상</span></button></div>
+      <div class="p-icon" aria-hidden="true">📱</div>
+      <h2 class="p-title">말랑 돌격대!</h2>
+      <dl class="props">
+        <dt>◷ 기간</dt><dd>2026.07 - 2026.10</dd>
+        <dt>👥 인원</dt><dd>2인 개발 (팀장)</dd>
+        <dt>☰ 분류</dt><dd><span class="tag o">Google Play 출시</span><span class="tag b">Unity</span><span class="tag n">Android</span></dd>
+        <dt>🎮 장르</dt><dd>유닛 수집형 오토배틀러</dd>
+        <dt>⚙ 기술</dt><dd>Unity 2022.3, C#, 뒤끝(BACKND), UniTask, Addressable</dd>
+        <dt>🔗 링크</dt><dd><a class="pill green" href="https://play.google.com/store/apps/details?id=com.TinyTeams.SquishyRush&amp;hl=ko" target="_blank" rel="noopener">Google Play</a><a class="pill blue" href="https://www.youtube.com/shorts/y16HKZqZzsU" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/SquishyRush" target="_blank" rel="noopener">Github</a></dd>
+      </dl>
+      <div class="callout"><span class="ci" aria-hidden="true">💡</span><div>담당: 로비 UI, 뒤끝 서버 연동, 전역 매니저 구조, 데이터 모델 설계, 아티팩트 시스템, 출시 작업</div></div>
+      <p>유닛을 모아 배치하고 6대6 자동전투로 35라운드를 진행하는 모바일 오토배틀러입니다. 팀장을 맡아 로비와 메타 시스템, 서버 연동, 데이터 저장 구조를 설계하고 구글 플레이 출시까지 진행했습니다. 화면 전환 시 리소스 로드와 해제, 서버 데이터의 비동기 처리, 팝업과 시트 UI를 나눠 관리하는 구조를 중점적으로 작업했습니다.</p>
 
-  <footer>
-    <span>© 2026 최진모</span>
-    <span><a href="mailto:biotite135@naver.com">biotite135@naver.com</a> · <a href="https://github.com/lbiotitel" target="_blank" rel="noopener">GitHub</a></span>
-  </footer>
-</main>
+      <h3>핵심 개발</h3>
+      <h4>1. 전역 매니저 구조와 재시작 처리</h4>
+      <p>모든 매니저를 먼저 생성한 뒤 Initialize / Release로 순서대로 초기화와 해제를 해서 매니저끼리 서로 참조해도 null이 나지 않게 했습니다. 재시작 시에는 빈 씬을 거쳐 씬·리소스 해제 → 매니저 재초기화 → 타이틀 순서를 보장했고, 씬 전환은 빌더 패턴으로 묶어 호출하는 쪽에서 필요한 기능을 골라 쓸 수 있게 했습니다.</p>
+      <h4>2. 시트, 팝업 UI 프레임워크</h4>
+      <p>팝업은 기존 화면 위에 쌓이고 시트는 기존 화면을 교체하기 때문에 각각 별도의 컨테이너로 관리해, 화면마다 팝업과 시트 동작을 따로 구현하지 않아도 되게 했습니다. 모든 UI는 BaseUI를 상속하고 OpenUI&lt;T&gt;()로 열며, 닫힌 UI는 파괴하지 않고 풀링해서 재사용합니다.</p>
+      <h4>3. 뒤끝 서버 연동 래퍼</h4>
+      <p>콜백 기반 뒤끝 SDK를 UniTask async/await로 감싸 순차적인 코드로 쓸 수 있게 해 가독성 문제를 해결했고, 점검·요청 과다 같은 서버 에러를 이벤트 하나로 모아 에러 팝업을 한 곳에서 처리했습니다.</p>
 
-<!-- notion-style section nav -->
-<nav class="toc" aria-label="목차">
-  <a href="#about" data-sec="about" aria-label="About"></a>
-  <a href="#experience" data-sec="experience" aria-label="Project Experience"></a>
-  <a href="#education" data-sec="education" aria-label="Education"></a>
-  <a href="#awards" data-sec="awards" aria-label="Awards"></a>
-  <a href="#certificates" data-sec="certificates" aria-label="Certificates"></a>
-  <a href="#portfolio" data-sec="portfolio" aria-label="Portfolio"></a>
-  <div class="toc-panel">
-    <a href="#about" data-sec="about">About</a>
-    <a href="#experience" data-sec="experience">Project Experience</a>
-    <a href="#education" data-sec="education">Education</a>
-    <a href="#awards" data-sec="awards">Awards</a>
-    <a href="#certificates" data-sec="certificates">Certificates</a>
-    <a href="#portfolio" data-sec="portfolio">Portfolio</a>
-  </div>
-</nav>
+      <h3>문제 해결</h3>
+      <div class="ps">
+        <div class="ps-title">🔥 변경 없는 저장에도 반복되던 서버 호출과 저장 누락</div>
+        <div class="ps-row"><div class="ps-k">상황</div><div class="ps-v"><p>프로필, 재화, 에너지, 출석, 유닛, 아티팩트, 퀘스트 등 저장할 유저 데이터가 많아, 주기 저장 때마다 바뀌지 않은 데이터까지 서버에 보내고 있었습니다. 2인 개발이라 제 파트의 저장 코드를 검토해 줄 사람도 없었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">원인</div><div class="ps-v"><p>어떤 데이터가 바뀌었는지 추적하지 않았고, 데이터 종류마다 로드·저장 코드가 따로 흩어져 있었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">해결</div><div class="ps-v"><ul>
+          <li>UserServerDataBase 추상 클래스로 저장 데이터를 묶고, 타입을 키로 하는 매니저에서 관리</li>
+          <li>IsDirty 플래그로 바뀐 데이터만 전송하고, 저장에 성공했을 때만 플래그 해제 (실패 시 다음 주기에 재시도)</li>
+          <li>백그라운드 진입·종료 시 동기 저장, 오래 비운 뒤 복귀하면 이전 상태로 덮어쓰지 않도록 차단</li>
+          <li>설계는 직접 하고, AI에게 놓쳤을 만한 부분을 후보로 받아 코드와 하나씩 대조하며 dirty 누락 필드를 수정</li>
+        </ul></div></div>
+        <div class="ps-row"><div class="ps-k">결과</div><div class="ps-v"><p>저장 데이터를 8개 테이블로 나누고 바뀐 테이블만 보내도록 바꿔, 저장할 때마다 8번이던 호출이 1번으로 줄었습니다. 저장 대상에서 빠져 있던 필드 3개도 찾아 고쳤습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">알게 된 점</div><div class="ps-v"><p>검토해 줄 사람이 없을 때는 바뀐 데이터를 사람이 신경 쓰기보다 코드가 추적하게 하는 게 안전하다는 걸 배웠습니다.</p></div></div>
+      </div>
+      <div class="ps">
+        <div class="ps-title">🔥 가챠 저장 실패 시 재화와 결과가 어긋나는 문제</div>
+        <div class="ps-row"><div class="ps-k">상황</div><div class="ps-v"><p>가챠는 재화 차감, 결과 반영, 서버 저장이 한 번에 일어나서, 중간에 하나라도 실패하면 재화만 사라지거나 결과만 지급되는 경우가 있었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">원인</div><div class="ps-v"><p>세 단계가 하나로 묶이지 않고 따로 처리돼, 중간에 실패하면 앞 단계를 되돌릴 방법이 없었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">해결</div><div class="ps-v"><ul>
+          <li>확률은 뒤끝 서버 확률표에서 받아와 클라이언트 조작을 막고, 앱 업데이트 없이 확률 변경</li>
+          <li>로컬 반영 전에 재화와 유닛·아티팩트 데이터의 스냅샷을 만들고, 두 테이블을 하나의 트랜잭션으로 저장</li>
+          <li>저장 실패나 예외가 나면 스냅샷으로 롤백하고 에러 이벤트 알림, 결과 UI는 저장 성공 후에만 표시</li>
+          <li>뒤끝 SDK 호출(GachaBackEnd)과 게임 규칙(GachaService)을 분리</li>
+        </ul></div></div>
+        <div class="ps-row"><div class="ps-k">결과</div><div class="ps-v"><p>저장이 실패해도 재화와 결과가 어긋나지 않고, 유저는 실패한 가챠 결과를 보지 않게 되었습니다. 네트워크가 불안정해도 성공과 실패 처리가 명확해졌습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">한계와 개선</div><div class="ps-v"><p>재화 차감 값은 클라이언트가 계산해 저장하므로 메모리 변조까지는 막지 못합니다. 이후에는 서버 코드(뒤끝 펑션)에서 추첨, 차감, 지급을 한 번에 처리하도록 바꾸는 것이 목표입니다.</p></div></div>
+      </div>
+    </section>
 
-<!-- ===== project peek ===== -->
-<dialog id="peek" aria-labelledby="peek-title">
-  <div class="m-bar"><button class="m-close" type="button" aria-label="닫기">×</button></div>
-  <div id="peek-body"></div>
-</dialog>
+    <!-- ---------- Abyss ---------- -->
+    <section class="project" id="p-abyss">
+      <div class="media" data-yt="fS3M2WcU6ik"><button class="poster" type="button" aria-label="Abyss 플레이 영상 재생"><img src="assets/abyss.png" alt=""><span class="play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span class="play-label">▶ 플레이 영상</span></button></div>
+      <div class="p-icon" aria-hidden="true">⚔️</div>
+      <h2 class="p-title">Abyss</h2>
+      <dl class="props">
+        <dt>◷ 기간</dt><dd>2026.06 - 2026.07</dd>
+        <dt>👥 인원</dt><dd>3인 팀 프로젝트</dd>
+        <dt>☰ 분류</dt><dd><span class="tag g">Team Project</span><span class="tag b">Unity</span><span class="tag n">PC</span></dd>
+        <dt>🎮 장르</dt><dd>탐험 액션</dd>
+        <dt>⚙ 기술</dt><dd>Unity, C#, ScriptableObject, SerializeReference, UniTask</dd>
+        <dt>🔗 링크</dt><dd><a class="pill blue" href="https://youtu.be/fS3M2WcU6ik" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/Abyss" target="_blank" rel="noopener">Github</a></dd>
+      </dl>
+      <div class="callout"><span class="ci" aria-hidden="true">💡</span><div>담당: 스킬·효과 시스템, 스탯 시스템, 무기 FSM, 격자 인벤토리, 장비 장착(MVC)</div></div>
+      <p>심연을 탐험하며 몬스터와 싸우고 보물을 얻어 영지를 발전시키는 액션 게임입니다. 언리얼 GAS의 데이터 구조를 참고해 스킬과 아이템 효과를 코드 수정 없이 데이터만으로 조합할 수 있게 만들었고, 장비를 바꿀 때마다 달라지는 스탯이 어긋나지 않도록 계산 구조도 따로 설계했습니다.</p>
 
-<template id="p-squishy">
-  <img class="m-cover portrait" src="assets/squishy.png" alt="말랑 돌격대! 게임 화면">
-  <div class="m-pad">
-    <div class="m-icon" aria-hidden="true">📱</div>
-    <h2 class="m-title" id="peek-title">말랑 돌격대!</h2>
-    <dl class="props">
-      <dt>◷ 기간</dt><dd>2026.07 - 2026.10</dd>
-      <dt>👥 인원</dt><dd>2인 개발 (팀장)</dd>
-      <dt>☰ 분류</dt><dd><span class="tag o">Google Play</span><span class="tag b">Unity</span><span class="tag n">Android</span></dd>
-      <dt>⚙ 기술</dt><dd>Unity 2022.3, C#, 뒤끝(BACKND), UniTask, Addressable</dd>
-      <dt>🔗 링크</dt><dd><a class="pill green" href="https://play.google.com/store/apps/details?id=com.TinyTeams.SquishyRush&amp;hl=ko" target="_blank" rel="noopener">Google Play</a><a class="pill blue" href="https://www.youtube.com/shorts/y16HKZqZzsU" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/SquishyRush" target="_blank" rel="noopener">Github</a></dd>
-    </dl>
-    <div class="callout"><span aria-hidden="true">💡</span><span>담당: 로비 UI, 뒤끝 서버 연동, 전역 매니저 구조, 데이터 모델 설계, 아티팩트 시스템, 출시 작업</span></div>
-    <p>유닛을 모아 배치하고 6대6 자동전투로 35라운드를 진행하는 모바일 오토배틀러입니다. 팀장을 맡아 로비와 메타 시스템, 서버 연동, 데이터 저장 구조를 설계하고 구글 플레이 출시까지 진행했습니다.</p>
-    <h3>핵심 개발</h3>
-    <h4>1. 전역 매니저 구조와 재시작 처리</h4>
-    <p>모든 매니저를 먼저 생성한 뒤 Initialize / Release로 순서대로 초기화와 해제를 해서 매니저끼리 서로 참조해도 null이 나지 않게 했습니다. 재시작 시에는 빈 씬을 거쳐 씬·리소스 해제 → 매니저 재초기화 → 타이틀 순서를 보장했고, 씬 전환은 빌더 패턴으로 묶었습니다.</p>
-    <h4>2. 시트, 팝업 UI 프레임워크</h4>
-    <p>팝업은 화면 위에 쌓이고 시트는 화면을 교체하기 때문에 각각 별도 컨테이너로 관리했습니다. 모든 UI는 BaseUI를 상속하고 OpenUI&lt;T&gt;()로 열며, 닫힌 UI는 파괴하지 않고 풀링해서 재사용합니다.</p>
-    <h4>3. 뒤끝 서버 연동 래퍼</h4>
-    <p>콜백 기반 뒤끝 SDK를 UniTask async/await로 감싸 순차적인 코드로 쓸 수 있게 했고, 점검·요청 과다 같은 서버 에러를 이벤트 하나로 모아 에러 팝업을 한 곳에서 처리했습니다.</p>
-  </div>
-</template>
+      <h3>핵심 개발</h3>
+      <h4>1. 스탯 시스템</h4>
+      <p>스탯 값을 직접 바꾸지 않고 기본값에 수정자 리스트를 적용해 계산했습니다. 바뀌었을 때만 다시 계산하고(dirty 플래그), HP·MP는 최대값 변경 이벤트를 구독해 장비를 바꿔도 현재 값이 어긋나지 않게 했습니다. 장비를 해제하면 출처가 같은 수정자만 제거합니다.</p>
+      <h4>2. FSM 기반 무기, 패링</h4>
+      <p>공격, 패링, 대기를 FSM 상태로 나눠 상태마다 진입, 종료, 전환 조건을 관리하고, 애니메이션 이벤트로 타격 판정과 패링 성공 구간을 맞췄습니다. 무기별 애니메이션은 WeaponMotionData로 분리해 새 무기를 FSM 코드 수정 없이 추가할 수 있습니다.</p>
+      <figure><img src="assets/abyss-weapon.jpg" alt="스킬 공격과 무기 휘두르기 장면" loading="lazy"><figcaption>스킬 공격과 무기 휘두르기</figcaption></figure>
+      <h4>3. 격자 인벤토리와 마우스 배치</h4>
+      <p>2차원 배열로 칸마다 아이템 참조를 저장해 크기가 다른 아이템의 배치와 충돌을 검사했습니다. 큰 아이템을 잡을 때 포인터가 중심에 고정돼 배치가 어긋나던 문제를, 잡은 칸 기준으로 계산하도록 바꿔 해결했습니다.</p>
+      <figure><img src="assets/abyss-inventory.png" alt="격자 인벤토리" loading="lazy"><figcaption>격자 인벤토리</figcaption></figure>
 
-<template id="p-abyss">
-  <img class="m-cover" src="assets/abyss.png" alt="Abyss 게임 화면">
-  <div class="m-pad">
-    <div class="m-icon" aria-hidden="true">⚔️</div>
-    <h2 class="m-title" id="peek-title">Abyss</h2>
-    <dl class="props">
-      <dt>◷ 기간</dt><dd>2026.06 - 2026.07</dd>
-      <dt>👥 인원</dt><dd>3인 팀 프로젝트</dd>
-      <dt>☰ 분류</dt><dd><span class="tag g">Team Project</span><span class="tag b">Unity</span><span class="tag n">PC</span></dd>
-      <dt>⚙ 기술</dt><dd>Unity, C#, ScriptableObject, SerializeReference, UniTask</dd>
-      <dt>🔗 링크</dt><dd><a class="pill blue" href="https://youtu.be/fS3M2WcU6ik" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/Abyss" target="_blank" rel="noopener">Github</a></dd>
-    </dl>
-    <div class="callout"><span aria-hidden="true">💡</span><span>담당: 스킬·효과 시스템, 스탯 시스템, 무기 FSM, 격자 인벤토리, 장비 장착(MVC)</span></div>
-    <p>심연을 탐험하며 몬스터와 싸우고 보물을 얻어 영지를 발전시키는 액션 게임입니다. 언리얼 GAS의 데이터 구조를 참고해 스킬과 아이템 효과를 코드 수정 없이 데이터만으로 조합할 수 있게 만들었습니다.</p>
-    <h3>핵심 개발</h3>
-    <h4>1. 스탯 시스템</h4>
-    <p>스탯 값을 직접 바꾸지 않고 기본값에 수정자 리스트를 적용해 계산했습니다. 바뀌었을 때만 다시 계산하고(dirty 플래그), HP·MP는 최대값과 연결해 장비를 바꿔도 값이 어긋나지 않게 했습니다.</p>
-    <h4>2. FSM 기반 무기, 패링</h4>
-    <p>공격, 패링, 대기를 FSM 상태로 나누고 애니메이션 이벤트로 타격 판정과 패링 구간을 맞췄습니다. 무기별 애니메이션은 WeaponMotionData로 분리해 새 무기를 FSM 수정 없이 추가할 수 있습니다.</p>
-    <h4>3. 격자 인벤토리와 마우스 배치</h4>
-    <p>2차원 배열로 칸마다 아이템 참조를 저장해 크기가 다른 아이템의 배치와 충돌을 검사했습니다. 큰 아이템을 잡을 때 배치가 어긋나던 문제를 잡은 칸 기준으로 바꿔 해결했습니다.</p>
-  </div>
-</template>
+      <h3>문제 해결</h3>
+      <div class="ps">
+        <div class="ps-title">🔥 스킬이 늘어날수록 클래스와 중복 코드가 늘어나는 문제</div>
+        <div class="ps-row"><div class="ps-k">상황</div><div class="ps-v"><p>스킬마다 클래스를 하나씩 만들다 보니 데미지, 파티클, 상태이상처럼 같은 효과를 스킬마다 다시 구현하고 있었고, 효과 조합만 다른 스킬도 클래스를 새로 만들어야 했습니다. 포션 같은 아이템에는 스킬 코드를 가져다 쓸 수도 없었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">원인</div><div class="ps-v"><p>효과가 스킬 클래스 안에 묶여 있어서 효과만 따로 재사용할 수 없었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">해결</div><div class="ps-v"><ul>
+          <li>언리얼 GAS가 스킬을 Ability(발동), Effect(효과), Attribute(스탯)로 나눠 데이터로 조합하는 구조를 참고</li>
+          <li>스킬은 SkillData(데이터)와 SkillBase(쿨타임, 마나 체크)로, 효과는 EffectBase를 상속한 독립 클래스로 분리</li>
+          <li>[SerializeReference]로 인스펙터에서 효과를 골라 리스트로 조합, 즉시 효과와 지속 효과(UniTask)로 구분</li>
+          <li>프로젝트 규모에 맞춰 GAS의 Tag 시스템과 네트워크 예측은 제외</li>
+        </ul><figure class="frame"><img src="assets/abyss-skilldata.png" alt="SkillData 인스펙터의 효과 리스트" loading="lazy"><figcaption>인스펙터에서 효과를 조합하는 SkillData</figcaption></figure></div></div>
+        <div class="ps-row"><div class="ps-k">결과</div><div class="ps-v"><p>새 스킬은 기존 효과를 조합해 만들 수 있게 됐고, 같은 효과 리스트를 포션에도 그대로 붙였습니다. 전체 스킬 10종 중 6종은 코드 수정 없이 기존 효과 조합으로 추가했습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">알게 된 점</div><div class="ps-v"><p>Not Hero 카드에서 썼던 효과 조합 방식을 GAS 구조와 비교하며 스킬 전체로 넓힐 수 있었습니다. 상태이상일 때만 추가 데미지가 들어가는 식의 조건부 효과는 아직 처리하지 못해 다음에 보완하고 싶습니다.</p></div></div>
+      </div>
+    </section>
 
-<template id="p-figureout">
-  <img class="m-cover" src="assets/figureout.png" alt="Figure Out 게임 화면">
-  <div class="m-pad">
-    <div class="m-icon" aria-hidden="true">🔫</div>
-    <h2 class="m-title" id="peek-title">Figure Out</h2>
-    <dl class="props">
-      <dt>◷ 기간</dt><dd>2026.05 - 2026.06</dd>
-      <dt>👥 인원</dt><dd>4인 팀 프로젝트</dd>
-      <dt>☰ 분류</dt><dd><span class="tag g">Team Project</span><span class="tag b">Unity</span><span class="tag n">PC</span></dd>
-      <dt>⚙ 기술</dt><dd>Unity, C#, Addressable, UniTask, ScriptableObject</dd>
-      <dt>🔗 링크</dt><dd><a class="pill blue" href="https://youtu.be/t1ltyD3_bxM" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/FigureOut" target="_blank" rel="noopener">Github</a></dd>
-    </dl>
-    <div class="callout"><span aria-hidden="true">💡</span><span>담당: 데이터 관리(Addressable), 이벤트 매니저, 씬 컨트롤, 퀘스트, 인벤토리, 장비 시스템</span></div>
-    <p>장비를 루팅하면서 적과 총격전을 벌이는 생존 액션 게임입니다. 이전 프로젝트(Not Hero)의 Resources 로드를 Addressable로, object 기반 이벤트를 박싱 없는 제네릭 이벤트로 바꿨습니다.</p>
-    <h3>핵심 개발</h3>
-    <h4>1. 박싱 없는 이벤트 매니저</h4>
-    <p>IEventData 제네릭 제약과 구조체 이벤트 데이터로 바꿔 박싱을 없애고, 정확한 매개변수 타입을 받을 수 있게 했습니다.</p>
-    <h4>2. Bootstrap 씬 + Additive 씬 컨트롤</h4>
-    <p>Bootstrap 씬을 먼저 쌓고 게임 씬을 Additive로 올리는 구조와 빌더 패턴(Fade, 언로드, 데이터 로드, 씬 로드 순)으로 바꿨습니다. 에디터에서 어떤 씬을 실행해도 Bootstrap을 먼저 불러와 팀원이 자기 씬에서 바로 테스트할 수 있습니다.</p>
-    <h4>3. 데이터 기반 퀘스트, 아이템</h4>
-    <p>퀘스트와 아이템을 ScriptableObject 데이터로 분리해, 팀원이 데이터를 추가하고 Addressable에 등록하면 코드 수정 없이 새 퀘스트와 아이템이 생기게 했습니다.</p>
-  </div>
-</template>
+    <!-- ---------- Figure Out ---------- -->
+    <section class="project" id="p-figureout">
+      <div class="media" data-yt="t1ltyD3_bxM"><button class="poster" type="button" aria-label="Figure Out 플레이 영상 재생"><img src="assets/figureout.png" alt=""><span class="play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span class="play-label">▶ 플레이 영상</span></button></div>
+      <div class="p-icon" aria-hidden="true">🔫</div>
+      <h2 class="p-title">Figure Out</h2>
+      <dl class="props">
+        <dt>◷ 기간</dt><dd>2026.05 - 2026.06</dd>
+        <dt>👥 인원</dt><dd>4인 팀 프로젝트</dd>
+        <dt>☰ 분류</dt><dd><span class="tag g">Team Project</span><span class="tag b">Unity</span><span class="tag n">PC</span></dd>
+        <dt>🎮 장르</dt><dd>루트 슈터 생존 액션</dd>
+        <dt>⚙ 기술</dt><dd>Unity, C#, Addressable, UniTask, ScriptableObject</dd>
+        <dt>🔗 링크</dt><dd><a class="pill blue" href="https://youtu.be/t1ltyD3_bxM" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/FigureOut" target="_blank" rel="noopener">Github</a></dd>
+      </dl>
+      <div class="callout"><span class="ci" aria-hidden="true">💡</span><div>담당: 데이터 관리(Addressable), 이벤트 매니저, 씬 컨트롤, 퀘스트, 인벤토리, 장비 시스템</div></div>
+      <p>장비를 루팅하면서 적과 총격전을 벌이는 생존 액션 게임입니다. 이전 프로젝트(Not Hero)에서 쓰던 Resources 로드를 Addressable로, object 기반 이벤트를 박싱 없는 제네릭 이벤트로 바꿨고, 팀원이 데이터만 추가하면 새 퀘스트와 아이템이 생기도록 만드는 것을 목표로 했습니다.</p>
 
-<template id="p-nothero">
-  <img class="m-cover" src="assets/nothero.png" alt="Not Hero 게임 화면">
-  <div class="m-pad">
-    <div class="m-icon" aria-hidden="true">🃏</div>
-    <h2 class="m-title" id="peek-title">Not Hero</h2>
-    <dl class="props">
-      <dt>◷ 기간</dt><dd>2026.03 - 2026.04</dd>
-      <dt>👥 인원</dt><dd>4인 팀 프로젝트</dd>
-      <dt>☰ 분류</dt><dd><span class="tag g">Team Project</span><span class="tag b">Unity</span><span class="tag n">PC</span></dd>
-      <dt>⚙ 기술</dt><dd>Unity, C#, ScriptableObject, DOTween</dd>
-      <dt>🔗 링크</dt><dd><a class="pill blue" href="https://www.youtube.com/watch?v=ChbWpCXmwUg" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/Not-Hero" target="_blank" rel="noopener">Github</a></dd>
-    </dl>
-    <div class="callout"><span aria-hidden="true">💡</span><span>담당: 카드 시스템, 절차적 맵 생성, 매니저, 이벤트, 데이터 관리, 상점, 오브젝트 풀링</span></div>
-    <p>덱을 구성해서 무작위로 생성된 맵을 진행하는 덱빌딩 로그라이크입니다. 카드가 늘어나도 코드 수정 없이 추가하고 조합할 수 있는 데이터 구조와 드로우 연출을 주로 작업했습니다.</p>
-    <h3>핵심 개발</h3>
-    <h4>1. 효과를 조합해 만드는 카드 데이터 구조</h4>
-    <p>CardEffect를 상속한 효과(데미지, 드로우 등)를 [SerializeReference] 리스트로 조합해, 새 카드는 인스펙터에서 효과만 골라 만들 수 있게 했습니다. 카드 설명도 효과 값으로 자동 생성합니다.</p>
-    <h4>2. 절차적 맵 생성</h4>
-    <p>트리 형태의 노드를 무작위로 연결하되 경로 교차를 검사하고, 모든 시작 지점에서 보스까지 경로가 있도록 보장했습니다. 방 종류는 가중치로 정합니다.</p>
-    <h4>3. 초기화 순서 제어와 이벤트 매니저</h4>
-    <p>Awake / Start로는 매니저 간 초기화 순서를 보장할 수 없어 데이터를 먼저 로드한 뒤 사운드, 풀링, 전투 순으로 직접 초기화했고, 이벤트 매니저로 팀원 간 스크립트 직접 참조를 줄였습니다.</p>
-  </div>
-</template>
+      <h3>핵심 개발</h3>
+      <h4>1. 박싱 없는 이벤트 매니저</h4>
+      <p>지난 프로젝트의 이벤트는 매개변수가 object라 박싱 오버헤드가 있고 어떤 타입이 오는지 알 수 없었습니다. IEventData 제네릭 제약과 구조체 이벤트 데이터로 바꿔 박싱을 없애고 정확한 매개변수 타입을 받게 했습니다.</p>
+      <figure class="frame"><img src="assets/fo-event.png" alt="EventManager NotifyEvent 코드" loading="lazy"></figure>
+      <h4>2. Bootstrap 씬 + Additive 씬 컨트롤</h4>
+      <p>DontDestroyOnLoad로 매니저를 유지하면 해제 시점을 계속 신경 써야 했습니다. Bootstrap 씬을 먼저 쌓고 게임 씬을 Additive로 올리는 구조와 빌더 패턴(Fade, 언로드, 데이터 로드, 씬 로드 순)으로 바꿨고, 에디터에서 어떤 씬을 실행해도 Bootstrap 씬과 리소스를 먼저 불러와 팀원이 자기 작업 씬에서 바로 테스트할 수 있게 했습니다.</p>
+      <figure class="frame"><img src="assets/fo-scene.png" alt="SceneTransitionPlan 빌더 코드" loading="lazy"></figure>
+      <h4>3. 데이터 기반 퀘스트, 아이템</h4>
+      <p>퀘스트와 아이템을 ScriptableObject 데이터로 분리해, 팀원이 데이터를 추가하고 Addressable에 등록하면 코드 수정 없이 새 퀘스트와 아이템이 생기게 했습니다.</p>
+      <figure><img src="assets/fo-quest.jpg" alt="장비 관리 툴과 퀘스트 데이터 인스펙터" loading="lazy"><figcaption>장비 관리 툴과 퀘스트 데이터</figcaption></figure>
 
-<template id="p-factory">
-  <img class="m-cover" src="assets/factory.jpg" alt="Tiny Factory 실행 장면">
-  <div class="m-pad">
-    <div class="m-icon" aria-hidden="true">🏭</div>
-    <h2 class="m-title" id="peek-title">Tiny Factory (졸업 작품)</h2>
-    <dl class="props">
-      <dt>◷ 기간</dt><dd>2024.11 (3주)</dd>
-      <dt>👥 인원</dt><dd>2인 (후배와 함께)</dd>
-      <dt>🏆 수상</dt><dd>졸업 작품 최우수상</dd>
-      <dt>⚙ 기술</dt><dd>C++, MFC, OpenCV (YOLO), Arduino, 시리얼 통신, HTTP</dd>
-      <dt>🔗 링크</dt><dd><a class="pill blue" href="https://www.youtube.com/watch?v=Ssp9-5lVbss" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/TinyFactory" target="_blank" rel="noopener">Github</a></dd>
-    </dl>
-    <div class="callout"><span aria-hidden="true">💡</span><span>담당: MFC 관제 프로그램, 장치 시리얼 통신, 스레드 구조 (AI 학습은 팀원 담당)</span></div>
-    <p>카메라로 물체를 인식해 정상품과 불량품을 분류하는 작은 스마트 공장입니다. 3D 프린터로 실제로 움직이는 공장을 만들고, MFC 프로그램이 컨베이어 벨트, 로봇팔, 운반차를 제어합니다.</p>
-    <h3>핵심 개발</h3>
-    <h4>1. 장치별 스레드 분리</h4>
-    <p>카메라 출력, YOLO 인식, 컨베이어 벨트, 로봇팔 통신을 각각 별도 스레드(AfxBeginThread)로 돌려 UI가 멈추지 않게 했습니다. 스레드에서 UI를 직접 건드리지 않고 PostMessage로 메인 다이얼로그에 결과를 알립니다.</p>
-    <h4>2. 공유 자원 문제 해결</h4>
-    <p>카메라 처리와 시리얼 통신을 동시에 돌리던 중 이상한 값이 전송되는 문제가 있었습니다. 하드웨어부터 순서대로 테스트하고 디버깅으로 추적해 스레드 간 공유 자원 문제임을 확인했고, 여러 스레드가 함께 쓰는 매니저(Work, Data, Log)를 싱글톤으로 만들고 std::mutex로 보호해 해결했습니다.</p>
-    <h4>3. 장치 통신과 객체 인식</h4>
-    <p>컨베이어와 로봇팔(아두이노)은 시리얼 통신(115200bps)으로, 운반차는 Wi-Fi 모듈에 HTTP GET 요청으로 제어합니다. OpenCV DNN으로 직접 학습한 YOLO 모델을 불러와 정상품, 모양 불량, 색상 불량을 구분합니다.</p>
-  </div>
-</template>
+      <h3>문제 해결</h3>
+      <div class="ps">
+        <div class="ps-title">🔥 Resources 로드의 경로 의존성과 메모리 관리 한계</div>
+        <div class="ps-row"><div class="ps-k">상황</div><div class="ps-v"><p>이전 프로젝트에서 빠른 개발을 위해 Resources 폴더를 썼는데, 에셋 위치나 파일명이 바뀔 때마다 코드의 경로를 고쳐야 했고, 폴더 단위로 한꺼번에 로드돼 필요한 것만 올리고 내리기 어려웠습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">원인</div><div class="ps-v"><p>Resources는 문자열 경로에 직접 묶여 있고, 에셋을 원하는 단위로 묶어서 해제할 방법이 마땅치 않았습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">해결</div><div class="ps-v"><ul>
+          <li>Addressable로 바꿔 경로 대신 키로 에셋을 로드, 폴더 구조가 바뀌어도 코드 수정 불필요</li>
+          <li>로드한 핸들을 딕셔너리로 관리하고, 씬 이름을 라벨로 로드한 뒤 씬 전환 시 모든 핸들을 해제</li>
+          <li>UniTask로 모든 데이터가 로드·캐싱될 때까지 대기해 로드 전 접근 방지</li>
+          <li>ScriptableObject는 원본을 복사해 써서 런타임 수정이 원본 에셋에 저장되는 문제 방지</li>
+        </ul></div></div>
+        <div class="ps-row"><div class="ps-k">결과</div><div class="ps-v"><p>에셋 경로 변경에 따른 코드 수정이 사라졌고, 씬마다 필요한 에셋만 로드·해제할 수 있게 되었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">알게 된 점</div><div class="ps-v"><p>Not Hero에서는 팀원 숙련도와 일정 때문에 일부러 Resources를 골랐는데, 내부 구현만 바꾸면 되도록 캡슐화해 둔 덕분에 바깥 코드는 거의 그대로 두고 교체할 수 있었습니다. 캡슐화가 이후 기술 교체 범위를 줄여 준다는 걸 체감했습니다.</p></div></div>
+      </div>
+    </section>
 
-<template id="p-toeic">
-  <video class="m-cover" src="assets/toeic.mp4" controls muted playsinline preload="metadata" style="height:auto;max-height:420px;object-fit:contain;background:#000"></video>
-  <div class="m-pad" style="padding-top:20px">
-    <div class="m-icon" aria-hidden="true" style="margin-top:0">📚</div>
-    <h2 class="m-title" id="peek-title">TOEIC Management System</h2>
-    <dl class="props">
-      <dt>☰ 분류</dt><dd><span class="tag n">Personal</span><span class="tag p">Desktop App</span></dd>
-      <dt>🔗 링크</dt><dd>위 영상에서 실행 화면을 볼 수 있습니다.</dd>
-    </dl>
-    <p>토익 단어 공부를 도와주는 프로그램입니다. 단어를 관리하면서 공부할 수 있고, 친구와 함께 토익 단어 게임을 할 수 있습니다.</p>
-  </div>
-</template>
+    <!-- ---------- Not Hero ---------- -->
+    <section class="project" id="p-nothero">
+      <div class="media" data-yt="ChbWpCXmwUg"><button class="poster" type="button" aria-label="Not Hero 플레이 영상 재생"><img src="assets/nothero.png" alt=""><span class="play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span class="play-label">▶ 플레이 영상</span></button></div>
+      <div class="p-icon" aria-hidden="true">🃏</div>
+      <h2 class="p-title">Not Hero</h2>
+      <dl class="props">
+        <dt>◷ 기간</dt><dd>2026.03 - 2026.04</dd>
+        <dt>👥 인원</dt><dd>4인 팀 프로젝트</dd>
+        <dt>☰ 분류</dt><dd><span class="tag g">Team Project</span><span class="tag b">Unity</span><span class="tag n">PC</span></dd>
+        <dt>🎮 장르</dt><dd>덱빌딩 로그라이크</dd>
+        <dt>⚙ 기술</dt><dd>Unity, C#, ScriptableObject, DOTween</dd>
+        <dt>🔗 링크</dt><dd><a class="pill blue" href="https://www.youtube.com/watch?v=ChbWpCXmwUg" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/Not-Hero" target="_blank" rel="noopener">Github</a></dd>
+      </dl>
+      <div class="callout"><span class="ci" aria-hidden="true">💡</span><div>담당: 카드 시스템, 절차적 맵 생성, 매니저, 이벤트, 데이터 관리, 상점, 오브젝트 풀링</div></div>
+      <p>덱을 구성해서 무작위로 생성된 맵을 진행하는 덱빌딩 로그라이크입니다. 카드가 곧 스킬이기 때문에, 카드가 늘어나도 코드 수정 없이 추가하고 조합할 수 있는 데이터 구조와 드로우 연출을 주로 작업했습니다. 여러 명이 동시에 기능을 붙이는 상황이라 매니저 초기화 순서를 직접 잡고 이벤트 매니저로 서로의 코드를 직접 참조하지 않게 했습니다.</p>
 
-<template id="p-risa">
-  <video class="m-cover" src="assets/risa.mp4" controls muted playsinline preload="metadata" style="height:auto;max-height:420px;object-fit:contain;background:#000"></video>
-  <div class="m-pad" style="padding-top:20px">
-    <div class="m-icon" aria-hidden="true" style="margin-top:0">🐶</div>
-    <h2 class="m-title" id="peek-title">Risa Project MK.2</h2>
-    <dl class="props">
-      <dt>◷ 기간</dt><dd>60시간 목표 단기 프로젝트</dd>
-      <dt>☰ 분류</dt><dd><span class="tag n">Personal</span><span class="tag o">Arduino</span></dd>
-      <dt>⚙ 기술</dt><dd>Arduino</dd>
-      <dt>🔗 링크</dt><dd>위 영상에서 동작을 볼 수 있습니다.</dd>
-    </dl>
-    <p>시간을 맞춰 두면 정해진 시간에 사료를 주는 강아지 자동 배급기입니다.</p>
-    <p>긴 프로젝트에서 지치고 집중력이 떨어지는 문제를 고치려고, 기능이 명확한 짧은 개발을 반복하기로 하고 60시간 안에 완성하는 것을 목표로 만들었습니다. 아두이노는 처음이었지만, 공부해 둔 자료구조를 활용해 원하는 기능을 빠르게 구현하며 적응할 수 있었습니다. 이 경험을 발판으로 더 긴 프로젝트인 Tiny Factory에 도전했습니다.</p>
-  </div>
-</template>
+      <h3>핵심 개발</h3>
+      <h4>1. 효과를 조합해 만드는 카드 데이터 구조</h4>
+      <p>CardEffect 추상 클래스를 상속한 효과(데미지, 드로우 등)를 [SerializeReference] 리스트로 조합해, 새 카드는 인스펙터에서 효과만 골라 만들 수 있게 했습니다. 카드 설명도 효과 값을 키워드로 자동 생성합니다.</p>
+      <figure class="frame"><img src="assets/nh-card.png" alt="CardEffects 인스펙터 (Armor Effect + Draw Effect)" loading="lazy"></figure>
+      <h4>2. 절차적 맵 생성</h4>
+      <p>트리 형태의 노드를 무작위로 연결하되 이웃 노드의 경로와 교차하는지 검사하고, 모든 시작 지점에서 보스까지 경로가 있도록 보장했습니다. 방 종류를 가중치로 정해 매번 다른 맵을 경험할 수 있습니다.</p>
+      <figure><img src="assets/nh-map.jpg" alt="절차적으로 생성된 맵" loading="lazy"><figcaption>절차적으로 생성된 맵</figcaption></figure>
+      <h4>3. 초기화 순서 제어와 이벤트 매니저</h4>
+      <p>Awake / Start로는 매니저 간 초기화 순서를 보장할 수 없어, Managers에서 데이터를 먼저 로드한 뒤 UI, 사운드, 풀링, 전투 순으로 직접 초기화했습니다. 이벤트 매니저로 팀원 간 스크립트 직접 참조를 줄여 협업 효율을 높였습니다.</p>
+
+      <h3>문제 해결</h3>
+      <div class="ps">
+        <div class="ps-title">🔥 연속 드로우 요청 시 카드 연출과 로직이 꼬이는 문제</div>
+        <div class="ps-row"><div class="ps-k">상황</div><div class="ps-v"><p>턴 시작 드로우와 카드 효과로 인한 추가 드로우가 연달아 들어오면, 이전 카드 연출이 밀리거나 손패 정렬과 로직이 꼬였습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">원인</div><div class="ps-v"><p>드로우 요청이 들어올 때마다 연출을 바로 실행해서, 앞 연출이 끝나기 전에 다음 요청이 끼어들었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">해결</div><div class="ps-v"><ul>
+          <li>드로우 요청을 큐에 쌓고, 연출이 끝나면 다음 요청을 꺼내 순서대로 처리</li>
+          <li>손패 수에 따라 카드 위치를 다시 계산해 추가 드로우가 생겨도 정렬 유지</li>
+          <li>턴 시작·종료는 이벤트로 받아 BattleManager와의 직접 참조 제거</li>
+          <li>전투 종료 시 모든 카드 트윈을 멈추고 초기화해 의도치 않은 동작 방지</li>
+        </ul><figure class="frame"><img src="assets/nh-drawqueue.png" alt="드로우 큐 코드" loading="lazy"></figure></div></div>
+        <div class="ps-row"><div class="ps-k">결과</div><div class="ps-v"><p>드로우 요청이 연속으로 들어와도 누락 없이 순서대로 연출과 로직이 처리되었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">알게 된 점</div><div class="ps-v"><p>연출이 들어간 로직은 요청 시점과 실제 실행 시점이 다를 수 있어서, 큐로 순서를 관리해야 한다는 걸 알게 됐습니다.</p></div></div>
+      </div>
+    </section>
+
+    <!-- ---------- Tiny Factory ---------- -->
+    <section class="project" id="p-factory">
+      <div class="media" data-yt="Ssp9-5lVbss"><button class="poster" type="button" aria-label="Tiny Factory 실행 영상 재생"><img src="assets/factory.jpg" alt=""><span class="play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span class="play-label">▶ 실행 영상</span></button></div>
+      <div class="p-icon" aria-hidden="true">🏭</div>
+      <h2 class="p-title">Tiny Factory</h2>
+      <dl class="props">
+        <dt>◷ 기간</dt><dd>2024.11 (3주)</dd>
+        <dt>👥 인원</dt><dd>2인 (후배와 함께)</dd>
+        <dt>☰ 분류</dt><dd><span class="tag v">졸업 작품 최우수상</span><span class="tag p">C++ / MFC</span><span class="tag o">Arduino</span></dd>
+        <dt>⚙ 기술</dt><dd>C++, MFC, OpenCV (YOLO), Arduino, 시리얼 통신, HTTP</dd>
+        <dt>🔗 링크</dt><dd><a class="pill blue" href="https://www.youtube.com/watch?v=Ssp9-5lVbss" target="_blank" rel="noopener">Video</a><a class="pill red" href="https://github.com/lbiotitel/TinyFactory" target="_blank" rel="noopener">Github</a></dd>
+      </dl>
+      <div class="callout"><span class="ci" aria-hidden="true">💡</span><div>담당: MFC 관제 프로그램, 장치 시리얼 통신, 스레드 구조 (AI 학습은 팀원 담당)</div></div>
+      <p>카메라로 물체를 인식해 정상품과 불량품을 분류하는 작은 스마트 공장입니다. 3D 프린터로 실제로 움직이는 공장을 만들고, MFC로 만든 프로그램이 컨베이어 벨트, 로봇팔, 운반차를 제어합니다. 정상품은 컨베이어를 계속 지나 로봇팔이 정상 위치로 옮기고, 모양이나 색상이 다른 불량품은 밀어낸 뒤 운반차가 출발합니다.</p>
+
+      <h3>핵심 개발</h3>
+      <h4>1. 장치별 스레드 분리</h4>
+      <p>카메라 출력, YOLO 인식, 컨베이어 벨트, 로봇팔 통신을 각각 별도 스레드(AfxBeginThread)로 돌려 UI가 멈추지 않게 했습니다. 스레드에서 UI를 직접 건드리지 않고 PostMessage로 메인 다이얼로그에 결과를 알립니다.</p>
+      <h4>2. 매니저 구조</h4>
+      <p>WorkManager가 인식 결과를 받아 컨베이어, 로봇팔, 운반차에 작업을 지시하고, DataManager는 정상품과 불량품 개수를 집계, LogManager는 작업 로그를 파일로 저장합니다.</p>
+      <h4>3. 장치 통신과 객체 인식</h4>
+      <p>컨베이어와 로봇팔(아두이노)은 시리얼 통신(115200bps)으로 명령 문자열을 주고받고, 운반차는 Wi-Fi 모듈에 HTTP GET 요청(/start, /wait)으로 제어합니다. OpenCV DNN으로 직접 학습한 YOLO 모델을 불러와 정상품, 모양 불량, 색상 불량을 구분합니다.</p>
+
+      <h3>문제 해결</h3>
+      <div class="ps">
+        <div class="ps-title">🔥 멀티스레드에서 이상한 값이 전송되는 문제</div>
+        <div class="ps-row"><div class="ps-k">상황</div><div class="ps-v"><p>카메라 영상 처리와 시리얼 통신을 동시에 돌리던 중, 장치로 이상한 값이 전송되는 문제가 생겼습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">원인</div><div class="ps-v"><p>두 스레드가 공유 자원에 동시에 접근하고 있었습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">해결</div><div class="ps-v"><ul>
+          <li>하드웨어부터 의심해 순서대로 테스트하고, 디버깅으로 원인을 추적해 스레드 문제임을 확인</li>
+          <li>여러 스레드가 함께 쓰는 매니저를 싱글톤으로 만들고 std::mutex로 공유 구간을 보호</li>
+        </ul></div></div>
+        <div class="ps-row"><div class="ps-k">결과</div><div class="ps-v"><p>전송 값이 섞이지 않고 장치가 정상 동작했고, 3주 안에 목표를 달성해 졸업 작품 최우수상을 받았습니다.</p></div></div>
+        <div class="ps-row"><div class="ps-k">알게 된 점</div><div class="ps-v"><p>멀티스레드 환경에서 생기는 문제를 하나씩 좁혀 가며 찾는 법과, 공유 자원을 보호하는 방법을 배웠습니다.</p></div></div>
+      </div>
+    </section>
+
+    <!-- ---------- TOEIC ---------- -->
+    <section class="project" id="p-toeic">
+      <div class="media"><video src="assets/toeic.mp4#t=3" controls muted playsinline preload="metadata"></video></div>
+      <div class="p-icon" aria-hidden="true">📚</div>
+      <h2 class="p-title">TOEIC Management System</h2>
+      <dl class="props">
+        <dt>☰ 분류</dt><dd><span class="tag n">Personal</span><span class="tag p">Desktop App</span></dd>
+        <dt>🔗 링크</dt><dd>위 영상에서 실행 화면을 볼 수 있습니다.</dd>
+      </dl>
+      <p>토익 단어 공부를 도와주는 프로그램입니다. 단어를 관리하면서 공부할 수 있고, 친구와 함께 토익 단어 게임을 할 수 있습니다.</p>
+    </section>
+
+    <!-- ---------- Risa ---------- -->
+    <section class="project" id="p-risa">
+      <div class="media"><video src="assets/risa.mp4#t=2" controls muted playsinline preload="metadata"></video></div>
+      <div class="p-icon" aria-hidden="true">🐶</div>
+      <h2 class="p-title">Risa Project MK.2</h2>
+      <dl class="props">
+        <dt>◷ 기간</dt><dd>60시간 목표 단기 프로젝트</dd>
+        <dt>☰ 분류</dt><dd><span class="tag n">Personal</span><span class="tag o">Arduino</span></dd>
+        <dt>⚙ 기술</dt><dd>Arduino</dd>
+      </dl>
+      <p>시간을 맞춰 두면 정해진 시간에 사료를 주는 강아지 자동 배급기입니다.</p>
+      <p>긴 프로젝트에서 지치고 집중력이 떨어지는 문제를 고치려고, 기능이 명확한 짧은 개발을 반복하기로 하고 60시간 안에 완성하는 것을 목표로 만들었습니다. 아두이노는 처음이었지만 공부해 둔 자료구조를 활용해 원하는 기능을 빠르게 구현하며 적응할 수 있었고, 이 경험을 발판으로 더 긴 프로젝트인 Tiny Factory에 도전했습니다.</p>
+    </section>
+
+    <footer>
+      <span>© 2026 최진모</span>
+      <span><a href="mailto:biotite135@naver.com">biotite135@naver.com</a> · <a href="https://github.com/lbiotitel" target="_blank" rel="noopener">GitHub</a></span>
+    </footer>
+  </main>
+</div>
 
 <script>
 (function(){
-  /* peek modal */
-  var dlg = document.getElementById('peek'), body = document.getElementById('peek-body');
-  // 클릭하면 바로 재생할 영상 (YouTube id / 로컬 mp4)
-  var VIDEOS = {
-    squishy:   {yt:'y16HKZqZzsU', vertical:true},
-    abyss:     {yt:'fS3M2WcU6ik'},
-    figureout: {yt:'t1ltyD3_bxM'},
-    nothero:   {yt:'ChbWpCXmwUg'},
-    factory:   {yt:'Ssp9-5lVbss'},
-    toeic:     {mp4:'assets/toeic.mp4'},
-    risa:      {mp4:'assets/risa.mp4'}
-  };
-  function makePlayer(v){
-    var wrap = document.createElement('div');
-    wrap.className = 'player' + (v.vertical ? ' vertical' : '');
-    if(v.yt){
-      var f = document.createElement('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + v.yt + '?autoplay=1&mute=1&rel=0&playsinline=1';
+  /* 영상: 누르면 바로 재생 (무음) */
+  document.querySelectorAll('.media[data-yt] .poster').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var media = btn.parentElement, f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + media.dataset.yt + '?autoplay=1&mute=1&rel=0&playsinline=1';
       f.title = '플레이 영상';
       f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
       f.allowFullscreen = true;
-      wrap.appendChild(f);
-    } else {
-      var vid = document.createElement('video');
-      vid.src = v.mp4; vid.controls = true; vid.autoplay = true; vid.playsInline = true;
-      vid.muted = true; vid.defaultMuted = true; vid.setAttribute('muted', '');
-      wrap.appendChild(vid);
-      setTimeout(function(){ vid.play(); }, 0);
-    }
-    return wrap;
-  }
-  function openPeek(id){
-    var t = document.getElementById('p-' + id); if(!t) return;
-    body.innerHTML = ''; body.appendChild(t.content.cloneNode(true));
-    var v = VIDEOS[id], cover = body.querySelector('.m-cover');
-    if(v){
-      var player = makePlayer(v);
-      if(cover) cover.replaceWith(player); else body.insertBefore(player, body.firstChild);
-      var pad = body.querySelector('.m-pad'); if(pad) pad.classList.add('after-player');
-    }
-    dlg.showModal(); dlg.scrollTop = 0;
-  }
-  dlg.addEventListener('close', function(){ body.innerHTML = ''; }); // 닫으면 영상 정지
-  document.querySelectorAll('.card, .listview .row').forEach(function(el){
-    el.addEventListener('click', function(e){ if(e.target.closest('a')) return; openPeek(el.dataset.id); });
-    el.addEventListener('keydown', function(e){ if(el.tagName==='TR' && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); openPeek(el.dataset.id); } });
+      btn.replaceWith(f);
+    });
   });
-  dlg.querySelector('.m-close').addEventListener('click', function(){ dlg.close(); });
-  dlg.addEventListener('click', function(e){ if(e.target === dlg) dlg.close(); });
+  document.querySelectorAll('.media video').forEach(function(v){ v.muted = true; });
 
-  /* tabs */
-  var pf = document.getElementById('pf'), tabs = pf.querySelectorAll('.tab'), cards = pf.querySelectorAll('.card'), count = document.getElementById('count');
-  function apply(tab){
-    tabs.forEach(function(t){ t.setAttribute('aria-selected', t===tab ? 'true':'false'); });
-    if(tab.dataset.view === 'list'){ pf.classList.add('is-list'); cards.forEach(function(c){ c.hidden=false; }); count.textContent = cards.length + '개'; return; }
-    pf.classList.remove('is-list');
-    var f = tab.dataset.filter, n = 0;
-    cards.forEach(function(c){ var show = f==='all' || c.dataset.cat===f; c.hidden = !show; if(show) n++; });
-    count.textContent = n + '개';
-  }
-  tabs.forEach(function(t){ t.addEventListener('click', function(){ apply(t); }); });
-  apply(tabs[0]);
+  /* 사이드바 열기/닫기 (모바일) */
+  var body = document.body;
+  document.getElementById('menuBtn').addEventListener('click', function(){ body.classList.toggle('side-open'); });
+  document.getElementById('scrim').addEventListener('click', function(){ body.classList.remove('side-open'); });
+  document.querySelectorAll('.sidebar a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(){ body.classList.remove('side-open'); });
+  });
 
-  /* toc highlight */
-  var links = document.querySelectorAll('.toc a[data-sec]');
-  var secs = ['about','experience','education','awards','certificates','portfolio'].map(function(id){ return document.getElementById(id); });
-  function onScroll(){
-    var y = window.scrollY + window.innerHeight * 0.35, cur = 'about';
-    secs.forEach(function(s){ if(s && s.getBoundingClientRect().top + window.scrollY <= y) cur = s.id; });
-    links.forEach(function(a){ a.classList.toggle('on', a.dataset.sec === cur); });
+  /* 현재 위치 표시 */
+  var links = document.querySelectorAll('.nav a[data-sec]');
+  var crumb = document.getElementById('crumbNow');
+  var ids = []; links.forEach(function(a){ ids.push(a.dataset.sec); });
+  var targets = ids.map(function(id){ return document.getElementById(id); });
+  function update(){
+    var y = window.scrollY + 120, cur = 'top';
+    targets.forEach(function(el){ if(el && el.id !== 'top' && el.getBoundingClientRect().top + window.scrollY <= y) cur = el.id; });
+    if(window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) cur = ids[ids.length - 1];
+    links.forEach(function(a){
+      var on = a.dataset.sec === cur; a.classList.toggle('on', on);
+      if(on) crumb.textContent = a.textContent.trim();
+    });
   }
-  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  window.addEventListener('scroll', update, {passive:true}); update();
 })();
 </script>
 </body>
