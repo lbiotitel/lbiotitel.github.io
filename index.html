@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0c0d11; --bg2:#121419; --card:#171a21; --card2:#1d2029; --line:#262a35; --line2:#323746;
+  --bg:#1c1f27; --bg2:#232731; --card:#2a2e39; --card2:#323745; --line:#383d4b; --line2:#464c5d;
   --text:#eceef3; --text2:#b7bcc9; --muted:#7c8294;
   --c1:#ff8a3d; --c2:#ff4d8d; --sky:#4cc9f0; --lime:#b8f35c; --gold:#ffc94d;
   --grad:linear-gradient(90deg,var(--c1),var(--c2));
@@ -30,7 +30,7 @@ button{font:inherit;color:inherit}
 .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 /* ================= sidebar : game menu rail ================= */
-.rail{position:fixed;inset:0 auto 0 0;width:var(--sidew);background:#0a0b0e;border-right:1px solid var(--line);z-index:50;display:flex;flex-direction:column;align-items:center;padding:18px 0}
+.rail{position:fixed;inset:0 auto 0 0;width:var(--sidew);background:#171a21;border-right:1px solid var(--line);z-index:50;display:flex;flex-direction:column;align-items:center;padding:18px 0}
 .rail-logo{width:52px;height:52px;border-radius:16px;overflow:hidden;border:2px solid transparent;background:var(--grad) border-box;margin-bottom:22px}
 .rail-logo img{width:100%;height:100%;object-fit:cover;object-position:center 25%;border-radius:14px}
 .rail nav{display:flex;flex-direction:column;gap:6px;width:100%;padding:0 10px;flex:1;overflow-y:auto;scrollbar-width:none}
@@ -167,7 +167,7 @@ section.sec{padding:120px 0}
 .card .img img,.card .img video{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .card:hover .img img,.card:hover .img video{transform:scale(1.06)}
 .card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(12,13,17,.75))}
-.card.featured .img::after{background:linear-gradient(90deg,transparent 60%,rgba(23,26,33,1))}
+.card.featured .img::after{background:linear-gradient(90deg,transparent 60%,var(--card))}
 .badge{position:absolute;z-index:2;left:16px;top:16px;font-size:12.5px;font-weight:800;padding:5px 11px;border-radius:999px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.15)}
 .badge.hot{background:var(--grad);border-color:transparent}
 .playbtn{position:absolute;z-index:2;right:16px;bottom:16px;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);color:#111;display:flex;align-items:center;justify-content:center;transform:scale(.85);opacity:.9;transition:transform .25s,opacity .25s}
@@ -761,7 +761,7 @@ function renderDetail(p){
   h += '<div class="d-sec"><div class="d-h"><small>Overview</small><h3>프로젝트 소개</h3></div><div class="overview">'+p.overview.map(function(t){return '<p>'+esc(t)+'</p>';}).join('')+'</div></div>';
   if(p.features){
     h += '<div class="d-sec"><div class="d-h"><small>Key Development</small><h3>핵심 개발</h3></div><div class="feats">'
-      + p.features.map(function(f,n){ return '<div class="feat"><div class="f-img '+(f.fit||'')+'"><img src="'+f.img+'" alt="'+esc(f.t)+'" loading="lazy"></div><div class="f-txt"><span class="f-no">'+(n+1)+'</span><h4>'+esc(f.t)+'</h4><p>'+esc(f.d)+'</p><div class="f-tags">'+f.k.map(function(x){return '<span>'+esc(x)+'</span>';}).join('')+'</div></div></div>'; }).join('')
+      + p.features.map(function(f,n){ return '<div class="feat"><div class="f-img '+(f.fit||'')+'"><img src="'+f.img+'" alt="'+esc(f.t)+'" loading="lazy"></div><div class="f-txt"><span class="f-no">'+(n+1)+'</span><h4>'+esc(f.t)+'</h4><p>'+esc(f.d)+'</p></div></div>'; }).join('')
       + '</div></div>';
   }
   if(p.troubles){
